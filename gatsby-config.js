@@ -28,6 +28,15 @@ module.exports = {
       },
       
     },
+      `gatsby-plugin-sass`,
+      {
+        resolve: 'gatsby-plugin-web-font-loader',
+        options: {
+          typekit: {
+            id: 'dmu1axj'
+          }
+        }
+      },
     {
       resolve: 'gatsby-source-sanity',
       options: {

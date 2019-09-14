@@ -4,6 +4,9 @@ var plugins = [{
     },{
       plugin: require('/Users/graphicdesign/Sites/apps/jd_design-2019/frontend/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
       options: {"plugins":[],"name":"gatsby-starter-default","short_name":"starter","start_url":"/","background_color":"#663399","theme_color":"#663399","display":"minimal-ui","icon":"src/images/gatsby-icon.png"},
+    },{
+      plugin: require('/Users/graphicdesign/Sites/apps/jd_design-2019/frontend/node_modules/gatsby-source-sanity/gatsby-ssr'),
+      options: {"plugins":[],"projectId":"7gyk03bt","dataset":"production","token":"skeSAty9rko9U46l9WBx2MQJVd8touQz8PhBjRlD3ktkACoAkywi4PlBPwrTdziiuDA96KkvsgukU5dfBSxPFeaVlvrQsJmTSEWzDsmQK2cMh9CAanZJZLoZTHYQwYQIVFahOSeWcCfqu8Hmyd4A44BIlZnfI1uBwMdxzu873v1UMIO3XUop"},
     }]
 // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [
