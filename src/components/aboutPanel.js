@@ -28,9 +28,7 @@ export default () => (
         const bio = profile._rawBio.split('\n');
       return(
       <section>
-        {
-          console.log({bio})
-        }
+
         <div className="portrait-wrap">
           <Image fluid={profile.portrait.asset.fluid}/>
         </div>

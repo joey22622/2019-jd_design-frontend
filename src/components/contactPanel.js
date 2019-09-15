@@ -29,7 +29,6 @@ export default () => (
      `}
     render={data => {
         const contact = data.allSanityProfile.edges[0].node;
-        console.log(contact);
         let phoneStr = contact.phone.toString();
 
         if(phoneStr.length === 10) {

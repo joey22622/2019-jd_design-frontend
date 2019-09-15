@@ -17,7 +17,7 @@ import Contact from "./contactPanel"
 //  const Layout = ({children}) => {
 class Layout extends React.Component {
   state = {
-    state : {
+    lastState : {
       userPath : {
         currentPage : "",
         lastPage : ""
@@ -40,7 +40,13 @@ class Layout extends React.Component {
 
   lastState = () => {
     const lastState = JSON.parse(localStorage.state)
+    console.log("tState")
     console.log(lastState)
+    console.log("asdf")
+    console.log(this.state);
+    
+
+
   }
   componentDidUpdate(){
     // console.log("hi there" +this.state.state.scroll)
@@ -49,8 +55,13 @@ class Layout extends React.Component {
   }
   componentDidMount(){
     this.lastState();
+
+    // this.setState({state: JSON.parse(localStorage.state)});
+    // console.log(this.state.state);
+    const scrollTo = isInteger(this.state.lastState) ? this.state.lastState : 0;
+    window.scrollBy(0, scrollTo);
     window.addEventListener('scroll', this.handleScroll, true);
-    const scrollTrue = JSON.parse(localStorage.state).scroll
+    // const scrollTrue = JSON.parse(localStorage.state).scroll
     // window.scollY(JSON.parse(localStorage.state))
   }
 

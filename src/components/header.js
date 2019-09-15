@@ -21,7 +21,7 @@ export default () => (
         {console.log()}
         <nav>
           <ul className="main-navigation">
-            <li key="2"><Link to="about">About</Link></li>
+            <li key="2"><Link to="?about">About</Link></li>
             <li key="1" className="link-home">
               <div className="title-wrap">
               <Link to="/">
@@ -31,7 +31,7 @@ export default () => (
                 <div className="title-backdrop"></div>
               </div>
             </li>
-            <li key="3"><Link to="contact">Contact</Link></li>
+            <li key="3"><Link to="?contact">Contact</Link></li>
           </ul>
         </nav>
         <h1></h1>
