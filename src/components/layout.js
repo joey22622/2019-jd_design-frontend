@@ -4,51 +4,75 @@
  *
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
-
+import '../style.scss'
 import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+// import PropTypes from "prop-types"
+// import { Link, graphql } from "gatsby"
 
 
 import Header from "./header"
-// import "./layout.css"
-import '../style.scss'
+import About from "./aboutPanel"
+import Contact from "./contactPanel"
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
+//  const Layout = ({children}) => {
+class Layout extends React.Component {
+  state = {
+    state : {
+      userPath : {
+        currentPage : "",
+        lastPage : ""
+      },
+      scroll : 0
+    },
+    timeouts : {
+      scroll : null
     }
-  `)
+    
+  }
+  
+  handleScroll = () => {
+    clearTimeout(this.state.timeouts.scroll);
+    this.state.timeouts.scroll = setTimeout(() => {
+      this.setState({state : {scroll: window.scrollY}})
+    },50)
+  }
 
-  return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
+
+  lastState = () => {
+    const lastState = JSON.parse(localStorage.state)
+    console.log(lastState)
+  }
+  componentDidUpdate(){
+    // console.log("hi there" +this.state.state.scroll)
+    localStorage.setItem("state", JSON.stringify(this.state.state));
+    console.log(JSON.parse(localStorage.state));
+  }
+  componentDidMount(){
+    this.lastState();
+    window.addEventListener('scroll', this.handleScroll, true);
+    const scrollTrue = JSON.parse(localStorage.state).scroll
+    // window.scollY(JSON.parse(localStorage.state))
+  }
+
+
+render() {
+    return (
+      <>
+        <Header/>
+        <div>
+          <div className="side-panels">
+            <About/>
+            <Contact/>
+          </div>
+          {/* <main>{children}</main> */}
+          <footer>
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </footer>
+        </div>
+      </>
+    )
+  }
 }
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
 
 export default Layout
