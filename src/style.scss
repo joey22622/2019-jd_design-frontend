@@ -5,6 +5,7 @@ body {
     margin: 0;
 }
 $color__link: #333;
+$color__brandGreen: #152225;
 
 h1,h2,h3,h4,h5,h6{
     font-weight: 100;
@@ -80,5 +81,28 @@ nav{
             }
         }
 
+    }
+}
+.side-panels{
+    position: relative;
+    a,a:visited{
+        color: white;
+        text-decoration: none;
+    }
+}
+.side-panel{
+    background: $color__brandGreen;
+    position: fixed;
+    transition: .3s;
+    color: white;
+    overflow-y: scroll;
+    ul{
+        li{
+            list-style-type: none;
+        }
+    }
+
+    &.panel-right{
+        right: 0;
     }
 }

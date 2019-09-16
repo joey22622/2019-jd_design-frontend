@@ -1,7 +1,7 @@
 import React from "react"
-import { StaticQuery, Link, graphql } from "gatsby"
+import { StaticQuery, graphql } from "gatsby"
 
-export default () => (
+export default (props) => (
   <StaticQuery
     query={graphql`
     {
@@ -38,9 +38,18 @@ export default () => (
           phoneStr = `${phone1}·${phone2}·${phone3}`
         }
       return(
-      <section>
+      <section 
+        className ="side-panel panel-right contact-panel"
+        style={props.sharedStyles}
+      >
         <div className="contact-inner-wrap">
-          <div className="address-row"></div>
+          <div className="address-row">
+            <div className="address-wrap">
+              <p className="address-line-1">{contact.address.street}</p>
+              <p className="address-line-2">{contact.address.city}, {contact.address.state} {contact.address.zip}</p>
+            </div>
+
+          </div>
           <div className="contact-row">
             <a key="contact-1" href={`tel:${contact.phone}`}>{phoneStr}</a>
             <a key="contact-2" href={`mailto:${contact.email}`}>{contact.email}</a>

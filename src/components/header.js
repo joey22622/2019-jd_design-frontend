@@ -1,7 +1,7 @@
 import React from "react"
-import { StaticQuery, Link, graphql } from "gatsby"
+import { StaticQuery, graphql } from "gatsby"
 
-export default () => (
+export default (props) => (
   <StaticQuery
     query={graphql`
     { 
@@ -14,27 +14,27 @@ export default () => (
          }
        } 
      }`}
-    render={data => {
+    render = {data => {
       const title = data.allSanityProfile.edges[0].node.title.split(" ");
+      // const handlePanel = props.contactLink;
       return(
       <header>
         {console.log()}
         <nav>
           <ul className="main-navigation">
-            <li key="2"><Link to="?about">About</Link></li>
+            <li key="2"><a onClick={(e)=>{props.handleNav(e)}} href="?about">About</a></li>
             <li key="1" className="link-home">
               <div className="title-wrap">
-              <Link to="/">
+              <a href="/">
                   <span className="title-1">{title[0]} {title[1]}</span>            
                   <span className="title-2">{title[2]}</span>            
-              </Link>
+              </a>
                 <div className="title-backdrop"></div>
               </div>
             </li>
-            <li key="3"><Link to="?contact">Contact</Link></li>
+            <li key="3"><a onClick={(e)=>{props.handleNav(e)}} href="?contact">Contact</a></li>
           </ul>
         </nav>
-        <h1></h1>
       </header>
   ) }}
   />

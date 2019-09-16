@@ -1,13 +1,6 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
 import '../style.scss'
 import React from "react"
-// import PropTypes from "prop-types"
-// import { Link, graphql } from "gatsby"
+
 
 
 import Header from "./header"
@@ -17,63 +10,119 @@ import Contact from "./contactPanel"
 //  const Layout = ({children}) => {
 class Layout extends React.Component {
   state = {
-    lastState : {
+    test : "this is a test",
+    dimmensions : {
+      window : {
+        h: 0,
+        w: 0
+      },
+      panel : 0,
+      brand : 0,
+      head : 0
+    },
+    state : {
       userPath : {
-        currentPage : "",
+        currentPage : "blahblah",
         lastPage : ""
       },
       scroll : 0
     },
     timeouts : {
-      scroll : null
+      scroll : null 
     }
     
   }
   
   handleScroll = () => {
-    clearTimeout(this.state.timeouts.scroll);
-    this.state.timeouts.scroll = setTimeout(() => {
-      this.setState({state : {scroll: window.scrollY}})
-    },50)
+    // clearTimeout(this.state.timeouts.scroll);
+    // this.setState({timeouts: {scroll : setTimeout(() => {
+    //   this.setState({state : {scroll: window.scrollY}})
+    // },1000)}})
+  }
+  handleNav = (e) => {
+    e.preventDefault()
+    alert("hi")
+
+  }
+  handleDims = () => {
+    const fullW =  window.innerWidth;
+    const fullH = window.innerHeight;
+    const brand = document.querySelector(".title-wrap").offsetWidth;
+    const panel =  parseFloat((fullW-brand)/2);
+
+    const head = document.querySelector("header").offsetHeight;
+
+    this.setState({
+      dimmensions : {
+        window : {
+          h: fullH,
+          w: fullW
+        },
+        panel,
+        brand,
+        head
+      }
+    });
   }
 
 
   lastState = () => {
-    const lastState = JSON.parse(localStorage.state)
-    console.log("tState")
-    console.log(lastState)
-    console.log("asdf")
-    console.log(this.state);
-    
-
-
   }
   componentDidUpdate(){
-    // console.log("hi there" +this.state.state.scroll)
     localStorage.setItem("state", JSON.stringify(this.state.state));
-    console.log(JSON.parse(localStorage.state));
+    // console.log(JSON.parse(localStorage.state));
+    console.log(this.state)
   }
   componentDidMount(){
     this.lastState();
-
-    // this.setState({state: JSON.parse(localStorage.state)});
-    // console.log(this.state.state);
-    const scrollTo = isInteger(this.state.lastState) ? this.state.lastState : 0;
-    window.scrollBy(0, scrollTo);
+    this.handleDims();
     window.addEventListener('scroll', this.handleScroll, true);
-    // const scrollTrue = JSON.parse(localStorage.state).scroll
-    // window.scollY(JSON.parse(localStorage.state))
+    window.addEventListener('resize', this.handleDims, true);
+    // this.handleDims
+  }
+
+  handleResize = () => {
+    alert("hi");
+    const w = this.offsetWidth;
+    console.log(w);
   }
 
 
+
 render() {
-    return (
+
+  const panelStyles = {
+    width: this.state.dimmensions.panel,
+    marginTop:  this.state.dimmensions.head,
+    minHeight: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)
+  }
+  
+  
+
+    return ( 
+      
       <>
-        <Header/>
+      
+        <Header
+          onResize={this.handleResize}
+          handleNav = {this.handleNav}
+          test = {this.state.test}
+        />
         <div>
           <div className="side-panels">
-            <About/>
-            <Contact/>
+            <About
+              sharedStyles = {panelStyles}
+              // panelWidth = {this.state.dimmensions.panel}
+              // head = {this.state.dimmensions.head}
+              // height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
+            />
+            <Contact
+              // panelWidth = {this.state.dimmensions.panel}
+              // head = {this.state.dimmensions.head}
+              // height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
+              // transform = {`translate(${this.state.dimmensions.panel})`}
+              sharedStyles = {panelStyles}
+            />
           </div>
           {/* <main>{children}</main> */}
           <footer>
