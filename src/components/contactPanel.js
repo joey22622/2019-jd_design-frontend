@@ -1,6 +1,5 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
-import aboutPanel from "./aboutPanel";
 
 export default (props) => (
   <StaticQuery
@@ -41,14 +40,9 @@ export default (props) => (
       return(
       <section 
         className ="side-panel panel-right contact-panel"
-        style={
-          {
-            height: props.height,
-            marginTop: props.head,
-            width: props.panelWidth,
-          }
+        style={props.style}
 
-        }
+        
       >
         <div className="panel-inner-wrap">
         <div className="contact-inner-wrap">
@@ -65,10 +59,10 @@ export default (props) => (
           </div>
           <div className="social-row">
             <ul className="social-list">
-                <li key="social-1" className="social-link"><a href={contact.socialLinks.urlGitHub} target="_blank">GitHub</a></li>
-                <li key="social-2" className="social-link"><a href={contact.socialLinks.urlDribbble} target="_blank">Dribbble</a></li>
-                <li key="social-3" className="social-link"><a href={contact.socialLinks.urlLinkedIn} target="_blank">LinkedIn</a></li>
-                <li key="social-4" className="social-link"><a href={contact.socialLinks.urlBehance} target="_blank">Behance</a></li>
+                <li key="social-1" className="social-link"><a href={contact.socialLinks.urlGitHub} rel="noopener noreferrer" target="_blank">GitHub</a></li>
+                <li key="social-2" className="social-link"><a href={contact.socialLinks.urlDribbble} rel="noopener noreferrer" target="_blank">Dribbble</a></li>
+                <li key="social-3" className="social-link"><a href={contact.socialLinks.urlLinkedIn} rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+                <li key="social-4" className="social-link"><a href={contact.socialLinks.urlBehance} rel="noopener noreferrer" target="_blank">Behance</a></li>
             </ul>
           </div>
         </div>

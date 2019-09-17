@@ -22,7 +22,7 @@ export default (props) => (
         {console.log()}
         <nav>
           <ul className="main-navigation">
-            <li key="2"><a onClick={(e,panelLeft)=>{props.handleNav(e, panelLeft)}} href="?about">About</a></li>
+            <li key="2"><a onClick={(e)=>{props.handleNav(e, "panelLeft")}} href="?about">About</a></li>
             <li key="1" className="link-home">
               <div className="title-wrap">
               <a href="/">

@@ -19,29 +19,32 @@ class Layout extends React.Component {
       brand : 0,
       head : 0
     },
-    elements : {
-      panelRight : {
-        active : false,
-        styles : {
-          transform : `translate(0)`
-        }
-      },
-      panelLeft : {
-        active : false,
-        styles : {
-          transform : `translate(0)`
-        }
-      }
-    },
+    elements : [
+      {panelRight : {
+        justify : "right",
+        state : {
+          active : false
+        },
+        style : {}
+        
+      }},
+      {panelLeft : {
+        justify: "left",
+        state : {
+          active : false
+        },
+        style : {}
+      }}
+  ],
+
     state : {
       scroll : 0
     },
     timeouts : {
       scroll : null 
-    }
-    
+    },
   }
-  
+
   handleScroll = () => {
   }
 
@@ -56,22 +59,53 @@ class Layout extends React.Component {
   //   })
   //   // console.log(this.state.elements);
   // }
+  buildPanelStyle = (key, justify, active) => {
+    if(justify === "left"){
+      justify = "-";
+    } else if( justify === "right") {
+      justify = "";
+    }
+    let transform = `translate(0px)`;
+
+    if(!active){
+      transform = `translate(${justify}${this.state.dimmensions.panel}px)`;
+    }
+    // const panelStyles = {
+      // width: this.state.dimmensions.panel,
+      // marginTop:  this.state.dimmensions.head,
+      // height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head), 
+    //   transform
+    // }
+    // return panelStyles;
+    console.log(`key`)
+    console.log(key)
+    console.log(`justify`)
+    console.log(justify)
+    console.log(`active`)
+    console.log(active)
+  }
 
 
   handleNav = (e,key) => {
     e.preventDefault()
-    console.log(this.state.elements[key])
+    this.state.elements.map((elem, i) => {
+      const keyMatch = (Object.keys(elem));
+      if(keyMatch == key){
+        const newArr = this.state.elements.slice();
+        newArr[i][keyMatch].state.active = true;
+        newArr[i][keyMatch].style = this.buildPanelStyle(key,null,true);
+        this.setState({elements : newArr})
+        // console.log(this.buildPanelStyle(key,null,true))
+      } else {
+        const newArr = this.state.elements.slice();
+        newArr[i][keyMatch].state.active = false;
+        newArr[i][keyMatch].style = this.buildPanelStyle(key,newArr[i][keyMatch].justify,false);
+        this.setState({elements : newArr})
+        // console.log(this.buildPanelStyle(key,newArr[i][keyMatch].justify,false))
 
-    // console.log(this.state.el)
-    // this.state.elements.map((elem,i) => {
-      
-    //   // this.setState()
-        
-
-    // });
-
-    this.setState(elements.panelRight.active , true)
-    console.log(this.state.elements[key])
+      }
+      // console.log(this.state.elements);
+    });
   }
   
   handleDims = () => {
@@ -93,38 +127,61 @@ class Layout extends React.Component {
       }
     });
   }
+  loadStyle = () => {
+    
+    const obj = {
+      width: this.state.dimmensions.panel,
+      marginTop:  this.state.dimmensions.head,
+      height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head), 
+
+    }
+    console.log(obj)
+  return(obj)
+
+    // this.state.elements.map((elem, i) => {
+    //   const keyMatch = (Object.keys(elem));
+    //   if(keyMatch === key){
+    //     return elem.style
+    //   }
+    // })
+  }
 
 
   lastState = () => {
   }
   componentDidUpdate(){
-    localStorage.setItem("state", JSON.stringify(this.state.state));
+    // localStorage.setItem("state", JSON.stringify(this.state.state));
     // console.log(JSON.parse(localStorage.state));
-    console.log(this.state)
+    // console.log(this.state)
   }
   componentDidMount(){
+    this.loadStyle();
     this.lastState();
     this.handleDims();
     window.addEventListener('scroll', this.handleScroll, true);
     window.addEventListener('resize', this.handleDims, true);
     // this.handleDims
+    // console.log(this.state);
+
+    this.state.elements.map((elem, i) => {
+      const keyMatch = (Object.keys(elem));
+      const newArr = this.state.elements.slice();
+      // console.log(`newArr`)
+      // console.log(keyMatch)
+      newArr[i][keyMatch].style = this.buildPanelStyle(keyMatch,newArr[i][keyMatch].justify,false);
+      // this.buildPanelStyle("panelRight","right",false);
+    })
   }
 
   handleResize = () => {
     const w = this.offsetWidth;
-    console.log(w);
+    // console.log(w);
   }
 
 
 
 render() {
 
-
-  const panelStyles = {
-    width: this.state.dimmensions.panel,
-    marginTop:  this.state.dimmensions.head,
-    height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head),
-  }
 
     return ( 
       
@@ -138,12 +195,14 @@ render() {
         <div>
           <div className="side-panels">
             <About
+              // style ={this.style.state}
               panelWidth = {this.state.dimmensions.panel}
               head = {this.state.dimmensions.head}
               height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
               transform = {`translate(-${this.state.dimmensions.panel}px)`}
             />
             <Contact
+              style = {this.loadStyle}
               panelWidth = {this.state.dimmensions.panel}
               head = {this.state.dimmensions.head}
               height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
