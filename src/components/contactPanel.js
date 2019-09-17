@@ -1,5 +1,6 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
+import aboutPanel from "./aboutPanel";
 
 export default (props) => (
   <StaticQuery
@@ -40,8 +41,16 @@ export default (props) => (
       return(
       <section 
         className ="side-panel panel-right contact-panel"
-        style={props.sharedStyles}
+        style={
+          {
+            height: props.height,
+            marginTop: props.head,
+            width: props.panelWidth,
+          }
+
+        }
       >
+        <div className="panel-inner-wrap">
         <div className="contact-inner-wrap">
           <div className="address-row">
             <div className="address-wrap">
@@ -62,6 +71,7 @@ export default (props) => (
                 <li key="social-4" className="social-link"><a href={contact.socialLinks.urlBehance} target="_blank">Behance</a></li>
             </ul>
           </div>
+        </div>
         </div>
       </section>
     )}}

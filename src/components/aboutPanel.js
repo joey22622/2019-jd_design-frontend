@@ -1,6 +1,7 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import Image from 'gatsby-image'
+import { nominalTypeHack } from "prop-types";
 
 export default (props) => (
   <StaticQuery
@@ -12,12 +13,22 @@ export default (props) => (
             title
             _rawBio
             portrait {
-              asset{
-                fluid{
+              _key
+              _type
+              asset {
+    
+                fluid {
                   ...GatsbySanityImageFluid
+
                 }
               }
+              hotspot {
+                x
+                y
+              }
             }
+              
+            
           }
         }
       }
@@ -26,16 +37,30 @@ export default (props) => (
     render={data => {
         const profile = data.allSanityProfile.edges[0].node;
         const bio = profile._rawBio.split('\n');
-        
 
       return(
-      <section 
+      <section
         className="side-panel panel-left contact-panel"
-        style={props.sharedStyles}
+        style={
+          {
+            height: props.height,
+            marginTop: props.head,
+            width: props.panelWidth,
+            transform: props.transform
+          }
+        }
       >
+        <div className="panel-inner-wrap">
 
         <div className="portrait-wrap">
-          <Image fluid={profile.portrait.asset.fluid}/>
+          <Image
+          imgStyle = {
+            {
+            //  objectPosition :  `${x}% ${y}%`
+
+            }
+          } 
+          fluid={profile.portrait.asset.fluid}/>
         </div>
         <div className="bio-wrap">
           {bio.map((p, i) => 
@@ -44,6 +69,7 @@ export default (props) => (
             )
 
           )}
+        </div>
         </div>
       </section>
     )}}

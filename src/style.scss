@@ -93,9 +93,20 @@ nav{
 .side-panel{
     background: $color__brandGreen;
     position: fixed;
-    transition: .3s;
+    transition: transform .3s;
     color: white;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .panel-inner-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+    }
+
     ul{
         li{
             list-style-type: none;
@@ -105,4 +116,26 @@ nav{
     &.panel-right{
         right: 0;
     }
+    .portrait-wrap{
+        // display: flex;
+        height: 250px;
+        width: 250px;
+        border-radius: 50%;
+        border: solid 6px rgba(255,255,255,.99);
+        box-shadow: 2px 2px 5px black;
+        overflow: hidden;
+        img{
+
+            // object-position: 100% 0%;
+
+        }
+    }
+    .bio-wrap{
+        padding: 2rem 1rem; 
+        text-align: center;
+        font-weight: 100;
+        opacity: .9;
+
+    }
+    
 }

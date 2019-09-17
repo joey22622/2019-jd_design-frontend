@@ -10,7 +10,6 @@ import Contact from "./contactPanel"
 //  const Layout = ({children}) => {
 class Layout extends React.Component {
   state = {
-    test : "this is a test",
     dimmensions : {
       window : {
         h: 0,
@@ -20,11 +19,21 @@ class Layout extends React.Component {
       brand : 0,
       head : 0
     },
-    state : {
-      userPath : {
-        currentPage : "blahblah",
-        lastPage : ""
+    elements : {
+      panelRight : {
+        active : false,
+        styles : {
+          transform : `translate(0)`
+        }
       },
+      panelLeft : {
+        active : false,
+        styles : {
+          transform : `translate(0)`
+        }
+      }
+    },
+    state : {
       scroll : 0
     },
     timeouts : {
@@ -34,22 +43,42 @@ class Layout extends React.Component {
   }
   
   handleScroll = () => {
-    // clearTimeout(this.state.timeouts.scroll);
-    // this.setState({timeouts: {scroll : setTimeout(() => {
-    //   this.setState({state : {scroll: window.scrollY}})
-    // },1000)}})
   }
-  handleNav = (e) => {
-    e.preventDefault()
-    alert("hi")
 
+  // handleNav = (e,key) => {
+  //   e.preventDefault()
+  //   this.state.elements.map((elem, i) => {
+  //     if(elem[key]){
+  //       console.log(Object.keys(elem))
+  //       this.setState({
+  //         elements :[i] active: true})
+  //     }
+  //   })
+  //   // console.log(this.state.elements);
+  // }
+
+
+  handleNav = (e,key) => {
+    e.preventDefault()
+    console.log(this.state.elements[key])
+
+    // console.log(this.state.el)
+    // this.state.elements.map((elem,i) => {
+      
+    //   // this.setState()
+        
+
+    // });
+
+    this.setState(elements.panelRight.active , true)
+    console.log(this.state.elements[key])
   }
+  
   handleDims = () => {
     const fullW =  window.innerWidth;
     const fullH = window.innerHeight;
     const brand = document.querySelector(".title-wrap").offsetWidth;
     const panel =  parseFloat((fullW-brand)/2);
-
     const head = document.querySelector("header").offsetHeight;
 
     this.setState({
@@ -82,7 +111,6 @@ class Layout extends React.Component {
   }
 
   handleResize = () => {
-    alert("hi");
     const w = this.offsetWidth;
     console.log(w);
   }
@@ -91,13 +119,12 @@ class Layout extends React.Component {
 
 render() {
 
+
   const panelStyles = {
     width: this.state.dimmensions.panel,
     marginTop:  this.state.dimmensions.head,
-    minHeight: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)
+    height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head),
   }
-  
-  
 
     return ( 
       
@@ -111,22 +138,20 @@ render() {
         <div>
           <div className="side-panels">
             <About
-              sharedStyles = {panelStyles}
-              // panelWidth = {this.state.dimmensions.panel}
-              // head = {this.state.dimmensions.head}
-              // height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
+              panelWidth = {this.state.dimmensions.panel}
+              head = {this.state.dimmensions.head}
+              height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
+              transform = {`translate(-${this.state.dimmensions.panel}px)`}
             />
             <Contact
-              // panelWidth = {this.state.dimmensions.panel}
-              // head = {this.state.dimmensions.head}
-              // height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
-              // transform = {`translate(${this.state.dimmensions.panel})`}
-              sharedStyles = {panelStyles}
+              panelWidth = {this.state.dimmensions.panel}
+              head = {this.state.dimmensions.head}
+              height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
+              transform = {`translate(${this.state.dimmensions.panel}px)`}
             />
           </div>
           {/* <main>{children}</main> */}
           <footer>
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
           </footer>
         </div>
       </>
