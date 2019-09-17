@@ -40,14 +40,11 @@ export default (props) => (
       return(
       <section
         className="side-panel panel-left contact-panel"
-        style={
-          {
-            height: props.height,
-            marginTop: props.head,
-            width: props.panelWidth,
-            transform: props.transform
-          }
-        }
+        // style={
+          
+        //     props.style
+          
+        // }
       >
         <div className="panel-inner-wrap">
 

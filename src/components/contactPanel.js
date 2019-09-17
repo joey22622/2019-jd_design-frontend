@@ -40,7 +40,7 @@ export default (props) => (
       return(
       <section 
         className ="side-panel panel-right contact-panel"
-        style={props.style}
+        // style={{height: `200px`}}
 
         
       >
