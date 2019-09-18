@@ -21,8 +21,8 @@ class Layout extends React.Component {
     },
     elements : [
       {
-        key: "panelRight",
-        justify : "right",
+        key: "panelLeft",
+        justify : "left",
         state : {
           active : false
         },
@@ -30,8 +30,8 @@ class Layout extends React.Component {
         
       },
       {
-        key : "panelLeft",
-        justify: "left",
+        key : "panelRight",
+        justify: "right",
         state : {
           active : false
         },
@@ -47,67 +47,56 @@ class Layout extends React.Component {
     },
   }
 
-  handleScroll = () => {
-  }
-  
 
-  // handleNav = (e,key) => {
-  //   e.preventDefault()
-  //   this.state.elements.map((elem, i) => {
-  //     if(elem[key]){
-  //       console.log(Object.keys(elem))
-  //       this.setState({
-  //         elements :[i] active: true})
-  //     }
-  //   })
-  //   // console.log(this.state.elements);
-  // }
-  buildPanelStyle = (key, justify, active) => {
-    if(justify === "left"){
-      justify = "-";
-    } else if( justify === "right") {
-      justify = "";
-    }
-    let transform = `translate(0px)`;
 
-    if(!active){
-      transform = `translate(${justify}${this.state.dimmensions.panel}px)`;
-    }
-    const panelStyles = {
-      width: this.state.dimmensions.panel,
-      marginTop:  this.state.dimmensions.head,
-      height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head), 
-      transform
-    }
-    // return panelStyles;
-    console.log(`key`)
-    console.log(key)
-    console.log(`justify`)
-    console.log(justify)
-    console.log(`active`)
-    console.log(active)
+  // buildPanelStyle = (key, justify, active) => {
+  buildPanelStyle = (elem, i) => {
+
+      // console.log(elem);
+      let justify = '';
+      let transform = `translate(0px)`;
+      // const elem = this.state.elements[i];
+      if(!elem.state.active){
+        console.log(`elem.state.active`)
+        console.log(elem.state.active)
+        if(elem.justify === "left"){
+          justify = "-";
+        } else if(elem.justify === "right") {
+          justify = "";
+        }
+        transform = `translate(${justify}${this.state.dimmensions.panel}px)`;
+      }
+      const panelStyles = {
+        width: this.state.dimmensions.panel,
+        marginTop:  this.state.dimmensions.head,
+        height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head), 
+        transform
+      }
+      console.log(panelStyles);
+     return panelStyles;
   }
 
+  loadPanelStyles = () => {
+    const newArr = this.state.elements.slice()
+    newArr.map((elem, i) =>{
+      newArr[i].style = this.buildPanelStyle(elem, i);
+    })
+
+    this.setState({elements : newArr});
+  }
 
   handleNav = (e,key) => {
     e.preventDefault()
-    this.state.elements.map((elem, i) => {
-      const keyMatch = elem.key;
-      if(keyMatch == key){
-        const newArr = this.state.elements.slice();
-        newArr[i].state.active = true;
-        newArr[i].style = this.buildPanelStyle(key,null,true);
-        this.setState({elements : newArr})
-        // console.log(this.buildPanelStyle(key,null,true))
-      } else {
-        const newArr = this.state.elements.slice();
-        newArr[i].state.active = false;
-        newArr[i].style = this.buildPanelStyle(key,newArr[i].justify,false);
-        this.setState({elements : newArr})
-
-      }
-      console.log(this.state.elements);
-    });
+      const index = this.state.elements.findIndex((item) => item.key === key);
+      const newArr = this.state.elements.slice();
+      newArr.map((elem, i) => {
+        if(i !== index){
+          newArr[i].state.active = false;
+        }
+        newArr[i].style = this.buildPanelStyle(elem, i);
+      })
+      newArr[index].state.active = true;  
+      this.setState({elements : newArr})
   }
   
   handleDims = () => {
@@ -129,27 +118,28 @@ class Layout extends React.Component {
       }
     });
   }
-  
-  lastState = () => {
-  }
   componentDidUpdate(){
 
   }
+  // panelStyleProp = (key) => {
+  //   // const key = "panelLeft"
+  //   const style = this.state.elements.find(item => item.key === key).style
+    
+  //   console.log("style")
+  //   console.log(style)
+
+  //   return(style)
+  //   // return this.state.elements.find(key).style;
+  //   return(key)
+  // }
   componentDidMount(){
-    // this.loadStyle();
-    this.lastState();
     this.handleDims();
+    this.loadPanelStyles();
     window.addEventListener('scroll', this.handleScroll, true);
     window.addEventListener('resize', this.handleDims, true);
-    // this.handleDims
-    // console.log(this.state);
-
-    this.state.elements.map((elem, i) => {
-      const keyMatch = elem.key;
-      const newArr = this.state.elements.slice();
-      console.log(`key ${key}`)
-      // newArr[i].key.style = this.buildPanelStyle(keyMatch,newArr[i].key.justify,false);
-    })
+    // console.log("panelLeft")
+    // this.panelStyleProp("panelLeft")
+    console.log(this.state)
   }
 
 
@@ -164,23 +154,16 @@ render() {
       
         <Header
           handleNav = {this.handleNav}
-          test = {this.state.test}
         />
         <div>
           <div className="side-panels">
             <About
-              // style ={this.state.elements.find((x => x.key === 'panelLeft'))}
-              // panelWidth = {this.state.dimmensions.panel}
-              // head = {this.state.dimmensions.head}
-              // height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
-              // transform = {`translate(-${this.state.dimmensions.panel}px)`}
+              style ={this.state.elements[0].style}
+
             />
             <Contact
-              // style={this.state.elements.find((x => x.key === 'panelRight'))}
-              // panelWidth = {this.state.dimmensions.panel}
-              // head = {this.state.dimmensions.head}
-              // height = {parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head)}
-              // transform = {`translate(${this.state.dimmensions.panel}px)`}
+              style ={this.state.elements[1].style}
+
             />
           </div>
           {/* <main>{children}</main> */}
