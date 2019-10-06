@@ -26,7 +26,8 @@ class Layout extends React.Component {
         state : {
           active : false
         },
-        style : {}
+        style : {},
+        underlay : {}
         
       },
       {
@@ -35,7 +36,8 @@ class Layout extends React.Component {
         state : {
           active : false
         },
-        style : {}
+        style : {},
+        underlay : {}
       }
   ],
 
@@ -54,6 +56,7 @@ class Layout extends React.Component {
 
       let justify = '';
       let transform = `translate(0px)`;
+      let underlay = 0;
       // const elem = this.state.elements[i];
       console.log(`elem-style-func`)
       console.log(elem)
@@ -68,11 +71,19 @@ class Layout extends React.Component {
         }
         transform = `translate(${justify}${this.state.dimmensions.panel}px)`;
       }
+      if(elem.state.active){
+        underlay = this.state.dimmensions.window.w;
+      }
       const panelStyles = {
-        width: this.state.dimmensions.panel,
-        marginTop: this.state.dimmensions.head,
-        height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head), 
-        transform
+        panel : {
+          width: this.state.dimmensions.panel,
+          marginTop: this.state.dimmensions.head,
+          height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head), 
+          transform
+        },
+        underlay : {
+          width: underlay
+        }
       }
       // console.log(panelStyles);
 
@@ -118,7 +129,6 @@ class Layout extends React.Component {
     const panel =  parseFloat((fullW-brand)/2);
     const head = document.querySelector("header").offsetHeight;
     console.log("handleDims ran")
-    // console.log(this.state.elements);
     this.setState({
       dimmensions : {
         window : {
