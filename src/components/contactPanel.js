@@ -41,6 +41,9 @@ export default (props) => (
       <section 
         className ="side-panel panel-right contact-panel"
         // style={{height: `200px`}}
+        style={props.style}
+
+        
 
         
       >

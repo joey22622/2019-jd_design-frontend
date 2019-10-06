@@ -1,13 +1,18 @@
 import React from "react"
-// import { Link, graphql } from "gatsby"
+import {StaticQuery, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 // import Image from "../components/image"
 import SEO from "../components/seo"
 
 const IndexPage = ( data) => (
-  <Layout>
-      {console.log(data)}
+  <Layout
+  taxonomies={true}
+  >
+      {
+        
+        console.log(`DATATATATAT`)}
+       {console.log(data)}
     
     <SEO title="Home" />
     <h1>Hi people</h1>
@@ -16,3 +21,5 @@ const IndexPage = ( data) => (
 )
 
 export default IndexPage
+
+

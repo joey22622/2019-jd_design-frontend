@@ -52,13 +52,15 @@ class Layout extends React.Component {
   // buildPanelStyle = (key, justify, active) => {
   buildPanelStyle = (elem, i) => {
 
-      // console.log(elem);
       let justify = '';
       let transform = `translate(0px)`;
       // const elem = this.state.elements[i];
+      console.log(`elem-style-func`)
+      console.log(elem)
+      console.log(this.state.dimmensions.window)
       if(!elem.state.active){
-        console.log(`elem.state.active`)
-        console.log(elem.state.active)
+        // console.log(`${elem.justify} !elem.state.active`)
+        // console.log(elem.state.active)
         if(elem.justify === "left"){
           justify = "-";
         } else if(elem.justify === "right") {
@@ -68,11 +70,12 @@ class Layout extends React.Component {
       }
       const panelStyles = {
         width: this.state.dimmensions.panel,
-        marginTop:  this.state.dimmensions.head,
+        marginTop: this.state.dimmensions.head,
         height: parseFloat(this.state.dimmensions.window.h - this.state.dimmensions.head), 
         transform
       }
-      console.log(panelStyles);
+      // console.log(panelStyles);
+
      return panelStyles;
   }
 
@@ -87,15 +90,24 @@ class Layout extends React.Component {
 
   handleNav = (e,key) => {
     e.preventDefault()
+    //targets element that matches key of clicked nav item
       const index = this.state.elements.findIndex((item) => item.key === key);
-      const newArr = this.state.elements.slice();
+      //builds new [editable] array from state
+      let newArr = this.state.elements.slice();
+      //maps new array
       newArr.map((elem, i) => {
+        //checks if array item does not match targeted array item
         if(i !== index){
           newArr[i].state.active = false;
+        } else if(newArr[i].state.active === true) {
+          newArr[i].state.active = false;
+        } else{
+          newArr[i].state.active = true;
         }
+
+
         newArr[i].style = this.buildPanelStyle(elem, i);
       })
-      newArr[index].state.active = true;  
       this.setState({elements : newArr})
   }
   
@@ -105,7 +117,8 @@ class Layout extends React.Component {
     const brand = document.querySelector(".title-wrap").offsetWidth;
     const panel =  parseFloat((fullW-brand)/2);
     const head = document.querySelector("header").offsetHeight;
-
+    console.log("handleDims ran")
+    // console.log(this.state.elements);
     this.setState({
       dimmensions : {
         window : {
@@ -116,26 +129,20 @@ class Layout extends React.Component {
         brand,
         head
       }
-    });
+    }, () => {
+        this.loadPanelStyles()
+      }
+    )
   }
+
   componentDidUpdate(){
 
   }
-  // panelStyleProp = (key) => {
-  //   // const key = "panelLeft"
-  //   const style = this.state.elements.find(item => item.key === key).style
-    
-  //   console.log("style")
-  //   console.log(style)
-
-  //   return(style)
-  //   // return this.state.elements.find(key).style;
-  //   return(key)
-  // }
+  
   componentDidMount(){
-    this.handleDims();
+    this.handleDims(); 
     this.loadPanelStyles();
-    window.addEventListener('scroll', this.handleScroll, true);
+    // window.addEventListener('scroll', this.handleScroll, true);
     window.addEventListener('resize', this.handleDims, true);
     // console.log("panelLeft")
     // this.panelStyleProp("panelLeft")
@@ -145,7 +152,8 @@ class Layout extends React.Component {
 
 
 
-render() {
+render(args) {
+    console.log(args);
 
 
     return ( 
