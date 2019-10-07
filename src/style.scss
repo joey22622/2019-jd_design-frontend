@@ -1,8 +1,127 @@
+
+
+// ============ICON CUTOUTS START==================
+.icon-cutout-wrap{
+    width: 50vw;
+    height: 20vw;
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    div{
+        // background: white;
+        // opacity: .8;
+    }  
+}
+
+.icon-svg-wrap{
+   // width: 10vw;
+    // background: green;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    font-size: 5rem;
+}
+.icon-svg-wrap svg{
+    flex-grow: 100;
+
+}
+
+.center-row{
+    display: flex;
+    margin: -2px 0;
+    // background: teal;
+}
+.x-margin,
+.y-margin{
+
+    position: relative;
+    flex-grow: 1;
+    z-index: 2;
+}
+.y-margin{
+    // background: red;
+}
+.text-wrap{
+    margin: -3px;
+}
+.top-margin{
+    margin-bottom: -3px;
+}
+
+.bottom-margin{
+    margin-top: -3px;
+}
+.left-margin{
+    margin-right: -3px;
+}
+.right-margin{
+    margin-left: -3px;
+}
+.gutter-margin{
+    margin: 0 -3px;
+}
+// ============ICON CUTOUTS END==================
+// ============ICON FONTS START==================
+
+
+@font-face {
+    font-family: 'icomoon';
+    src:  url('fonts/icomoon.eot?8cgumo');
+    src:  url('fonts/icomoon.eot?8cgumo#iefix') format('embedded-opentype'),
+      url('fonts/icomoon.ttf?8cgumo') format('truetype'),
+      url('fonts/icomoon.woff?8cgumo') format('woff'),
+      url('fonts/icomoon.svg?8cgumo#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+  
+  [class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-logo_left:before {
+    content: "\e900";
+  }
+  .icon-logo_right:before {
+    content: "\e901";
+  }
+  .icon-social_behance:before {
+    content: "\e902";
+  }
+  .icon-social_dribbble:before {
+    content: "\e903";
+  }
+  .icon-social_github:before {
+    content: "\e904";
+  }
+  .icon-social_linkedin:before {
+    content: "\e905";
+  }
+  
+// ============ICON FONTS END==================
+
 body {
     // background: white;
     font-family: 'Brother 1816','Times New Roman', Times, serif, 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 100;
     margin: 0;
+    min-height: 101vh;
 }
 $color__link: #333;
 $color__brandGreen: #152225;
@@ -51,6 +170,7 @@ nav{
             left: 0%;
             right: 0%;
             margin: 0 auto;
+            cursor: auto;
             .title-wrap{
                 display: block;
                 position: relative;
@@ -79,6 +199,7 @@ nav{
                 height: 500%;
                 z-index: -1;
                 pointer-events: none;
+                transition: 1s;
             }
         }
 
@@ -86,10 +207,71 @@ nav{
 }
 .side-panels{
     position: relative;
+    // width: 100vw;
     a,a:visited{
         color: white;
         text-decoration: none;
     }
+}
+.panel-underlay{
+    background: #152225;
+    width: 0px;
+    height: 101vh;
+    position: absolute;
+    opacity: .3;
+    transition: width .4s;
+}
+.underlay-left{
+    left: 0;
+}
+.underlay-right{
+    right: 0;
+    width: 50vw;
+}
+.cover-panels{
+    position: fixed;
+    width: 100vw;
+    // pointer-events: none;
+    z-index: 1000;
+
+    .panel{
+        height: 100vh;
+        width: 50vw;
+        position: absolute;
+        transition: .35s;
+    }
+    .icon-cutout-wrap{
+        .x-margin,
+        .y-margin{
+            background: #152225;
+        }
+        overflow: hidden;
+        height: 100%;
+        .icon-svg-wrap{
+            background: none;
+            font-size: 25rem;
+            color: #152225;
+            text-shadow: 2px 2px 4px rgba(8,10,10,.4);
+            background: rgba(255,255,255,.8)
+        }
+
+        .bottom-margin{
+            flex-grow: 3;
+        }
+    }
+    .panel-left{
+        left: 0;
+        .right-margin{
+            flex-grow: 0;
+        }
+    }
+    .panel-right{
+        right: 0;
+        .left-margin{
+            flex-grow: 0;
+        }
+    }
+    
 }
 .side-panel{
     background: $color__brandGreen;

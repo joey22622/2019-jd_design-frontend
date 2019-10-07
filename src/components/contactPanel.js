@@ -41,12 +41,9 @@ export default (props) => (
       <section 
         className ="side-panel panel-right contact-panel"
         // style={{height: `200px`}}
-        style={props.style}
-
-        
-
-        
+        style={props.style}        
       >
+
         <div className="panel-inner-wrap">
         <div className="contact-inner-wrap">
           <div className="address-row">
