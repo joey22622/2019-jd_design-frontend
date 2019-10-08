@@ -48,9 +48,17 @@ class Layout extends React.Component {
   coverPanels : {
     active : true,
     style : {
-      left : {},
-      right : {}
+      panels : {
+        left : {},
+        right : {},
+      },
+      textMargin : {},
+      textColor : {}
     }
+  },
+  forceTop : {
+    ready : false,
+    isScrolling : null
   },
 
     state : {
@@ -58,9 +66,9 @@ class Layout extends React.Component {
     },
     timeouts : {
       scroll : null 
+
     },
   }
-
 
 
   // buildPanelStyle = (key, justify, active) => {
@@ -70,14 +78,8 @@ class Layout extends React.Component {
       let transform = `translate(0px)`;
       let underlay = 0;
       //bool determining if panels are active
-      // let center = {height : "hi"};
-      // const elem = this.state.elements[i];
-      // console.log(`elem-style-func`)
-      // console.log(elem)
-      // console.log(this.state.dimmensions.window)
+    
       if(!elem.state.active){
-        // console.log(`${elem.justify} !elem.state.active`)
-        // console.log(elem.state.active)
         if(elem.justify === "left"){
           justify = "-";
         } else if(elem.justify === "right") {
@@ -107,7 +109,32 @@ class Layout extends React.Component {
 
      return panelStyles;
   }
+  oldScroll = window.pageYOffset || document.documentElement.scrollTop;
+  isScrolling = null
+  autoScroll = false;
+  prepForceTop = () => {
+    window.clearTimeout( this.isScrolling );
+    let forceTop = this.state.forceTop;
+        // Set a timeout to run after scrolling ends'
+        this.isScrolling = setTimeout(() => {
 
+          // Run the callback
+          const top = window.pageYOffset;
+          if(top === 0){
+            this.autoScroll = true;
+            window.scrollTo(0, 100);
+            forceTop.ready = true;
+          } else {
+            forceTop.ready = false;
+          }
+          this.setState({forceTop}, console.log(this.state.forceTop))
+
+        }, 50);
+      
+  }
+  lauchForceTop = () => {
+    // if
+  }
   loadPanelStyles = () => {
     const newArr = this.state.elements.slice()
     let center = {}
@@ -167,9 +194,19 @@ class Layout extends React.Component {
       }
     }, () => {
         this.loadPanelStyles()
+        this.handleCoverText()
       }
     )
-  } 
+  }
+  
+  handleCoverText = () => {
+    const logo = document.querySelector(".cover-panels .icon-logo_right");
+    const margin = parseFloat(logo.offsetHeight + logo.getBoundingClientRect().top );
+    let coverPanels = this.state.coverPanels
+    coverPanels.style.textMargin = {marginTop : margin}
+    console.log(margin)
+    // this.setState({coverPanels}) 
+  }
   handleNavCenter = () => {
     let center = {};
     this.state.elements.map((elem) => {
@@ -189,18 +226,31 @@ class Layout extends React.Component {
     if(e){
       e.preventDefault()
     }
-    let active = true;
-    let style = {left:{},right:{}};
+    let coverPanels = this.state.coverPanels;
+    let test = {}
+
     if(this.state.coverPanels.active){
-      active = false;
-      style = {
+      coverPanels.active = false;
+      coverPanels.style.panels = {
         left : {marginLeft : "-50vw"},
         right : {marginRight : "-50vw"}
       }
+      coverPanels.style.text = {
+        color : "#152225", 
+        opacity : 0,
+        transform: 'translateY(30px)'
+      };
+    } else {
+      coverPanels.active = true;
+      coverPanels.style.panels = {}
+      coverPanels.style.text ={color : ""};
+
     }
     console.log("coverPanels")
-    this.setState({coverPanels : {active, style}},
-      ()=>{console.log(this.state.coverPanels)})
+    this.setState({coverPanels},
+      ()=>{
+        console.log(this.state.coverPanels)
+      })
   }
 
   componentDidUpdate(){
@@ -209,12 +259,36 @@ class Layout extends React.Component {
   
   componentDidMount(){
     this.handleDims(); 
-    this.loadPanelStyles();
+    // this.loadPanelStyles();
     window.addEventListener('resize', this.handleDims, true);
     window.addEventListener('scroll', ()=>{
+      console.log("scrolling")
+      if(!this.autoScroll){
       if(this.state.coverPanels.active){this.handleCoverPanels()}
-    })
+      this.prepForceTop()
+      // handles scroll up & scroll down events 
+      let newScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (newScroll === 0) newScroll = 1;
+      console.log(`newScroll ${newScroll}`)
+      console.log(`oldScroll ${this.oldScroll}`)
 
+
+      if (newScroll > this.oldScroll){
+        // downscroll code
+
+     } else {
+        // upscroll code
+        console.log(this.state.forceTop.ready)
+        if(this.state.forceTop.ready === true){
+          console.log(`forceTop runs`)
+          }
+  
+     }
+     this.oldScroll = newScroll
+    } else {
+      setTimeout(()=>{this.autoScroll=false},500)
+    }
+    })
   }
 
 
@@ -235,37 +309,11 @@ render() {
         />
         <div>
           <CoverPage
+          // style = {this.state.coverPanels.style}
+          // handleCoverPanels = {this.handleCoverPanels}
           style = {this.state.coverPanels.style}
           handleCoverPanels = {this.handleCoverPanels}
           />
-          {/* <div className="cover-panels" >
-            <div className="panel panel-left" onClick={(e)=>{this.handleCoverPanels(e)}} style={this.state.coverPanels.style.left}>
-              <div class="icon-cutout-wrap">
-                <div class="y-margin top-margin"></div>
-                <div class="center-row">
-                  <div class="x-margin left-margin"></div>
-                    <div class="icon-svg-wrap">
-                      <i class="icon-logo_left"></i>
-                    </div>
-                  <div class="x-margin right-margin"></div>
-                  </div>
-                <div class="y-margin bottom-margin"></div>
-              </div>
-            </div>
-            <div className="panel panel-right" onClick={(e)=>{this.handleCoverPanels(e)}} style={this.state.coverPanels.style.right}>
-            <div class="icon-cutout-wrap">
-                <div class="y-margin top-margin"></div>
-                <div class="center-row">
-                  <div class="x-margin left-margin"></div>
-                    <div class="icon-svg-wrap">
-                      <i class="icon-logo_right"></i>
-                    </div>
-                  <div class="x-margin right-margin"></div>
-                  </div>
-                <div class="y-margin bottom-margin"></div>
-              </div>
-            </div>
-          </div> */}
           <div className="side-panels">
           <div className="underlay-left panel-underlay"
           onClick={()=>{this.handleNav()}}
@@ -287,7 +335,14 @@ render() {
 
             />
           </div>
-          {/* <main>{children}</main> */}
+          <main>
+          {/* {children} */}
+          Maecenas sed diam eget risus varius blandit sit amet non magna. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nulla vitae elit libero, a pharetra augue. Donec sed odio dui. Sed posuere consectetur est at lobortis.
+
+Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Sed posuere consectetur est at lobortis.
+          </main>
           <footer>  
           </footer>
         </div>
