@@ -9,7 +9,7 @@ import Contact from "./contactPanel"
 import CoverPage from "./coverPage"
 
 //  const Layout = ({children}) => {
-class Layout extends React.Component {
+class Layout extends React.Component{
   state = {
     dimmensions : {
       window : {
@@ -122,12 +122,12 @@ class Layout extends React.Component {
           const top = window.pageYOffset;
           if(top === 0){
             this.autoScroll = true;
-            window.scrollTo(0, 100);
+            window.scrollTo(0, 1);
             forceTop.ready = true;
           } else {
             forceTop.ready = false;
           }
-          this.setState({forceTop}, console.log(this.state.forceTop))
+          this.setState({forceTop})
 
         }, 50);
       
@@ -181,7 +181,7 @@ class Layout extends React.Component {
     const brand = document.querySelector(".title-wrap").offsetWidth; 
     const panel =  parseFloat((fullW-brand)/2);
     const head = document.querySelector("header").offsetHeight;
-    console.log("handleDims ran")
+    // console.log("handleDims ran")
     this.setState({
       dimmensions : {
         window : {
@@ -204,21 +204,21 @@ class Layout extends React.Component {
     const margin = parseFloat(logo.offsetHeight + logo.getBoundingClientRect().top );
     let coverPanels = this.state.coverPanels
     coverPanels.style.textMargin = {marginTop : margin}
-    console.log(margin)
+    // console.log(margin)
     // this.setState({coverPanels}) 
   }
   handleNavCenter = () => {
     let center = {};
     this.state.elements.map((elem) => {
       if(elem.state.active === true){
-        console.log("true!!");
+        // console.log("true!!");
         center = {
           height : parseFloat(.8*this.state.dimmensions.window.h)
         }
       }
     });
     this.setState({navCenter : {style : center}},()=>{
-      console.log(this.state);
+      // console.log(this.state);
 
     })
   }
@@ -246,10 +246,10 @@ class Layout extends React.Component {
       coverPanels.style.text ={color : ""};
 
     }
-    console.log("coverPanels")
+    // console.log("coverPanels")
     this.setState({coverPanels},
       ()=>{
-        console.log(this.state.coverPanels)
+        // console.log(this.state.coverPanels)
       })
   }
 
@@ -262,15 +262,15 @@ class Layout extends React.Component {
     // this.loadPanelStyles();
     window.addEventListener('resize', this.handleDims, true);
     window.addEventListener('scroll', ()=>{
-      console.log("scrolling")
+      // console.log
       if(!this.autoScroll){
       if(this.state.coverPanels.active){this.handleCoverPanels()}
       this.prepForceTop()
       // handles scroll up & scroll down events 
       let newScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (newScroll === 0) newScroll = 1;
-      console.log(`newScroll ${newScroll}`)
-      console.log(`oldScroll ${this.oldScroll}`)
+      // console.log(`newScroll ${newScroll}`)
+      // console.log(`oldScroll ${this.oldScroll}`)
 
 
       if (newScroll > this.oldScroll){
@@ -278,9 +278,9 @@ class Layout extends React.Component {
 
      } else {
         // upscroll code
-        console.log(this.state.forceTop.ready)
+        // console.log(this.state.forceTop.ready)
         if(this.state.forceTop.ready === true){
-          console.log(`forceTop runs`)
+          // console.log(`forceTop runs`)
           }
   
      }
@@ -342,6 +342,7 @@ render() {
 Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nulla vitae elit libero, a pharetra augue. Donec sed odio dui. Sed posuere consectetur est at lobortis.
 
 Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Sed posuere consectetur est at lobortis.
+          {this.props.taxonomies}
           </main>
           <footer>  
           </footer>

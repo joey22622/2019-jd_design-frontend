@@ -6,19 +6,50 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 
-const IndexPage = ( data) => (
-  <Layout
-  taxonomies={true}
-  >
-      {
-        
-        console.log(`DATATATATAT`)}
-       {console.log(data)}
-    
-    <SEO title="Home" />
-    <h1>Hi people</h1>
+const IndexPage = ( props) => (
+  <StaticQuery
+  query={graphql`
+    {
+      allSanityProfile {
+        edges {
+          node{
+            phone
+            email
+            address {
+              street
+              city
+              state
+              zip
+            }
+            socialLinks{
+              urlGitHub
+              urlBehance
+              urlDribbble
+              urlLinkedIn
+            }
+          } 
+        }
+      }
+    } 
+     `}
+  
+     render={data => {
+return(
+    <Layout
+    taxonomies={""}
+    >
+        {
+          
+          console.log(`DATATATATAT`)}
+        {console.log(data)}
+      
+      <SEO title="Home" />
+      <h1>Hi people</h1>
 
   </Layout>
+)
+     }}
+  />
 )
 
 export default IndexPage
