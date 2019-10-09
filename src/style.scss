@@ -354,3 +354,16 @@ nav{
     }
     
 }
+
+//==========PROJECT INDEX================
+.project-index{
+    // background: green;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: .5rem;
+    list-style-type: none;
+    margin-top: 4rem;
+    li{
+        box-shadow: 1px 1px 3px rgba(8,10,10,.4);
+    }
+}

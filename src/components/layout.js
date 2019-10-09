@@ -40,36 +40,38 @@ class Layout extends React.Component{
         style : {},
         underlay : {}
       },
-  ],
-  navCenter : {
+    ],
+    navCenter : {
       style : {
       }
-  },
-  coverPanels : {
-    active : true,
-    style : {
-      panels : {
-        left : {},
-        right : {},
-      },
-      textMargin : {},
-      textColor : {}
-    }
-  },
-  forceTop : {
-    ready : false,
-    isScrolling : null
-  },
-
+    },
+    mainStyles :{
+      style : {
+        paddingTop: 100
+      }
+    },
+    coverPanels : {
+      active : true,
+      style : {
+        panels : {
+          left : {},
+          right : {},
+        },
+        textMargin : {},
+        textColor : {}
+      }
+    },
+    forceTop : {
+      ready : false,
+      isScrolling : null
+    },
     state : {
       scroll : 0
     },
     timeouts : {
       scroll : null 
-
     },
   }
-
 
   // buildPanelStyle = (key, justify, active) => {
   buildPanelStyle = (elem, i) => {
@@ -135,6 +137,13 @@ class Layout extends React.Component{
   lauchForceTop = () => {
     // if
   }
+  
+  loadMainStyles = () => {
+    let mainStyles = this.state.mainStyles;
+    mainStyles.style = {paddingTop : this.state.dimmensions.head}
+    this.setState({mainStyles})
+  }
+
   loadPanelStyles = () => {
     const newArr = this.state.elements.slice()
     let center = {}
@@ -195,6 +204,7 @@ class Layout extends React.Component{
     }, () => {
         this.loadPanelStyles()
         this.handleCoverText()
+        this.loadMainStyles()
       }
     )
   }
@@ -259,7 +269,6 @@ class Layout extends React.Component{
   
   componentDidMount(){
     this.handleDims(); 
-    // this.loadPanelStyles();
     window.addEventListener('resize', this.handleDims, true);
     window.addEventListener('scroll', ()=>{
       // console.log
@@ -335,14 +344,10 @@ render() {
 
             />
           </div>
-          <main>
+          <main style={this.state.mainStyles.style}>
           {/* {children} */}
-          Maecenas sed diam eget risus varius blandit sit amet non magna. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-
-Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nulla vitae elit libero, a pharetra augue. Donec sed odio dui. Sed posuere consectetur est at lobortis.
-
-Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Sed posuere consectetur est at lobortis.
-          {this.props.taxonomies}
+          {this.props.data}
+          {this.props.test}
           </main>
           <footer>  
           </footer>
