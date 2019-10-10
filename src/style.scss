@@ -363,7 +363,22 @@ nav{
     grid-gap: .5rem;
     list-style-type: none;
     margin-top: 4rem;
+    padding: 2rem;
     li{
         box-shadow: 1px 1px 3px rgba(8,10,10,.4);
+        position: relative;
+
     }
+    img{
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        top: 0;
+        z-index: 0;
+    }
+}
+main{
+    width: 100vw;
 }
