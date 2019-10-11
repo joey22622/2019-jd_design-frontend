@@ -1,5 +1,5 @@
 import React from "react"
-import {StaticQuery, graphql } from "gatsby"
+import {StaticQuery, graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
 // import Image from "../components/image"
@@ -105,8 +105,10 @@ import SEO from "../components/seo"
             // console.log(img2.local)
 
             // thumbnail component will go here
-          return(     
+          return(
             <li className="project-link" key={item.node.id} style={this.state.thumbnail.style}>
+              <Link to={item.node.slug.current}>
+
               <div className="project-link-outer">
                 <div className="project-link-inner">
                 {/* {node.imgImage.local.asset.url} */}
@@ -122,6 +124,7 @@ import SEO from "../components/seo"
                   </div>
                 </div>
               </div>
+              </Link>
             </li>
           )})}
       </ul>

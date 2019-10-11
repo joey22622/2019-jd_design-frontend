@@ -303,6 +303,8 @@ class Layout extends React.Component{
 
 
 
+
+
 render() {
     // console.log(args);
 
@@ -318,8 +320,6 @@ render() {
         />
         <div>
           <CoverPage
-          // style = {this.state.coverPanels.style}
-          // handleCoverPanels = {this.handleCoverPanels}
           style = {this.state.coverPanels.style}
           handleCoverPanels = {this.handleCoverPanels}
           />

@@ -214,6 +214,7 @@ nav{
 .side-panels{
     position: relative;
     // width: 100vw;
+    z-index: 2;
     a,a:visited{
         color: white;
         text-decoration: none;
