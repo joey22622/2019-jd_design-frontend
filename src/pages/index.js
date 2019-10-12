@@ -107,7 +107,7 @@ import SEO from "../components/seo"
             // thumbnail component will go here
           return(
             <li className="project-link" key={item.node.id} style={this.state.thumbnail.style}>
-              <Link to={item.node.slug.current}>
+              <a href={item.node.slug.current}>
 
               <div className="project-link-outer">
                 <div className="project-link-inner">
@@ -124,7 +124,7 @@ import SEO from "../components/seo"
                   </div>
                 </div>
               </div>
-              </Link>
+              </a>
             </li>
           )})}
       </ul>
@@ -134,7 +134,9 @@ import SEO from "../components/seo"
 return(
     <Layout
     taxonomies={""}
+    coverPage={true}
     data={PortfolioGrid()}
+    coverPage={true}
     // style={wToH()}
     >
 

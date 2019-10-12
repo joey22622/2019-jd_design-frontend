@@ -2,7 +2,7 @@
 import React from "react"
 
 const CoverPage = (props) => {
-    
+      if(props.load){
       return(
         <div className="cover-panels" >
             <div 
@@ -39,6 +39,9 @@ const CoverPage = (props) => {
             </div>
         </div>
   ) 
+      } else {
+        return('')
+      }
 }
 export default CoverPage; 
   

@@ -42,6 +42,17 @@ class Layout extends React.Component{
       },
     ],
     navCenter : {
+      action  : [
+        {key : "collapseNav",
+        active:  false
+        },  
+        {key : "linkHome",
+        active:  false
+        },
+        {key : "collapsePage",
+        active:  false
+        }
+      ],
       style : {
       }
     },
@@ -51,6 +62,7 @@ class Layout extends React.Component{
       }
     },
     coverPanels : {
+      loaded : this.props.coverPage,
       active : true,
       style : {
         panels : {
@@ -72,7 +84,64 @@ class Layout extends React.Component{
       scroll : null 
     },
   }
+  handleHomeLink = (e) => {
+    const navCenter = this.state.navCenter
+    const actions = navCenter.action.slice()
+    let action;
+    let nextAction = "linkHome";
+    let url = window.location.pathname+window.location.search;
+    // console.log(window.location.pathname+window.location.search);
+    // e.preventDefault()
 
+    actions.map((item) => {
+      console.log(item);
+      if(item.active){
+        action = item.key
+      }
+    })
+    if(!action || action==="linkHome"){
+      console.log("linking home")
+
+    } else {
+      e.preventDefault()
+      if(action==="collapseNav"){
+        // console.log("collapseNav")
+        this.handleNav()
+        // console.log(url)
+        if(url !== '/'){
+          nextAction = "linkHome"
+        } else {
+          nextAction = "collapsePage"
+        }
+        // console.log("nextAction" + nextAction)
+        this.updateHomeLink(nextAction)
+
+      } else if(action==="collapsePage"){
+        // console.log("collapsePage")
+        this.handleCoverPanels()
+      }
+    }
+    console.log(action)
+    console.log(actions)
+    // this.updateHomeLink(action)
+  }
+  updateHomeLink = (nextAction) => {
+    console.log("next action: " + nextAction)
+    let navCenter = this.state.navCenter;
+    let actions = navCenter.action.slice();
+    // const index = actions.findIndex((item) => item.key === nextAction);
+    actions.map((item) =>{
+      if(item.key === nextAction){
+        item.active = true;
+      } else {
+        item.active = false;
+      }
+    })
+    console.log(actions)
+    navCenter.action = actions;
+    // console.log(index);
+    this.setState({navCenter}, console.log(this.state.navCenter))
+  }
   // buildPanelStyle = (key, justify, active) => {
   buildPanelStyle = (elem, i) => {
 
@@ -91,6 +160,7 @@ class Layout extends React.Component{
       }
       if(elem.state.active){
         underlay = this.state.dimmensions.window.w;
+        this.updateHomeLink("collapseNav")
       }
 
 
@@ -158,6 +228,7 @@ class Layout extends React.Component{
   }
 
   handleNav = (e,key) => {
+    console.log(this.state)
     if(e){
       e.preventDefault()
     }
@@ -181,7 +252,7 @@ class Layout extends React.Component{
         newArr[i].style = style.panel
         newArr[i].underlay = style.underlay
       })
-      this.setState({elements : newArr}, ()=>{this.handleNavCenter()})
+      this.setState({elements : newArr}, ()=>{this.handleNavCenter()},()=>{console.log(this.state)})
   }
   
   handleDims = () => {
@@ -210,29 +281,33 @@ class Layout extends React.Component{
   }
   
   handleCoverText = () => {
+    if(this.state.coverPanels.loaded){
     const logo = document.querySelector(".cover-panels .icon-logo_right");
     const margin = parseFloat(logo.offsetHeight + logo.getBoundingClientRect().top );
     let coverPanels = this.state.coverPanels
     coverPanels.style.textMargin = {marginTop : margin}
-    // console.log(margin)
-    // this.setState({coverPanels}) 
+    this.setState({coverPanels}) 
+    }
   }
   handleNavCenter = () => {
-    let center = {};
+    let style = {};
+    let navCenter = this.state.navCenter;
     this.state.elements.map((elem) => {
       if(elem.state.active === true){
         // console.log("true!!");
-        center = {
+        style = {
           height : parseFloat(.8*this.state.dimmensions.window.h)
         }
       }
+      navCenter.style = style;
     });
-    this.setState({navCenter : {style : center}},()=>{
+    this.setState({navCenter},()=>{
       // console.log(this.state);
 
     })
   }
   handleCoverPanels = (e) => {
+    if(this.state.coverPanels.loaded){
     if(e){
       e.preventDefault()
     }
@@ -257,10 +332,8 @@ class Layout extends React.Component{
 
     }
     // console.log("coverPanels")
-    this.setState({coverPanels},
-      ()=>{
-        // console.log(this.state.coverPanels)
-      })
+    this.setState({coverPanels})
+  }
   }
 
   componentDidUpdate(){
@@ -299,12 +372,7 @@ class Layout extends React.Component{
     }
     })
   }
-
-
-
-
-
-
+ 
 render() {
     // console.log(args);
 
@@ -315,14 +383,18 @@ render() {
       
         <Header
           handleNav = {this.handleNav}
-          handleCover = {this.handleCoverPanels}
+          handleCover = {this.handleHomeLink}
           navCenter = {this.state.navCenter.style}
         />
         <div>
+          {
           <CoverPage
+          load = {this.state.coverPanels.loaded}
           style = {this.state.coverPanels.style}
           handleCoverPanels = {this.handleCoverPanels}
           />
+
+          }
           <div className="side-panels">
           <div className="underlay-left panel-underlay"
           onClick={()=>{this.handleNav()}}

@@ -12,8 +12,12 @@ export const query = graphql`
   `
 
 export default ({ data }) => (
-      <Layout>
+      <Layout
+        coverPage={false}
+      >
                     <h1>{data.sanityProject.title}</h1>
 
       </Layout>
   )
+
+  

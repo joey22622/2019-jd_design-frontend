@@ -221,12 +221,12 @@ nav{
     }
 }
 .panel-underlay{
-    background: #152225;
+    // backdrop-filter: blur(10px);
     width: 0px;
     height: 101vh;
     position: fixed;
-    opacity: .3;
     transition: width .4s;
+    background: rgba(21, 34, 37, .3);
 }
 .underlay-left{
     left: 0;

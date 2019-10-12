@@ -1,5 +1,5 @@
 import React from "react"
-import { StaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql, Link } from "gatsby"
 
 export default (props) => (
   <StaticQuery
@@ -25,10 +25,12 @@ export default (props) => (
             <li key="2" onClick={(e)=>{props.handleNav(e, "panelLeft")}}><a href="?about">About</a></li>
             <li key="1" className="link-home">
               <div className="title-wrap">
-              <a onClick={(e)=>{props.handleCover(e)}} href="/">
+              {/* <a onClick={(e)=>{props.handleCover(e)}} href="/"> */}
+              <a href="/" onClick={(e)=>{props.handleCover(e)}}>
                   <span className="title-1">{title[0]} {title[1]}</span>            
-                  <span className="title-2">{title[2]}</span>       
-              </a>
+                  <span className="title-2">{title[2]}</span> 
+              </a>      
+              {/* </a> */}
                 <div 
                 className="title-backdrop"
                 style={props.navCenter}
