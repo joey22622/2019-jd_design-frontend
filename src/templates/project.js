@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from "../components/layout"
+import Project from "../components/project"
 
 
 export const query = graphql`
@@ -14,6 +15,7 @@ export const query = graphql`
 export default ({ data }) => (
       <Layout
         coverPage={false}
+        data={<Project data={data}/>}
       >
                     <h1>{data.sanityProject.title}</h1>
 

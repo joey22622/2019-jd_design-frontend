@@ -26,10 +26,10 @@ export default (props) => (
             <li key="1" className="link-home">
               <div className="title-wrap">
               {/* <a onClick={(e)=>{props.handleCover(e)}} href="/"> */}
-              <a href="/" onClick={(e)=>{props.handleCover(e)}}>
+              <Link to="/" onClick={(e)=>{props.handleCover(e)}}>
                   <span className="title-1">{title[0]} {title[1]}</span>            
                   <span className="title-2">{title[2]}</span> 
-              </a>      
+              </Link>      
               {/* </a> */}
                 <div 
                 className="title-backdrop"

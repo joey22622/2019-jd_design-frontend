@@ -107,7 +107,7 @@ import SEO from "../components/seo"
             // thumbnail component will go here
           return(
             <li className="project-link" key={item.node.id} style={this.state.thumbnail.style}>
-              <a href={item.node.slug.current}>
+              <Link to={`/${item.node.slug.current}`}>
 
               <div className="project-link-outer">
                 <div className="project-link-inner">
@@ -124,7 +124,7 @@ import SEO from "../components/seo"
                   </div>
                 </div>
               </div>
-              </a>
+              </Link>
             </li>
           )})}
       </ul>

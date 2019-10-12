@@ -339,7 +339,7 @@ class Layout extends React.Component{
   componentDidUpdate(){
 
   }
-  
+  scrollTimeout;
   componentDidMount(){
     this.handleDims(); 
     window.addEventListener('resize', this.handleDims, true);
@@ -347,7 +347,7 @@ class Layout extends React.Component{
       // console.log
       if(!this.autoScroll){
       if(this.state.coverPanels.active){this.handleCoverPanels()}
-      this.prepForceTop()
+      // this.prepForceTop()
       // handles scroll up & scroll down events 
       let newScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (newScroll === 0) newScroll = 1;
@@ -368,9 +368,12 @@ class Layout extends React.Component{
      }
      this.oldScroll = newScroll
     } else {
-      setTimeout(()=>{this.autoScroll=false},500)
+      this.scrollTimeout = setTimeout(()=>{this.autoScroll=false},500)
     }
     })
+  }
+  componentWillUnmount(){
+    // clearTimeout(this.scrollTimeout)
   }
  
 render() {
