@@ -1,4 +1,5 @@
-import React from "react"
+import React from 'react'
+import Image from 'gatsby-image'
 
 
 
@@ -13,14 +14,48 @@ class Project extends React.Component{
   }
   
   componentDidMount(){
-    console.log(this.state)
+    console.log(this.state.data.imgImage.local.asset.fluid)
   }
  
 render() {
+  const link = this.state.data.exLink.url ? this.state.data.exLink.url : false;
+  const title = this.state.data.exLink.title ? this.state.data.exLink.title : `Visit Website`;
+  const exLink = link ? (<a href={link} target="blank" title={title}>{title}</a>) : ``
+  const bodyData = this.state.data._rawBody ? this.state.data._rawBody.split('\n') : false
+  const body = () => {
+    if(bodyData){
+      return(
+      <div className="project-body">
+      {bodyData.map((p,i)=>(
+        <p key={i}>{p}</p>
+      ))}
+      </div>
+      )} else {
+        return ``;
+      }
+  }
+  
+  console.log(bodyData)
 
 
     return ( 
-      <div className="project-wrap">{this.state.data.title}</div>
+      <div className="project-wrap-outer">
+        <div className="project-wrap-inner">
+          <div className="project-left"></div>
+          <div className="project-right">
+            <div className="project-head">
+              <h1><span className="project-type">{this.state.data.projectType.title}:</span> {this.state.data.title}</h1>
+              <p className="project-client"><label>Client:</label> {this.state.data.client.title}</p>
+              {exLink}
+            </div>
+            <div className="project-body-wrap">
+            {body()}
+            </div>
+          </div>
+
+      <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
+        </div>
+      </div>
       
     )
   }

@@ -383,3 +383,30 @@ nav{
 main{
     width: 100vw;
 }
+
+//============== PROJECT PAGE =================
+
+.project-wrap-outer{
+    // width: 100vw;
+    // height: 100%;
+    // background: green;
+    padding: 2rem; 
+    background: rgba(21, 34, 37, .8);
+   
+
+    .project-wrap-inner{
+        background: white;
+        display: flex;
+    }
+    .project-left,
+    .project-right{
+        flex-grow: 1;
+        width: 50%;
+    }
+    .project-left{
+        background: green;
+    }
+    .project-right{
+        background: teal;
+    }
+}

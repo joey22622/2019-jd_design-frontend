@@ -8,6 +8,27 @@ export const query = graphql`
     query ($slug : String) {
         sanityProject(slug : {current : {eq : $slug}}){
           title
+          projectType {
+            title
+          }
+          client {
+            title
+          }
+          _rawBody
+          exLink{
+            title
+            url
+          }
+          imgImage {
+            _key
+            local {
+              asset {
+                fluid{
+                  srcSet
+                }
+              }
+            }
+          }
         }
       }   
   `

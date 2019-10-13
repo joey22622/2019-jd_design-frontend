@@ -1,6 +1,6 @@
 import React from "react"
 import {StaticQuery, graphql, Link } from "gatsby"
-
+import Image from 'gatsby-image'
 import Layout from "../components/layout"
 // import Image from "../components/image"
 import SEO from "../components/seo"
@@ -64,7 +64,9 @@ import SEO from "../components/seo"
                 _type
                 local {
                   asset {
-                    url
+                    fluid{
+                      ...GatsbySanityImageFluid
+                    }
                   }
                 }
               }
@@ -100,7 +102,9 @@ import SEO from "../components/seo"
           <ul className="project-index">
 
           {query.map((item)=>{
-            const img  = item.node.imgImage ? item.node.imgImage.local.asset.url : ``;
+            // const img  = item.node.imgImage ? item.node.imgImage.local.asset.url : ``;
+            const img  = item.node.imgImage.local.asset.fluid ? item.node.imgImage.local.asset.fluid : ``;
+
             
             // console.log(img2.local)
 
@@ -112,7 +116,8 @@ import SEO from "../components/seo"
               <div className="project-link-outer">
                 <div className="project-link-inner">
                 {/* {node.imgImage.local.asset.url} */}
-                  <img src={img} alt="" className="project-thumbnail"/>
+                  {/* <img src={img} alt="" className="project-thumbnail"/> */}
+                  <Image className="project-thumbnail" fluid={img}/>
                   <div className="text-wrap-outer">
                     <div className="text-wrap-inner">
                       <p className="project-text">
