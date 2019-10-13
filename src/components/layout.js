@@ -180,34 +180,7 @@ class Layout extends React.Component{
 
 
      return panelStyles;
-  }
-  oldScroll = window.pageYOffset || document.documentElement.scrollTop;
-  isScrolling = null
-  autoScroll = false;
-  prepForceTop = () => {
-    window.clearTimeout( this.isScrolling );
-    let forceTop = this.state.forceTop;
-        // Set a timeout to run after scrolling ends'
-        this.isScrolling = setTimeout(() => {
-
-          // Run the callback
-          const top = window.pageYOffset;
-          if(top === 0){
-            this.autoScroll = true;
-            window.scrollTo(0, 1);
-            forceTop.ready = true;
-          } else {
-            forceTop.ready = false;
-          }
-          this.setState({forceTop})
-
-        }, 50);
-      
-  }
-  lauchForceTop = () => {
-    // if
-  }
-  
+  }  
   loadMainStyles = () => {
     let mainStyles = this.state.mainStyles;
     mainStyles.style = {paddingTop : this.state.dimmensions.head}
@@ -339,37 +312,25 @@ class Layout extends React.Component{
   componentDidUpdate(){
 
   }
-  scrollTimeout;
+  oldScroll = window.pageYOffset || document.documentElement.scrollTop;
   componentDidMount(){
     this.handleDims(); 
     window.addEventListener('resize', this.handleDims, true);
     window.addEventListener('scroll', ()=>{
       // console.log
-      if(!this.autoScroll){
       if(this.state.coverPanels.active){this.handleCoverPanels()}
       // this.prepForceTop()
       // handles scroll up & scroll down events 
       let newScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (newScroll === 0) newScroll = 1;
-      // console.log(`newScroll ${newScroll}`)
-      // console.log(`oldScroll ${this.oldScroll}`)
-
-
       if (newScroll > this.oldScroll){
         // downscroll code
 
      } else {
         // upscroll code
-        // console.log(this.state.forceTop.ready)
-        if(this.state.forceTop.ready === true){
-          // console.log(`forceTop runs`)
-          }
-  
      }
      this.oldScroll = newScroll
-    } else {
-      this.scrollTimeout = setTimeout(()=>{this.autoScroll=false},500)
-    }
+
     })
   }
   componentWillUnmount(){
