@@ -24,7 +24,7 @@ export const query = graphql`
             local {
               asset {
                 fluid{
-                  srcSet
+                  ...GatsbySanityImageFluid
                 }
               }
             }

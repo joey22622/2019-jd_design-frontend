@@ -101,7 +101,7 @@ import SEO from "../components/seo"
         return(
           <ul className="project-index">
 
-          {query.map((item)=>{
+          {query.map((item, i)=>{
             // const img  = item.node.imgImage ? item.node.imgImage.local.asset.url : ``;
             const img  = item.node.imgImage.local.asset.fluid ? item.node.imgImage.local.asset.fluid : ``;
 
@@ -117,7 +117,7 @@ import SEO from "../components/seo"
                 <div className="project-link-inner">
                 {/* {node.imgImage.local.asset.url} */}
                   {/* <img src={img} alt="" className="project-thumbnail"/> */}
-                  <Image className="project-thumbnail" fluid={img}/>
+                  <Image key={i} className="project-thumbnail" fluid={img}/>
                   <div className="text-wrap-outer">
                     <div className="text-wrap-inner">
                       <p className="project-text">
