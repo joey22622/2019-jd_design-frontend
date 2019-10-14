@@ -142,7 +142,6 @@ return(
     coverPage={true}
     data={PortfolioGrid()}
     coverPage={true}
-    // style={wToH()}
     >
 
       

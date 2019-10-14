@@ -404,9 +404,63 @@ main{
         width: 50%;
     }
     .project-left{
-        background: green;
+        // background: green;
     }
     .project-right{
-        background: teal;
+        // background: teal;
+        .project-right-inner{
+            margin: 1rem;
+        }
+        .project-head{
+            h1{
+                font-size: 1.3rem;
+                text-transform: lowercase;
+                font-wieght:100;
+            }
+            .project-type{
+                text-transform: uppercase;
+                border-right: solid 1px black;
+                padding-right: .6em;
+                margin-right: .4em;
+                font-weight: 600;
+                font-size: 1.2rem;
+            }
+
+            label{
+                text-transform: uppercase;
+                font-weight: 600;
+                margin-right: 1rem;
+            }
+        }
+        .project-body{
+            p{
+                font-size: .9rem;
+            }
+        }
     }
+}
+.photo-grid-inner{
+    padding: 1rem;
+    .slide-wrap{
+        *{
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .feat-image.slide-wrap{
+        margin-bottom: 6px;
+    }
+}
+.photo-grid{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 6px;
+    // margin: 0 4px;
+    
+    img{
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
 }
