@@ -29,6 +29,16 @@ export const query = graphql`
               }
             }
           }
+          imgGallery{
+            _key
+            local{
+              asset {
+                fluid {
+                  ...GatsbySanityImageFluid
+                }
+              }
+            }
+          }
         }
       }   
   `

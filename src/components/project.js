@@ -15,6 +15,7 @@ class Project extends React.Component{
   
   componentDidMount(){
     console.log(this.state.data.imgImage.local.asset.fluid)
+    this.buildPhotoGrid()
   }
   checkVar = (a, b) => {
     try{
@@ -22,6 +23,11 @@ class Project extends React.Component{
     } catch (e) {
       return b
     }
+  }
+
+  buildPhotoGrid(){
+    console.log(this.state.data.imgGallery)
+
   }
     // console.log(`value`)
     // console.log(value)
@@ -39,14 +45,19 @@ class Project extends React.Component{
 // }
  
 render() {
+  const photoGridData = this.checkVar(()=> this.state.data.exLink.url,false);
+  const photoGrid = () => {
+    if(photoGridData){
+      pho
+    } else {
+      return ``
+    }
+  }
+
   const link =  this.checkVar(()=> this.state.data.exLink.url,false);
-  // const link = this.state.data.exLink.url || false;
   const title = this.checkVar(()=> this.state.data.exLink.title, `Visit Website`);
-  // const title = this.state.data.exLink.title || `Visit Website`;
   const exLink = link ? (<a href={link} target="blank" title={title}>{title}</a>) : ``
   const bodyData = this.checkVar(()=> this.state.data._rawBody.split('\n'), false);
-  // const bodyData = this.state.data._rawBody.split('\n')|| false;
-  const test = this.checkVar(()=> this.state.data.exLink.url,false)
   const body = () => {
     if(bodyData){
       return(
@@ -68,7 +79,15 @@ render() {
       <div className="project-wrap-outer">
         <div className="project-wrap-inner">
           <div className="project-left">
-            
+            <div className="photo-grid-wrap">
+              <div className="photo-grid-inner">
+                <div key={1} className="slide-wrap feat-image">
+                  <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
+                </div>
+                {/* {photoGrid} */}
+              </div>
+            </div>
+
 
           </div>
           <div className="project-right">
@@ -85,7 +104,6 @@ render() {
             </div>
           </div>
 
-      <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
         </div>
       </div>
       
