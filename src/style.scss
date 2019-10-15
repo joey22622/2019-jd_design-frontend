@@ -464,3 +464,24 @@ main{
     }
 
 }
+
+//============== IMAGE SLIDER =================
+.slider-wrapper{
+    background: rgba(21, 34, 37, .8);
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    .nav{
+        height: 50px;
+        width: 50px;
+        background: green;
+    }
+    .project-slide{
+        width: 50%;
+        // height: 100%;
+        margin: auto;
+    }
+}

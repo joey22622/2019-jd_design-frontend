@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'gatsby-image'
-
+import ImageSlider from './imageSlider'
 
 
 //  const Layout = ({children}) => {
@@ -10,7 +10,8 @@ class Project extends React.Component{
    dimmensions : {},
    thumbnail : {
      style : {}
-   }
+   },
+   slides : []
   }
   
   componentDidUpdate(){
@@ -21,6 +22,7 @@ class Project extends React.Component{
     console.log(this.state.data.imgImage.local.asset.fluid)
     this.buildPhotoGrid() 
     this.handleDims()
+    this.buildSlidesArr()
     window.addEventListener("resize",()=>{
       this.handleDims()
     })
@@ -45,8 +47,18 @@ class Project extends React.Component{
       //dimmension dependent callbacks
       this.wToH()
     })
+  }
+  buildSlidesArr = () => {
+    let slides = this.state.slides;
+    slides.push(this.state.data.imgImage.local.asset.fluid)
+    this.state.data.imgGallery.map((image, i)=>{
+      slides.push(image.local.asset.fluid)
+    })
+    console.log(slides);
+    this.setState({slides})
 
   }
+
   wToH = () => {
     const thumb = this.state.thumbnail;
     thumb.style = {
@@ -108,6 +120,9 @@ render() {
 
     return ( 
       <div className="project-wrap-outer">
+        <ImageSlider
+          slides={this.state.slides}
+        />
         <div className="project-wrap-inner">
           <div className="project-left">
             <div className="photo-grid-wrap">
