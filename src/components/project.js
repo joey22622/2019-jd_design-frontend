@@ -6,20 +6,48 @@ import ImageSlider from './imageSlider'
 //  const Layout = ({children}) => {
 class Project extends React.Component{
   state = {
-   data : this.props.data.sanityProject,
-   dimmensions : {},
-   thumbnail : {
-     style : {}
-   },
-   slides : []
+    imageSlider : {
+      active : false,
+      activeStyle : {},
+      inactiveStyle : {
+        display: 'none'
+      },
+      style : {display: 'none'}
+    },
+    data : this.props.data.sanityProject,
+    dimmensions : {},
+    thumbnail : {
+      style : {}
+    },
+    slides : [],
+    firstSlide : this.props.firstSlide,
+    active : this.props.active,
+    loaded : this.props.loaded,
+    slideQueue : {
+      active : 0
+    }
+
   }
   
   componentDidUpdate(){
    
   }
   
+  toggleSlider = () => {
+    let imageSlider = this.state.imageSlider;
+    const active = !imageSlider.active;
+    imageSlider.active = active;
+    if(active){
+      imageSlider.style = imageSlider.activeStyle
+    } else {
+      imageSlider.style = imageSlider.inactiveStyle
+    }
+    console.log("hi there")
+    console.log(imageSlider)
+    this.setState({imageSlider})
+  }
+  
   componentDidMount(){
-    console.log(this.state.data.imgImage.local.asset.fluid)
     this.buildPhotoGrid() 
     this.handleDims()
     this.buildSlidesArr()
@@ -42,7 +70,7 @@ class Project extends React.Component{
     dimmensions.thumbnail = {
       w : thumb.offsetWidth
     }
-    console.log("dimsHandled")
+    // console.log("dimsHandled")
     this.setState({dimmensions},()=>{
       //dimmension dependent callbacks
       this.wToH()
@@ -51,12 +79,64 @@ class Project extends React.Component{
   buildSlidesArr = () => {
     let slides = this.state.slides;
     slides.push(this.state.data.imgImage.local.asset.fluid)
+    slides[0].active = false;
     this.state.data.imgGallery.map((image, i)=>{
       slides.push(image.local.asset.fluid)
+      image.active = false;
     })
     console.log(slides);
     this.setState({slides})
 
+  }
+
+  changeSlides =(slide) => {
+    let active = this.state.slideQueue.active;
+
+    const slideCount = this.state.slides.length
+    let nextActive = 0;
+    console.log(`active ` +active)
+    if(typeof(slide) === "number"){
+      if(slide < slideCount) {
+        nextActive = slide;
+      }
+    } else if(slide === 'next'){
+      console.log(`next`)
+      console.log(`active ` +active)
+      console.log(`active+1`);
+      console.log(active+1);
+      if(active+1 === slideCount){
+        nextActive = 0;
+        console.log(`goes over, so nextActive: `);
+        console.log(nextActive);
+      } else {
+        nextActive = active+1;
+        console.log(`nextActive: `);
+        console.log(nextActive);
+      }
+    } else if (slide === 'prev'){
+      console.log(`(slide = 'prev')`)
+      if(active-1 < 0){
+        nextActive = slideCount-1;
+        console.log(`goes under, so nextActive: `);
+        console.log(nextActive);
+      } else {
+        nextActive = active-1;
+        console.log(`nextActive: `);
+        console.log(nextActive);
+      }
+    }
+
+      let nextPrev = nextActive-1 < 0 ? slideCount - 1 : nextActive-1;
+      console.log(`nextPrev ` +nextPrev);
+      console.log(`nextActive ` +nextActive);
+      let nextNext = nextActive+1 === slideCount ? 0 : nextActive+1;
+      console.log(`nextNext ` +nextNext);
+
+      let state = this.state;
+      state.slideQueue.active = nextActive
+      state.slideQueue.next = nextNext
+      state.slideQueue.prev = nextPrev
+      this.setState({state},console.log(state))
   }
 
   wToH = () => {
@@ -65,9 +145,9 @@ class Project extends React.Component{
       height : this.state.dimmensions.thumbnail.w
     }
     this.setState({thumb})
-    console.log("wtoh")
+    // console.log("wtoh")
     // return style
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   buildPhotoGrid(){
@@ -84,7 +164,7 @@ render() {
         const j = parseFloat(i+1);
         // console.log(photo)
         return(
-        <div key={j} style={this.state.thumbnail.style} className="slide-wrap">
+        <div key={j} data-index={j} style={this.state.thumbnail.style} className="slide-wrap">
         <Image fluid={photo.local.asset.fluid}/>
         </div>
         )
@@ -121,13 +201,18 @@ render() {
     return ( 
       <div className="project-wrap-outer">
         <ImageSlider
+          active={this.state.slider}
+          toggle={this.toggleSlider}
           slides={this.state.slides}
+          activeSlide={0}
+          style={this.state.imageSlider.style}
+          changeSlides = {this.changeSlides}
         />
         <div className="project-wrap-inner">
           <div className="project-left">
             <div className="photo-grid-wrap">
               <div className="photo-grid-inner">
-                <div key={1} data-slide={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
+                <div onClick={this.toggleSlider} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
                   <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
                 </div>
                 {photoGrid}
