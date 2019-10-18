@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'gatsby-image'
 import ImageSlider from './imageSlider'
+import PhotoGrid from './photoGrid'
 
 
 //  const Layout = ({children}) => {
@@ -33,12 +34,14 @@ class Project extends React.Component{
    
   }
   
-  toggleSlider = () => {
+  toggleSlider = (event) => {
+    console.log(event);
     let imageSlider = this.state.imageSlider;
     const active = !imageSlider.active;
     imageSlider.active = active;
     if(active){
       imageSlider.style = imageSlider.activeStyle
+      this.changeSlides(0)
     } else {
       imageSlider.style = imageSlider.inactiveStyle
     }
@@ -212,10 +215,14 @@ render() {
           <div className="project-left">
             <div className="photo-grid-wrap">
               <div className="photo-grid-inner">
-                <div onClick={this.toggleSlider} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
+                <div onClick={(e)=>{this.toggleSlider(e)}} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
                   <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
                 </div>
-                {photoGrid}
+                {/* {photoGrid} */}
+                <PhotoGrid
+                  photoGridData = {this.state.slides}
+                  style = {this.state.thumbnail.style}
+                />
               </div>
             </div>
 
