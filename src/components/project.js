@@ -34,14 +34,16 @@ class Project extends React.Component{
    
   }
   
-  toggleSlider = (event) => {
-    console.log(event);
+  toggleSlider = (event, index) => {
+    if(!index){
+      index = 0
+    }
     let imageSlider = this.state.imageSlider;
     const active = !imageSlider.active;
     imageSlider.active = active;
     if(active){
       imageSlider.style = imageSlider.activeStyle
-      this.changeSlides(0)
+      this.changeSlides(index)
     } else {
       imageSlider.style = imageSlider.inactiveStyle
     }
@@ -51,8 +53,6 @@ class Project extends React.Component{
   }
   
   componentDidMount(){
-    this.buildPhotoGrid() 
-    this.handleDims()
     this.buildSlidesArr()
     window.addEventListener("resize",()=>{
       this.handleDims()
@@ -81,18 +81,26 @@ class Project extends React.Component{
   }
   buildSlidesArr = () => {
     let slides = this.state.slides;
-    slides.push(this.state.data.imgImage.local.asset.fluid)
-    slides[0].active = false;
+    let slide = {}
+    slide.fluid = this.state.data.imgImage.local.asset.fluid;
+    slide.active = false;
+    slides.push(slide);
     this.state.data.imgGallery.map((image, i)=>{
-      slides.push(image.local.asset.fluid)
+      let slide = {}
+      slide.fluid = image.local.asset.fluid
+      slide.active = false;
+      slides.push(slide)
       image.active = false;
     })
     console.log(slides);
-    this.setState({slides})
-
+    this.setState({slides},()=>{
+      this.handleDims()
+    })
   }
 
   changeSlides =(slide) => {
+    console.log(`slide::::`);
+    console.log(slide);
     let active = this.state.slideQueue.active;
 
     const slideCount = this.state.slides.length
@@ -153,32 +161,30 @@ class Project extends React.Component{
     // console.log(this.state)
   }
 
-  buildPhotoGrid(){
-    // console.log(this.state.data.imgGallery)
-  }
-
 render() {
-  const photoGridData = this.checkVar(()=> this.state.data.imgGallery,false);
-  const buildPhotoGrid = () => {
-    if(photoGridData){
-      return(
-        <div className="photo-grid">
-      {photoGridData.map((photo, i)=>{
-        const j = parseFloat(i+1);
-        // console.log(photo)
-        return(
-        <div key={j} data-index={j} style={this.state.thumbnail.style} className="slide-wrap">
-        <Image fluid={photo.local.asset.fluid}/>
-        </div>
-        )
+  // const photoGridData = this.checkVar(()=> this.state.data.imgGallery,false);
+  const photoGridData = this.checkVar(()=> this.state.slides,false);
+  // console.log(photoGridData)
+  // const buildPhotoGrid = () => {    
+  //   if(photoGridData){
+  //     return(
+  //       <div className="photo-grid">
+  //     {photoGridData.map((photo, i)=>{
+  //       const j = parseFloat(i+1);
+  //       // console.log(photo)
+  //       return(
+  //       <div key={j} data-index={j} style={this.state.thumbnail.style} className="slide-wrap">
+  //       <Image fluid={photo.fluid}/>
+  //       </div>
+  //       )
 
-      })}
-      </div>)
-    } else {
-      return `asdfasdfasdf`
-    }
-  }
-  const photoGrid = buildPhotoGrid()
+  //     })}
+  //     </div>)
+  //   } else {
+  //     return `asdfasdfasdf`
+  //   }
+  // }
+  // const photoGrid = buildPhotoGrid()
 
   const link =  this.checkVar(()=> this.state.data.exLink.url,false);
   const title = this.checkVar(()=> this.state.data.exLink.title, `Visit Website`);
@@ -215,12 +221,12 @@ render() {
           <div className="project-left">
             <div className="photo-grid-wrap">
               <div className="photo-grid-inner">
-                <div onClick={(e)=>{this.toggleSlider(e)}} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
+                <div onClick={(e)=>{this.toggleSlider(e, 0)}} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
                   <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
                 </div>
-                {/* {photoGrid} */}
                 <PhotoGrid
-                  photoGridData = {this.state.slides}
+                  toggle = {this.toggleSlider}
+                  photoGridData = {this.checkVar(()=> this.state.slides,[])}
                   style = {this.state.thumbnail.style}
                 />
               </div>
