@@ -15,7 +15,7 @@ const PhotoGrid = (props) => {
           // console.log(photo)
           return(
           <div onClick={(e)=>{props.toggle(e, j)}}key={j} data-index={j} style={props.style} className="slide-wrap">
-          <Image fluid={photo.fluid}/>
+              <Image fluid={photo.fluid}/>
           </div>
           )})}
   

@@ -16,13 +16,18 @@ const ImageSlider = (props) => {
             {/* // <button onClick={()=>{goNext()}} className="arrow-left">arrow left</button>
             // <button onClick={this.slideRef.goPrev} className="arrow-right">arrow right</button> */}
           </div>
-        <div className="slide-container">
+          <div className="slide-window">
+          <div className="slide-container">
+          
           {props.slides.map((photo, i )=>(
-                      <div key={i} data-index={i} className="project-slide-wrap">
-                <Image fluid={photo}></Image> 
+            <div key={i} data-index={i} className="project-slide-wrap">
+            <div className="slide-wrap-inner">
+              <Image fluid={photo}></Image> 
+            </div>
         </div>
 
-          ))}
+))}
+      </div>
       </div>
       </div>
     </div>
