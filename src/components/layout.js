@@ -84,6 +84,15 @@ class Layout extends React.Component{
       scroll : null 
     },
   }
+
+  checkVar = (a, b) => {
+    try{
+      return a()
+    } catch (e) {
+      return b
+    }
+  }
+
   handleHomeLink = (e) => {
     const navCenter = this.state.navCenter
     const actions = navCenter.action.slice()
