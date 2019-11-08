@@ -13,11 +13,12 @@ const PhotoGrid = (props) => {
         {props.photoGridData.map((photo, i)=>{
           const j = parseFloat(i+1);
           // console.log(photo)
+          if(i > 0){
           return(
           <div onClick={(e)=>{props.toggle(e, j)}}key={j} data-index={j} style={props.style} className="slide-wrap">
               <Image fluid={photo.fluid}/>
           </div>
-          )})}
+          )}})}
   
         </div>
     )

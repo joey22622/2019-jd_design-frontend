@@ -17,7 +17,13 @@ import SEO from "../components/seo"
         thumbnail : {}
       }
     }
-
+    checkVar = (a, b) => {
+      try{
+        return a()
+      } catch (e) {
+        return b
+      }
+    }
     componentDidMount(){
       window.addEventListener('resize', ()=>{
         this.handleDims()
@@ -26,16 +32,17 @@ import SEO from "../components/seo"
     }
     handleDims = () =>{
       let dimmensions = this.state.dimmensions;
-      const thumb = document.querySelector(".project-link")
-      dimmensions.thumbnail = {
-        w : thumb.offsetWidth
+      const thumb = this.checkVar(()=> document.querySelector(".project-link"),false);
+      if(thumb){
+        dimmensions.thumbnail = {
+          w : thumb.offsetWidth
+        }
+        console.log("dimsHandled")
+        this.setState({dimmensions},()=>{
+          //dimmension dependent callbacks
+          this.wToH()
+        })
       }
-      console.log("dimsHandled")
-      this.setState({dimmensions},()=>{
-        //dimmension dependent callbacks
-        this.wToH()
-      })
-  
     }
     wToH = () => {
       const thumb = this.state.thumbnail;

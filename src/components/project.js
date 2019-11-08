@@ -69,15 +69,18 @@ class Project extends React.Component{
 
   handleDims = () =>{
     let dimmensions = this.state.dimmensions;
-    const thumb = document.querySelector(".photo-grid .slide-wrap")
-    dimmensions.thumbnail = {
-      w : thumb.offsetWidth
+    const thumb = this.checkVar(()=> document.querySelector(".photo-grid .slide-wrap"),false)
+    if(thumb){
+      dimmensions.thumbnail = {
+        w : thumb.offsetWidth
+      }
+    
+      // console.log("dimsHandled")
+      this.setState({dimmensions},()=>{
+        //dimmension dependent callbacks
+        this.wToH()
+      })
     }
-    // console.log("dimsHandled")
-    this.setState({dimmensions},()=>{
-      //dimmension dependent callbacks
-      this.wToH()
-    })
   }
   buildSlidesArr = () => {
     let slides = this.state.slides;
@@ -85,13 +88,15 @@ class Project extends React.Component{
     slide.fluid = this.state.data.imgImage.local.asset.fluid;
     slide.active = false;
     slides.push(slide);
-    this.state.data.imgGallery.map((image, i)=>{
-      let slide = {}
-      slide.fluid = image.local.asset.fluid
-      slide.active = false;
-      slides.push(slide)
-      image.active = false;
-    })
+    if(this.state.data.imgGallery.length > 0){
+      this.state.data.imgGallery.map((image, i)=>{
+        let slide = {}
+        slide.fluid = image.local.asset.fluid
+        slide.active = false;
+        slides.push(slide)
+        image.active = false;
+      })
+    }
     console.log(slides);
     this.setState({slides},()=>{
       this.handleDims()
