@@ -9,7 +9,7 @@ const PhotoGrid = (props) => {
     console.log(props.photoGridData)
     // const photoGrid = buildPhotoGrid();
     return(
-          <div className="photo-grid">
+          <div className="photo-grid">  
         {props.photoGridData.map((photo, i)=>{
           // const j = parseFloat(i+1);
           // console.log(photo)

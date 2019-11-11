@@ -485,10 +485,89 @@ main{
         z-index: -1;
     }
     .arrow-container{
-        position: absolute;
+
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         button{
+            transition: .2s;
             pointer-events: all;
+            background: none;
+            border: none;
+            display: -webkit-flex;
+            height: 60px;
+            width: 160px;
+            cursor: pointer;
+            outline: none;
+            svg{
+                width: 60px;
+                * {
+                    fill: white;
+                }
+            }
         }
+        .arrow-streak{
+            background: white;
+            position: absolute;
+            top: 0;
+            // height: 100%;
+            height: 70%;
+            margin: 15% 0;
+            width: 2px;
+            transition: .1s;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .button-wrap-outer{
+            position: relative;
+
+            &:hover{
+                button{
+                    transform: scale(1.3);
+                }
+                .arrow-streak{
+                    width: 250px;
+                    transition: .3s;
+                    opacity: 1;
+                    transform: scaleY(.15);
+
+                }
+            }
+        }
+        .button-prev {
+            .arrow-streak{
+                left: 0;
+                margin-left: 60px;
+                background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,.5) 10%,  rgba(255,255,255,0) 100%);    
+   
+
+            }
+            &:hover{
+                .arrow-streak{
+                    // right:-50px;
+                }
+            }
+        }
+        .button-next {
+            .arrow-streak{
+                right: 0;
+                margin-right: 60px;
+                background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,.5) 10%,  rgba(255,255,255,0) 100%);    
+
+
+            }
+            &:hover{
+                .arrow-streak{
+                    // left:-50px;
+                    
+                }
+            }
+
+        }
+        
     }
     .nav{
         height: 50px;
