@@ -14,6 +14,10 @@ class Project extends React.Component{
       inactiveStyle : {
         display: 'none'
       },
+      arrowStyles : {
+        next : {},
+        prev : {}
+      },
       style : {display: 'none'}
     },
     data : this.props.data.sanityProject,
@@ -49,6 +53,23 @@ class Project extends React.Component{
     this.buildSlidesArr()
     window.addEventListener("resize",()=>{
       this.handleDims()
+    });
+    document.addEventListener("scroll", (e)=>{
+      if(this.state.imageSlider.active){
+        this.toggleSlider();
+      }
+    })
+    document.addEventListener("keyup", (e)=>{
+      console.log(this.state.imageSlider.active);
+      if(this.state.imageSlider.active){
+        if(e.keyCode === 37){
+          this.changeSlides(this.state.imageSlider.activeSlide.index - 1);
+        } else if(e.keyCode === 39){
+          this.changeSlides(this.state.imageSlider.activeSlide.index + 1);
+        } else if(e.keyCode === 27){
+          this.toggleSlider();
+        }
+      }
     })
 
   }
@@ -97,7 +118,21 @@ class Project extends React.Component{
   changeSlides =(index) => {
     if(index >= 0 && index < this.state.slides.length){
       let imageSlider = this.state.imageSlider;
+      imageSlider.arrowStyles.next = {};
+      imageSlider.arrowStyles.prev = {};
       imageSlider.activeSlide = this.state.slides[index];
+      if(index === 0){
+      imageSlider.arrowStyles.prev = {
+        pointerEvents : 'none',
+        opacity: 0.1
+      }
+
+      } else if(index === this.state.slides.length-1){
+        imageSlider.arrowStyles.next = {
+          pointerEvents : 'none',
+          opacity: 0.1
+        }
+      }
       this.setState({imageSlider});
     }
   }
@@ -146,6 +181,7 @@ render() {
           activeSlide={this.state.imageSlider.activeSlide}
           style={this.state.imageSlider.style}
           changeSlide = {this.changeSlides}
+          arrowStyles = {this.state.imageSlider.arrowStyles}
         />
         <div className="project-wrap-inner">
           <div className="project-left">
