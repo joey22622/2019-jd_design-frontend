@@ -8,11 +8,13 @@ import Image from 'gatsby-image'
 const ImageSlider = (props) => {
     const style = {
       width: `${props.slides.length}00vw`,
-      transform: `translateX(-${props.activeSlide.index * 100}vw)`
+      transform: `translateX(-${props.activeSlide.index * 100}vw)`,
+      // transition: props.style.container.transition
     }
+
    
     return(
-      <div className="slider-wrapper" style={props.style}>
+      <div className="slider-wrapper" style={props.style.main}>
         <div className="slider-inner">
           <div className="arrow-container">
             <div className="button-wrap-outer button-prev">
@@ -32,7 +34,7 @@ const ImageSlider = (props) => {
               </div>
             </div>
           </div>
-          <div className="slide-window">
+          <div className="slide-window" style={props.style.window}>
           <div className="slide-container" style={style}>
           
           {props.slides.map((photo, i )=>(
@@ -46,7 +48,7 @@ const ImageSlider = (props) => {
       </div>
       </div>
       </div>
-      <div onClick={props.toggle}  className="slider-underlay"></div>
+      <div onClick={props.toggle} style={props.style.underlay}  className="slider-underlay"></div>
     </div>
     )
   }

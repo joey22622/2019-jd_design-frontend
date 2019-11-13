@@ -18,7 +18,52 @@ class Project extends React.Component{
         next : {},
         prev : {}
       },
-      style : {display: 'none'}
+      // style : {
+      //   display: 'none'
+      // },
+      style : {
+        current : {
+          main: {
+            opacity: 0,
+            pointerEvents: "none"
+          },
+          underlay :{
+            transform: `translateY(100vh)`,
+            opacity: 0.4,
+          },
+          window :{
+            transform: `translateY(-100vh)`,
+            opacity: 0
+          },
+          container:{
+            transition: 0
+          }
+        },
+        active : {
+          underlay :{
+            // transform: `translateY(100vh)`,
+            // opacity: 0,
+          },
+        },
+        inactive : {
+          main: {
+            // display: 'none',
+            opacity: 0,
+            pointerEvents: "none"
+          },
+          underlay :{
+            transform: `translateY(100vh)`,
+            opacity: 0.4,
+          },
+          window :{
+            transform: `translateY(-100vh)`,
+            opacity: 0
+          },
+          container:{
+            transition: 0
+          }
+        }
+      }
     },
     data : this.props.data.sanityProject,
     dimmensions : {},
@@ -39,10 +84,11 @@ class Project extends React.Component{
     const active = !imageSlider.active;
     imageSlider.active = active;
     if(active){
-      imageSlider.style = imageSlider.activeStyle
+      // imageSlider.style = imageSlider.activeStyle
+      imageSlider.style.current = imageSlider.style.active;
       this.changeSlides(index)
     } else {
-      imageSlider.style = imageSlider.inactiveStyle
+      imageSlider.style.current = imageSlider.style.inactive;
     }
     console.log("hi there")
     console.log(imageSlider)
@@ -179,7 +225,7 @@ render() {
           toggle={this.toggleSlider}
           slides={this.state.slides}
           activeSlide={this.state.imageSlider.activeSlide}
-          style={this.state.imageSlider.style}
+          style={this.state.imageSlider.style.current}
           changeSlide = {this.changeSlides}
           arrowStyles = {this.state.imageSlider.arrowStyles}
         />
