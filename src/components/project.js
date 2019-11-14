@@ -29,21 +29,18 @@ class Project extends React.Component{
           },
           underlay :{
             transform: `translateY(100vh)`,
-            opacity: 0.4,
+            opacity: 0.8,
           },
           window :{
             transform: `translateY(-100vh)`,
             opacity: 0
-          },
-          container:{
-            transition: 0
           }
         },
         active : {
           underlay :{
             // transform: `translateY(100vh)`,
             // opacity: 0,
-          },
+          }
         },
         inactive : {
           main: {
@@ -58,9 +55,6 @@ class Project extends React.Component{
           window :{
             transform: `translateY(-100vh)`,
             opacity: 0
-          },
-          container:{
-            transition: 0
           }
         }
       }
@@ -162,6 +156,7 @@ class Project extends React.Component{
   }
 
   changeSlides =(index) => {
+    console.log("alsdfasdf " + index)
     if(index >= 0 && index < this.state.slides.length){
       let imageSlider = this.state.imageSlider;
       imageSlider.arrowStyles.next = {};
@@ -228,17 +223,19 @@ render() {
           style={this.state.imageSlider.style.current}
           changeSlide = {this.changeSlides}
           arrowStyles = {this.state.imageSlider.arrowStyles}
+          checkVar = {this.checkVar}
         />
         <div className="project-wrap-inner">
           <div className="project-left">
             <div className="photo-grid-wrap">
               <div className="photo-grid-inner">
-                <div onClick={()=>{this.toggleSlider(0)}} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
+                <div onClick={()=>{this.toggleSlider(0)}}  onMouseOver={()=>this.changeSlides(0)} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
                   <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
                 </div>
                 <PhotoGrid
                   toggle = {this.toggleSlider}
                   photoGridData = {this.checkVar(()=> this.state.slides,[])}
+                  changeSlides = {this.changeSlides}
                   style = {this.state.thumbnail.style}
                 />
               </div>

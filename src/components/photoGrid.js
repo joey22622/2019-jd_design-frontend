@@ -15,7 +15,7 @@ const PhotoGrid = (props) => {
           // console.log(photo)
           if(i > 0){
           return(
-          <div onClick={()=>{props.toggle(i)}}key={i} data-index={i} style={props.style} className="slide-wrap">
+          <div onClick={()=>{props.toggle(i)}}key={i} onMouseOver={()=> props.changeSlides(i)} data-index={i} style={props.style} className="slide-wrap">
               <Image fluid={photo.fluid}/>
           </div>
           )}})}

@@ -6,10 +6,10 @@ import Image from 'gatsby-image'
 
 
 const ImageSlider = (props) => {
-    const style = {
+    // const transition = props.transition;
+    let style = {
       width: `${props.slides.length}00vw`,
       transform: `translateX(-${props.activeSlide.index * 100}vw)`,
-      // transition: props.style.container.transition
     }
 
    
