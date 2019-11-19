@@ -11,6 +11,8 @@ import CoverPage from "./coverPage"
 //  const Layout = ({children}) => {
 class Layout extends React.Component{
   state = {
+    pathname : window.location.pathname,
+    search : window.location.search,
     dimmensions : {
       window : {
         h: 0,
@@ -63,7 +65,7 @@ class Layout extends React.Component{
     },
     coverPanels : {
       loaded : this.props.coverPage,
-      active : true,
+      active : window.location.search.length > 1 ? true : false,
       style : {
         panels : {
           left : {},
@@ -101,6 +103,7 @@ class Layout extends React.Component{
     let url = window.location.pathname+window.location.search;
     // console.log(window.location.pathname+window.location.search);
     // e.preventDefault()
+
 
     actions.map((item) => {
       console.log(item);
@@ -155,20 +158,20 @@ class Layout extends React.Component{
   buildPanelStyle = (elem, i) => {
 
       let justify = '';
-      let transform = `translate(0px)`;
-      let underlay = 0;
+      if(elem.justify === "left"){
+        justify = "";
+      } else if(elem.justify === "right") {
+        justify = "-";
+      }
+      let transform = `translateX(0)`;
+      let underlay = `translateX(0)`;
       //bool determining if panels are active
     
-      if(!elem.state.active){
-        if(elem.justify === "left"){
-          justify = "-";
-        } else if(elem.justify === "right") {
-          justify = "";
-        }
-        transform = `translate(${justify}${this.state.dimmensions.panel}px)`;
+      if(elem.state.active){
+        transform = `translateX(${justify}100%)`;
       }
       if(elem.state.active){
-        underlay = this.state.dimmensions.window.w;
+        underlay = `translateX(${justify}100%)`;
         this.updateHomeLink("collapseNav")
       }
 
@@ -181,7 +184,7 @@ class Layout extends React.Component{
           transform
         },
         underlay : {
-          width: underlay
+          transform: underlay
         }
         // center
       }
@@ -297,10 +300,11 @@ class Layout extends React.Component{
     let test = {}
 
     if(this.state.coverPanels.active){
+      console.log( `0 0  0 0 0 0 `)
       coverPanels.active = false;
       coverPanels.style.panels = {
-        left : {marginLeft : "-50vw"},
-        right : {marginRight : "-50vw"}
+        left : {transform : "translateX(0%)", transition: '.3s'},
+        right : {transform : "translateX(0%)", transition: '.3s'}
       }
       coverPanels.style.text = {
         color : "#152225", 
@@ -308,8 +312,13 @@ class Layout extends React.Component{
         transform: 'translateY(30px)'
       };
     } else {
+      console.log( `100  100 100 `)
+
       coverPanels.active = true;
-      coverPanels.style.panels = {}
+      coverPanels.style.panels = {
+        left : {transform : "translateX(100%)", transition: '.3s'},
+        right : {transform : "translateX(-100%)", transition: '.3s'}
+      }
       coverPanels.style.text ={color : ""};
 
     }
@@ -323,23 +332,13 @@ class Layout extends React.Component{
   }
   oldScroll = window.pageYOffset || document.documentElement.scrollTop;
   componentDidMount(){
+    console.log(window.location.pathname.length)
+    console.log(`window.location.pathname.length`)
     this.handleDims(); 
+    this.handleCoverPanels()
     window.addEventListener('resize', this.handleDims, true);
     window.addEventListener('scroll', ()=>{
-      // console.log
       if(this.state.coverPanels.active){this.handleCoverPanels()}
-      // this.prepForceTop()
-      // handles scroll up & scroll down events 
-      let newScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (newScroll === 0) newScroll = 1;
-      if (newScroll > this.oldScroll){
-        // downscroll code
-
-     } else {
-        // upscroll code
-     }
-     this.oldScroll = newScroll
-
     })
   }
   componentWillUnmount(){
@@ -362,11 +361,11 @@ render() {
         <div>
           {
           <CoverPage
+          // class = {this.props.pageState.home}
           load = {this.state.coverPanels.loaded}
           style = {this.state.coverPanels.style}
           handleCoverPanels = {this.handleCoverPanels}
           />
-
           }
           <div className="side-panels">
           <div className="underlay-left panel-underlay"

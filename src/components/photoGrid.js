@@ -6,7 +6,7 @@ import Image from 'gatsby-image'
 
 
 const PhotoGrid = (props) => {
-    console.log(props.photoGridData)
+    // console.log(props.photoGridData)
     // const photoGrid = buildPhotoGrid();
     return(
           <div className="photo-grid">  

@@ -15,7 +15,8 @@ import SEO from "../components/seo"
       },
       dimmensions : {
         thumbnail : {}
-      }
+      },
+      home :''
     }
     checkVar = (a, b) => {
       try{
@@ -25,6 +26,11 @@ import SEO from "../components/seo"
       }
     }
     componentDidMount(){
+      if(!window.location.search && window.location.pathname.length == 1){
+        this.setState({home : 'home'})
+      }else{
+          this.setState({home : ''})
+      }
       window.addEventListener('resize', ()=>{
         this.handleDims()
       })
@@ -37,7 +43,7 @@ import SEO from "../components/seo"
         dimmensions.thumbnail = {
           w : thumb.offsetWidth
         }
-        console.log("dimsHandled")
+        // console.log("dimsHandled")
         this.setState({dimmensions},()=>{
           //dimmension dependent callbacks
           this.wToH()
@@ -50,9 +56,9 @@ import SEO from "../components/seo"
         height : this.state.dimmensions.thumbnail.w
       }
       this.setState({thumb})
-      console.log("wtoh")
+      // console.log("wtoh")
       // return style
-      console.log(this.state)
+      // console.log(this.state)
     }
 
 
@@ -149,6 +155,7 @@ return(
     coverPage={true}
     data={PortfolioGrid()}
     coverPage={true}
+    pageState = {this.state}
     >
 
       
