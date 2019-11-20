@@ -48,6 +48,7 @@ export default ({ data }) => (
         pathname={window.location.pathname}
         search={window.location.search}
         coverPage={false}
+        homeLink={'/?home'}
         data={<Project data={data}/>}
       >
                     <h1>{data.sanityProject.title}</h1>

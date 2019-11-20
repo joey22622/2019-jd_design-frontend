@@ -14,6 +14,8 @@ class Layout extends React.Component{
     // pathname : this.props.pathname,
     // search : this.props.search,
     home : this.props.home,
+    homeLink : '/',
+    panelsActive : false,
     dimmensions : {
       window : {
         h: 0,
@@ -96,69 +98,16 @@ class Layout extends React.Component{
     }
   }
   
-  // handleHomeLink = (e) => {
-    
-  // } 
-
   handleHomeLink = (e) => {
-    const navCenter = this.state.navCenter
-    const actions = navCenter.action.slice()
-    let action;
-    let nextAction = "linkHome";
-    let url = window.location.pathname;
-    let search = window.location.search;
-    // console.log(window.location.pathname+window.location.search);
-    // e.preventDefault()
-
-
-    actions.map((item) => {
-      console.log(item);
-      if(item.active){
-        action = item.key
-      }
-    })
-    if(!action || action==="linkHome"){
-      console.log("linking home")
-
-    } else {
+    if(this.state.panelsActive){
       e.preventDefault()
-      if(action==="collapseNav"){
-        // console.log("collapseNav")
-        this.handleNav()
-        // console.log(url)
-        if(url !== '/' && !search){
-          nextAction = "linkHome"
-        } else {
-          nextAction = "collapsePage"
-        }
-        // console.log("nextAction" + nextAction)
-        this.updateHomeLink(nextAction)
-
-      } else if(action==="collapsePage"){
-        console.log("collapsePage")
-        this.handleCoverPanels()
-      }
+      this.handleNav()
+    } else if(window.location.pathname.length <= 1){
+      e.preventDefault()
+      this.handleCoverPanels()
     }
-    // this.updateHomeLink(action)
-  }
-  updateHomeLink = (nextAction) => {
-    // console.log("next action: " + nextAction)
-    let navCenter = this.state.navCenter;
-    let actions = navCenter.action.slice();
-    // const index = actions.findIndex((item) => item.key === nextAction);
-    actions.map((item) =>{
-      if(item.key === nextAction){
-        item.active = true;
-      } else {
-        item.active = false;
-      }
-    })
-    console.log(actions)
-    navCenter.action = actions;
-    // console.log(index);
-    this.setState({navCenter}, console.log(this.state.navCenter))
-  }
-  // buildPanelStyle = (key, justify, active) => {
+  } 
+
   buildPanelStyle = (elem, i) => {
 
       let justify = '';
@@ -176,7 +125,7 @@ class Layout extends React.Component{
       }
       if(elem.state.active){
         underlay = `translateX(${justify}100%)`;
-        this.updateHomeLink("collapseNav")
+        // this.updateHomeLink("collapseNav")
       }
 
 
@@ -221,6 +170,7 @@ class Layout extends React.Component{
     if(e){
       e.preventDefault()
     }
+    let active = false;
     //targets element that matches key of clicked nav item
       const index = this.state.elements.findIndex((item) => item.key === key);
       //builds new [editable] array from state
@@ -236,13 +186,15 @@ class Layout extends React.Component{
           newArr[i].state.active = false;
         } else{
           newArr[i].state.active = true;
+          active = true;
         }
         const style = this.buildPanelStyle(elem, i);
         newArr[i].style = style.panel
         newArr[i].underlay = style.underlay
       })
       this.setState({elements : newArr}, ()=>{this.handleNavCenter()},()=>{console.log(this.state)})
-  }
+      this.setState({panelsActive : active});
+    }
   
   handleDims = () => {
     const fullW =  window.innerWidth;
@@ -298,7 +250,6 @@ class Layout extends React.Component{
     })
   }
   handleCoverPanels = (e) => {
-    console.log("alsdkfjalsdf cover panels")
     console.log(this.state.coverPanels.loaded)
     if(this.state.coverPanels.loaded){
     if(e){
@@ -371,6 +322,7 @@ render() {
       
         <Header
           handleNav = {this.handleNav}
+          homeLink = {this.checkVar(()=> this.props.homeLink, `/?home`)}
           handleCover = {this.handleHomeLink}
           navCenter = {this.state.navCenter.style}
           name = {this.state.pathname}
@@ -387,7 +339,7 @@ render() {
           }
           <div className="side-panels">
           <div className="underlay-left panel-underlay"
-          onClick={(e)=>{this.handleHomeLink(e)}}
+          onClick={(e)=>{this.handleNav()}}
           style={this.state.elements[0].underlay}
           />
           <div className="underlay-right panel-underlay"

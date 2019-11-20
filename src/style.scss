@@ -118,7 +118,7 @@
 .home .cover-panels{
     .panel-left{transform: translateX(100%)}
     .panel-right{transform: translateX(-100%)}
-    .name-wrap{opacity: 1 !important}
+    .name-wrap span{opacity: 1}
 }
 body {
     // background: white;

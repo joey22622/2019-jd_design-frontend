@@ -16,7 +16,8 @@ import SEO from "../components/seo"
       dimmensions : {
         thumbnail : {}
       },
-      home :''
+      home :'',
+      homeLink : "/"
     }
     checkVar = (a, b) => {
       try{
@@ -154,6 +155,7 @@ return(
     // pathname={window.location.pathname}
     // search={window.location.search}
     home={window.location.search.length > 1 ? false : true}
+    homeLink={this.state.homeLink}
     taxonomies={""}
     coverPage={true}
     data={PortfolioGrid()}
