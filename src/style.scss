@@ -118,7 +118,7 @@
 .home .cover-panels{
     .panel-left{transform: translateX(100%)}
     .panel-right{transform: translateX(-100%)}
-    .name-wrap span{opacity: 1}
+    .name-wrap {opacity: 1}
 }
 body {
     // background: white;
@@ -247,12 +247,12 @@ nav{
 
     .name-wrap{
         pointer-events: none;
-        opacity: 0;
         width: 100%;
         text-align: center;
         position: absolute;
         // margin-top: 80vh;
         z-index: 1001;
+        opacity: 0;
         span{
             display: block;
             color: white;
@@ -267,8 +267,7 @@ nav{
         .line-2{
             font-weight: 100;
             letter-spacing: .5em;
-            opacity: .5;
-            // color: green;
+            color: rgba(255,255,255,.5)
         }
         
     }

@@ -10,13 +10,13 @@ import SEO from "../components/seo"
   class IndexPage extends React.Component{
 
     state = {
+      bodyClass : '',
       thumbnail : {
         style : {}
       },
       dimmensions : {
         thumbnail : {}
       },
-      home :'',
       homeLink : "/"
     }
     checkVar = (a, b) => {
@@ -27,14 +27,9 @@ import SEO from "../components/seo"
       }
     }
     componentDidMount(){
-      if(!window.location.search && window.location.pathname.length == 1){
-        this.setState({home : 'home'})
-      }else{
-          this.setState({home : ''})
-      }
       window.addEventListener('resize', ()=>{
         this.handleDims()
-      })
+      });
       this.handleDims()
     }
     handleDims = () =>{
@@ -154,7 +149,7 @@ return(
     <Layout
     // pathname={window.location.pathname}
     // search={window.location.search}
-    home={window.location.search.length > 1 ? false : true}
+    home={window.location.search.length > 1 ? '' : 'home'}
     homeLink={this.state.homeLink}
     taxonomies={""}
     coverPage={true}

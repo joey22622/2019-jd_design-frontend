@@ -8,13 +8,10 @@ import About from "./aboutPanel"
 import Contact from "./contactPanel"
 import CoverPage from "./coverPage"
 
-//  const Layout = ({children}) => {
 class Layout extends React.Component{
   state = {
-    // pathname : this.props.pathname,
-    // search : this.props.search,
-    home : this.props.home,
-    homeLink : '/',
+    bodyClass : this.props.home,
+    path : 'home',
     panelsActive : false,
     dimmensions : {
       window : {
@@ -105,6 +102,7 @@ class Layout extends React.Component{
     } else if(window.location.pathname.length <= 1){
       e.preventDefault()
       this.handleCoverPanels()
+      this.setState({bodyClass : "home"})
     }
   } 
 
@@ -290,11 +288,7 @@ class Layout extends React.Component{
   }
   componentDidUpdate(){
     const body = document.querySelector("body")
-    if(this.state.home){
-      body.className ="home";
-    } else {
-      body.className = ""
-    }
+      body.className = this.state.bodyClass;
   }
   oldScroll = window.pageYOffset || document.documentElement.scrollTop;
   componentDidMount(){
@@ -373,3 +367,9 @@ render() {
 
 
 export default Layout
+
+
+/*
+issue: disable coverPage unless already at arriving at
+
+*/

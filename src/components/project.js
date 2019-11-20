@@ -22,9 +22,6 @@ class Project extends React.Component{
         next : `aasdf`,
         prev : `asdfasdf`
       },
-      // style : {
-      //   display: 'none'
-      // },
       style : {
         current : {
           main: {
@@ -160,7 +157,6 @@ class Project extends React.Component{
   }
 
   changeSlides =(index) => {
-    console.log("alsdfasdf " + index)
     if(index >= 0 && index < this.state.slides.length){
       let imageSlider = this.state.imageSlider;
       imageSlider.arrowStyles.next = {};
