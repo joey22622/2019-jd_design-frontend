@@ -26,9 +26,9 @@ export default (props) => (
             <li key="1" className="link-home">
               <div className="title-wrap">
               {/* <a onClick={(e)=>{props.handleCover(e)}} href="/"> */}
-              <Link to="/?asdfa" onClick={(e)=>{props.handleCover(e)}}>
-                  <span className="title-1">{title[0]} {title[1]}</span>            
-                  <span className="title-2">{title[2]}</span> 
+              <Link to="/?home" onClick={(e)=>{props.handleCover(e)}}>
+                  <span className="title-1">{title[0]}{props.name} {title[1]}</span>            
+                  <span className="title-2">{title[2]}{props.path}</span> 
               </Link>      
               {/* </a> */}
                 <div 

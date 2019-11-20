@@ -18,6 +18,10 @@ class Project extends React.Component{
         next : {},
         prev : {}
       },
+      arrowClasses : {
+        next : `aasdf`,
+        prev : `asdfasdf`
+      },
       // style : {
       //   display: 'none'
       // },
@@ -161,18 +165,22 @@ class Project extends React.Component{
       let imageSlider = this.state.imageSlider;
       imageSlider.arrowStyles.next = {};
       imageSlider.arrowStyles.prev = {};
+      imageSlider.arrowClasses.next = `active`;
+      imageSlider.arrowClasses.prev = `active`;
       imageSlider.activeSlide = this.state.slides[index];
       if(index === 0){
       imageSlider.arrowStyles.prev = {
         pointerEvents : 'none',
         opacity: 0.1
       }
+      imageSlider.arrowClasses.prev = ``
 
       } else if(index === this.state.slides.length-1){
         imageSlider.arrowStyles.next = {
           pointerEvents : 'none',
           opacity: 0.1
         }
+        imageSlider.arrowClasses.next = ``
       }
       this.setState({imageSlider});
     }
@@ -223,6 +231,7 @@ render() {
           style={this.state.imageSlider.style.current}
           changeSlide = {this.changeSlides}
           arrowStyles = {this.state.imageSlider.arrowStyles}
+          arrowClasses = {this.state.imageSlider.arrowClasses}
           checkVar = {this.checkVar}
         />
         <div className="project-wrap-inner">

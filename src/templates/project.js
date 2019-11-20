@@ -45,6 +45,8 @@ export const query = graphql`
 
 export default ({ data }) => (
       <Layout
+        pathname={window.location.pathname}
+        search={window.location.search}
         coverPage={false}
         data={<Project data={data}/>}
       >

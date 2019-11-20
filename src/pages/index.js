@@ -151,6 +151,9 @@ import SEO from "../components/seo"
 
 return(
     <Layout
+    // pathname={window.location.pathname}
+    // search={window.location.search}
+    home={window.location.search.length > 1 ? false : true}
     taxonomies={""}
     coverPage={true}
     data={PortfolioGrid()}

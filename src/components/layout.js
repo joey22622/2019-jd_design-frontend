@@ -11,8 +11,9 @@ import CoverPage from "./coverPage"
 //  const Layout = ({children}) => {
 class Layout extends React.Component{
   state = {
-    pathname : window.location.pathname,
-    search : window.location.search,
+    // pathname : this.props.pathname,
+    // search : this.props.search,
+    home : this.props.home,
     dimmensions : {
       window : {
         h: 0,
@@ -94,13 +95,18 @@ class Layout extends React.Component{
       return b
     }
   }
+  
+  // handleHomeLink = (e) => {
+    
+  // } 
 
   handleHomeLink = (e) => {
     const navCenter = this.state.navCenter
     const actions = navCenter.action.slice()
     let action;
     let nextAction = "linkHome";
-    let url = window.location.pathname+window.location.search;
+    let url = window.location.pathname;
+    let search = window.location.search;
     // console.log(window.location.pathname+window.location.search);
     // e.preventDefault()
 
@@ -120,7 +126,7 @@ class Layout extends React.Component{
         // console.log("collapseNav")
         this.handleNav()
         // console.log(url)
-        if(url !== '/'){
+        if(url !== '/' && !search){
           nextAction = "linkHome"
         } else {
           nextAction = "collapsePage"
@@ -129,16 +135,14 @@ class Layout extends React.Component{
         this.updateHomeLink(nextAction)
 
       } else if(action==="collapsePage"){
-        // console.log("collapsePage")
+        console.log("collapsePage")
         this.handleCoverPanels()
       }
     }
-    console.log(action)
-    console.log(actions)
     // this.updateHomeLink(action)
   }
   updateHomeLink = (nextAction) => {
-    console.log("next action: " + nextAction)
+    // console.log("next action: " + nextAction)
     let navCenter = this.state.navCenter;
     let actions = navCenter.action.slice();
     // const index = actions.findIndex((item) => item.key === nextAction);
@@ -264,7 +268,9 @@ class Layout extends React.Component{
       }
     )
   }
-  
+  checkHome = () => {
+    
+  }
   handleCoverText = () => {
     if(this.state.coverPanels.loaded){
     const logo = document.querySelector(".cover-panels .icon-logo_right");
@@ -292,6 +298,8 @@ class Layout extends React.Component{
     })
   }
   handleCoverPanels = (e) => {
+    console.log("alsdkfjalsdf cover panels")
+    console.log(this.state.coverPanels.loaded)
     if(this.state.coverPanels.loaded){
     if(e){
       e.preventDefault()
@@ -326,14 +334,22 @@ class Layout extends React.Component{
     this.setState({coverPanels})
   }
   }
+  componentWillUpdate(){
 
+  }
   componentDidUpdate(){
-
+    const body = document.querySelector("body")
+    if(this.state.home){
+      body.className ="home";
+    } else {
+      body.className = ""
+    }
   }
   oldScroll = window.pageYOffset || document.documentElement.scrollTop;
   componentDidMount(){
     console.log(window.location.pathname.length)
     console.log(`window.location.pathname.length`)
+    console.log(this.state.pathname)
     this.handleDims(); 
     this.handleCoverPanels()
     window.addEventListener('resize', this.handleDims, true);
@@ -357,6 +373,8 @@ render() {
           handleNav = {this.handleNav}
           handleCover = {this.handleHomeLink}
           navCenter = {this.state.navCenter.style}
+          name = {this.state.pathname}
+          path = {this.state.search}
         />
         <div>
           {
@@ -369,12 +387,12 @@ render() {
           }
           <div className="side-panels">
           <div className="underlay-left panel-underlay"
-          onClick={()=>{this.handleNav()}}
+          onClick={(e)=>{this.handleHomeLink(e)}}
           style={this.state.elements[0].underlay}
           />
           <div className="underlay-right panel-underlay"
           style={this.state.elements[1].underlay}
-          onClick={()=>{this.handleNav()}}
+          onClick={(e)=>{this.handleHomeLink(e)}}
           />
 
             <About
