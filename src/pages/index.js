@@ -130,7 +130,7 @@ import SEO from "../components/seo"
                   <div className="text-wrap-outer">
                     <div className="text-wrap-inner">
                       <p className="project-text">
-                        <span className="project-cat">{item.node.projectType? `${item.node.projectType.title}: ` : ``}</span>
+                        <span className="project-cat">{item.node.projectType? `${item.node.projectType.title} : ` : ``}</span>
                         <span className="project-title">{item.node.title}</span>
                       </p>
                       <p className="project-client">{item.node.client.title? `${item.node.client.title} ` : ``}</p>
@@ -149,7 +149,7 @@ return(
     <Layout
     // pathname={window.location.pathname}
     // search={window.location.search}
-    home={window.location.search.length > 1 ? '' : 'home'}
+    bodyClass={window.location.search.length > 1 ? '' : 'home'}
     homeLink={this.state.homeLink}
     taxonomies={""}
     coverPage={true}

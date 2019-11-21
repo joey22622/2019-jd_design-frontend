@@ -10,7 +10,7 @@ import CoverPage from "./coverPage"
 
 class Layout extends React.Component{
   state = {
-    bodyClass : this.props.home,
+    bodyClass : this.props.bodyClass,
     path : 'home',
     panelsActive : false,
     dimmensions : {
@@ -189,6 +189,10 @@ class Layout extends React.Component{
         const style = this.buildPanelStyle(elem, i);
         newArr[i].style = style.panel
         newArr[i].underlay = style.underlay
+        const underlay = document.querySelector(".panel-underlay").offsetHeight/2 - window.innerHeight/2;
+        // const underlays = document.querySelectorAll(".panel-underlay");
+        // underlays.scrollTo(underlay, top)
+        console.log(underlay)
       })
       this.setState({elements : newArr}, ()=>{this.handleNavCenter()},()=>{console.log(this.state)})
       this.setState({panelsActive : active});
@@ -301,6 +305,9 @@ class Layout extends React.Component{
     window.addEventListener('scroll', ()=>{
       if(this.state.coverPanels.active){this.handleCoverPanels()}
     })
+    // document.querySelector(".panel-underlay").addEventListener("scroll", ()=>{
+    //   alert("hi");
+    // })
   }
   componentWillUnmount(){
     // clearTimeout(this.scrollTimeout)
@@ -321,6 +328,8 @@ render() {
           navCenter = {this.state.navCenter.style}
           name = {this.state.pathname}
           path = {this.state.search}
+          leftClass = {this.state.elements[0].state.active}
+          rightClass = {this.state.elements[1].state.active}
         />
         <div>
           {
@@ -335,20 +344,24 @@ render() {
           <div className="underlay-left panel-underlay"
           onClick={(e)=>{this.handleNav()}}
           style={this.state.elements[0].underlay}
-          />
+          ><div className="underlay-inner"/></div>
           <div className="underlay-right panel-underlay"
           style={this.state.elements[1].underlay}
           onClick={(e)=>{this.handleHomeLink(e)}}
-          />
+          onScroll={()=>{this.handleNav()}}
+          ><div className="underlay-inner"/></div>
 
             <About
               style ={this.state.elements[0].style}
               underlay = {this.state.elements[0].underlay}
+              // class = {this.state.elements[0].state.active}
+            
 
             />
             <Contact
               style ={this.state.elements[1].style}
-              underlay = {this.state.elements[1].underlay}
+              underlay =  {this.state.elements[1].underlay}
+              // class =  {this.state.elements[1].state.active}
 
             />
           </div>

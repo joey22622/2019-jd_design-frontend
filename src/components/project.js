@@ -19,8 +19,8 @@ class Project extends React.Component{
         prev : {}
       },
       arrowClasses : {
-        next : `aasdf`,
-        prev : `asdfasdf`
+        next : ``,
+        prev : ``
       },
       style : {
         current : {

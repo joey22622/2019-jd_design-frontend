@@ -22,7 +22,7 @@ export default (props) => (
         {console.log()}
         <nav>
           <ul className="main-navigation">
-            <li key="2" onClick={(e)=>{props.handleNav(e, "panelLeft")}}><a href="?about">About</a></li>
+            <li key="2" onClick={(e)=>{props.handleNav(e, "panelLeft")}}><a className={`panel-link left-link ${props.leftClass}`} href="?about">About</a></li>
             <li key="1" className="link-home">
               <div className="title-wrap">
               {/* <a onClick={(e)=>{props.handleCover(e)}} href="/"> */}
@@ -37,7 +37,7 @@ export default (props) => (
                 />
               </div>
             </li>
-            <li key="3" onClick={(e)=>{props.handleNav(e, "panelRight")}}><a href="?contact">Contact</a></li>
+            <li key="3" onClick={(e)=>{props.handleNav(e, "panelRight")}}><a className={`panel-link right-link ${props.rightClass}`} href="?contact">Contact</a></li>
           </ul>
         </nav>
       </header>

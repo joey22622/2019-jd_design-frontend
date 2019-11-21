@@ -47,6 +47,8 @@ export default ({ data }) => (
       <Layout
         pathname={window.location.pathname}
         search={window.location.search}
+        bodyClass="project"
+        
         coverPage={false}
         homeLink={'/?home'}
         data={<Project data={data}/>}
