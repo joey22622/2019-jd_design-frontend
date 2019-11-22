@@ -28,7 +28,7 @@ export default (props) => (
               {/* <a onClick={(e)=>{props.handleCover(e)}} href="/"> */}
               <Link to={props.homeLink} onClick={(e)=>{props.handleCover(e)}}>
                   <span className="title-1">{title[0]}{props.name} {title[1]}</span>            
-                  <span className="title-2">{title[2]}{props.path}</span> 
+                  <span className="title-2">{title[2]}{props.path}</span>
               </Link>      
               {/* </a> */}
                 <div 

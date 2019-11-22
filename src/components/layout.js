@@ -177,6 +177,7 @@ class Layout extends React.Component{
 
       //maps new array
       newArr.map((elem, i) => {
+        // alert("hi")
         //checks if array item does not match targeted array item
         if(i !== index){
           newArr[i].state.active = false;
@@ -189,11 +190,13 @@ class Layout extends React.Component{
         const style = this.buildPanelStyle(elem, i);
         newArr[i].style = style.panel
         newArr[i].underlay = style.underlay
-        const underlay = document.querySelector(".panel-underlay").offsetHeight/2 - window.innerHeight/2;
-        // const underlays = document.querySelectorAll(".panel-underlay");
-        // underlays.scrollTo(underlay, top)
-        console.log(underlay)
       })
+      const underlay = document.querySelector(".panel-underlay").offsetHeight/2 - window.innerHeight/2;
+      document.querySelector(".underlay-left").scrollTo(0,underlay);
+      document.querySelector(".underlay-right").scrollTo(0,underlay);
+
+      // window.scrollTo(0,100)
+
       this.setState({elements : newArr}, ()=>{this.handleNavCenter()},()=>{console.log(this.state)})
       this.setState({panelsActive : active});
     }
@@ -287,9 +290,7 @@ class Layout extends React.Component{
     this.setState({coverPanels})
   }
   }
-  componentWillUpdate(){
-
-  }
+  
   componentDidUpdate(){
     const body = document.querySelector("body")
       body.className = this.state.bodyClass;
@@ -300,6 +301,7 @@ class Layout extends React.Component{
     console.log(`window.location.pathname.length`)
     console.log(this.state.pathname)
     this.handleDims(); 
+    this.handleNav()
     this.handleCoverPanels()
     window.addEventListener('resize', this.handleDims, true);
     window.addEventListener('scroll', ()=>{
@@ -342,7 +344,8 @@ render() {
           }
           <div className="side-panels">
           <div className="underlay-left panel-underlay"
-          onClick={(e)=>{this.handleNav()}}
+          onClick={(e)=>{this.handleHomeLink(e)}}
+          onScroll={()=>{this.handleNav()}}
           style={this.state.elements[0].underlay}
           ><div className="underlay-inner"/></div>
           <div className="underlay-right panel-underlay"

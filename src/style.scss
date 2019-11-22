@@ -1,4 +1,22 @@
 
+//Mobile- XS
+$screen__xs-width: 320px;
+$screen__xs-height: 568px;
+//Mobile
+$screen__mobile-width: 480px;
+$screen__mobile-height: 667px;
+
+// Tablet Portrait
+$screen__tablet-width: 992px;
+$screen__tablet-height: 1024px;
+
+// Laptop
+$screen__laptop-width: 992px;
+
+// Desktop
+$screen__desktop-width: 1440px;
+
+
 
 // ============ICON CUTOUTS START==================
 .icon-cutout-wrap{
@@ -122,6 +140,8 @@
 }
 .project nav ul .link-home .title-backdrop{
     height: 300%;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 40%,  rgba(255,255,255,0) 100%);    
+
 }
 body {
     // background: white;
@@ -178,7 +198,6 @@ nav{
             &::before{
                 content: '';
                 position: absolute;
-                background: green;
                 width: 0;
                 opacity: 0;
                 height: 100%;
@@ -195,14 +214,15 @@ nav{
                 right: 0;
                 background: linear-gradient(to left, rgba(21, 34, 37,1) 0%,  rgba(21, 34, 37,0) 100%);    
             }
-            &.true::before{
-                width: 200%;
-                opacity: 1;
-            }
-            &.true{
+            &.true, 
+            &:hover{
                 color: white;
                 padding: .5rem 1rem;
                 font-weight: 400;
+                &::before{
+                    width: 200%;
+                    opacity: 1;
+                }
             }
         }
         .link-home{
@@ -215,8 +235,11 @@ nav{
             margin: 0 auto;
             cursor: auto;
             .title-wrap{
-                display: block;
+                display: none;
                 position: relative;
+                @media only screen and (min-width: $screen__tablet-width){
+                    display: block;
+                }
                 a{
                     display: flex;
                     flex-direction: column;
@@ -256,7 +279,7 @@ nav{
 }
 .side-panels{
     position: relative;
-    // width: 100vw;
+
     z-index: 2;
     a,a:visited{
         color: white;
@@ -264,7 +287,7 @@ nav{
     }
 }
 .panel-underlay{
-    // backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
     width: 100vw;
     height: 101vh;
     position: fixed;
@@ -276,17 +299,9 @@ nav{
         width: 100%;
         height: 120vh;
         position: relative;
-        &::before{
-            content: '';
-            width: 100px;
-            height: 20px;
-            background: black;
-            margin-top: 50vh;
-            position: absolute;
-        }
     }
     &:hover{
-        opacity: .1;
+        opacity: .3;
     }
 }
 .underlay-left{
@@ -378,6 +393,9 @@ nav{
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media only screen and (max-width: $screen__tablet-width){
+        width: 100vw !important;
+    }
 
     &.panel-left{right:100%}
     &.panel-right{left:100%}
@@ -557,16 +575,27 @@ nav{
 //==========PROJECT INDEX================
 .project-index{
     // background: green;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-gap: .5rem;
+    margin: 0;
+    padding: 1rem;
     list-style-type: none;
-    margin-top: 4rem;
-    padding: 2rem;
+
+
+    @media only screen and (min-width: $screen__tablet-width){
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-gap: .5rem;
+        margin-top: 4rem;
+        padding: 2rem;
+    }
     li{
         box-shadow: 1px 1px 3px rgba(8,10,10,.4);
         position: relative;
         z-index: 0;
+        margin: .5rem 0;
+
+        @media only screen and (min-width: $screen__tablet-width){
+            margin: 0;
+        }
         .project-link-outer{
             position: relative;
             height: 100%;
@@ -593,10 +622,14 @@ nav{
                 position: absolute;
                 height: 100%;
                 width: 100%;
-                opacity: .2;
+                opacity: 0;
                 background: rgba(255,255,255,1);
                 z-index: 1;
                 transition: .4s;
+                @media only screen and (min-width: $screen__tablet-width){
+                    opacity: .2;
+                }
+        
             }
 
             .project-link-inner{
@@ -607,10 +640,14 @@ nav{
                     position: absolute;
                     height: 100%;
                     width: 100%;
-                    opacity: .2;
+                    opacity: 0;
                     background: rgba(255,255,255,1);
                     z-index: 1;
                     transition: .4s;
+
+                    @media only screen and (min-width: $screen__tablet-width){
+                        opacity: .2;
+                    }
                 }
 
                 .project-thumbnail{
@@ -673,6 +710,7 @@ main{
     .project-wrap-inner{
         background: white;
         display: flex;
+        padding: 1rem;
     }
     .project-left,
     .project-right{
@@ -681,17 +719,23 @@ main{
     }
     .project-left{
         // background: green;
+        margin-right: .5rem;
     }
     .project-right{
         // background: teal;
+        background: rgba(0,5,7,.03);
+        margin-left: .5rem;
+
         .project-right-inner{
+            // margin: 1rem;
+            margin-left: .5rem;
             margin: 1rem;
         }
         .project-head{
             h1{
                 font-size: 1.3rem;
                 text-transform: lowercase;
-                font-wieght:100;
+                font-weight:100;
             }
             .project-type{
                 text-transform: uppercase;
@@ -716,7 +760,7 @@ main{
     }
 }
 .photo-grid-inner{
-    padding: 1rem;
+    // padding: 1rem;
     .slide-wrap{
         position: relative;
         &::before{

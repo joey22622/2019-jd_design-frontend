@@ -160,7 +160,6 @@ return(
 
       
       <SEO title="Home" />
-      <h1>Hi people</h1>
 
   </Layout>
 )
