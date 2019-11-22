@@ -16,6 +16,7 @@
     "gatsby-source-filesystem": "^2.1.22",
     "gatsby-source-sanity": "^5.0.2",
     "gatsby-transformer-sharp": "^2.2.14",
+    "gh-pages": "^2.1.1",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -30,9 +31,11 @@
     "gatsby"
   ],
   "license": "MIT",
+  "homepage": "https://joey22622.github.io/2019-jd_design-frontend/",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
+    "deploy": "gh-pages -d dist",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
