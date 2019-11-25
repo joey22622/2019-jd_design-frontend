@@ -39,9 +39,8 @@ export default (props) => (
         }
       return(
       <section 
-        className ="side-panel panel-right contact-panel"
-        // style={{height: `200px`}}
-        style={props.style}        
+        className ={`side-panel panel-right contact-panel ${props.data.active}`}
+        style={props.data.style}        
       >
 
         <div className="panel-inner-wrap">
@@ -51,7 +50,6 @@ export default (props) => (
               <p className="address-line-1">{contact.address.street}</p>
               <p className="address-line-2">{contact.address.city}, {contact.address.state} {contact.address.zip}</p>
             </div>
-
           </div>
           <div className="contact-row">
             <a key="contact-1" href={`tel:${contact.phone}`}>{phoneStr}</a>
@@ -67,7 +65,7 @@ export default (props) => (
           </div>
         </div>
         </div>
-      </section>
+      </section>  
     )}}
   />
 )

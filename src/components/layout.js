@@ -10,7 +10,11 @@ import CoverPage from "./coverPage"
 
 class Layout extends React.Component{
   state = {
-    bodyClass : this.props.bodyClass,
+    page :  {
+      home : this.props.home,
+      interacting : false
+    },
+    bodyClass : "home",
     path : 'home',
     panelsActive : false,
     dimmensions : {
@@ -26,9 +30,7 @@ class Layout extends React.Component{
       {
         key: "panelLeft",
         justify : "left",
-        state : {
-          active : false
-        },
+        active : false,
         style : {},
         underlay : {}
         
@@ -36,14 +38,13 @@ class Layout extends React.Component{
       {
         key : "panelRight",
         justify: "right",
-        state : {
-          active : false
-        },
+        active : false,
         style : {},
         underlay : {}
       },
     ],
     navCenter : {
+      active: false,
       action  : [
         {key : "collapseNav",
         active:  false
@@ -65,7 +66,7 @@ class Layout extends React.Component{
     },
     coverPanels : {
       loaded : this.props.coverPage,
-      active : window.location.search.length > 1 ? true : false,
+      active : true,
       style : {
         panels : {
           left : {},
@@ -99,10 +100,10 @@ class Layout extends React.Component{
     if(this.state.panelsActive){
       e.preventDefault()
       this.handleNav()
-    } else if(window.location.pathname.length <= 1){
+    } else {
       e.preventDefault()
       this.handleCoverPanels()
-      this.setState({bodyClass : "home"})
+      // this.setState({bodyClass : "home"})
     }
   } 
 
@@ -118,10 +119,10 @@ class Layout extends React.Component{
       let underlay = `translateX(0)`;
       //bool determining if panels are active
     
-      if(elem.state.active){
+      if(elem.active){
         transform = `translateX(${justify}100%)`;
       }
-      if(elem.state.active){
+      if(elem.active){
         underlay = `translateX(${justify}100%)`;
         // this.updateHomeLink("collapseNav")
       }
@@ -157,7 +158,6 @@ class Layout extends React.Component{
       const style = this.buildPanelStyle(elem, i);
       newArr[i].style = style.panel
       newArr[i].underlay = style.underlay
-      // center.style = style.center
     })
 
     this.setState({elements : newArr});
@@ -180,11 +180,11 @@ class Layout extends React.Component{
         // alert("hi")
         //checks if array item does not match targeted array item
         if(i !== index){
-          newArr[i].state.active = false;
-        } else if(newArr[i].state.active === true) {
-          newArr[i].state.active = false;
+          newArr[i].active = false;
+        } else if(newArr[i].active === true) {
+          newArr[i].active = false;
         } else{
-          newArr[i].state.active = true;
+          newArr[i].active = true;
           active = true;
         }
         const style = this.buildPanelStyle(elem, i);
@@ -240,12 +240,13 @@ class Layout extends React.Component{
   handleNavCenter = () => {
     let style = {};
     let navCenter = this.state.navCenter;
+    navCenter.active = false;
     this.state.elements.map((elem) => {
-      if(elem.state.active === true){
-        // console.log("true!!");
+      if(elem.active === true){
         style = {
           height : parseFloat(.8*this.state.dimmensions.window.h)
         }
+        navCenter.active = true;
       }
       navCenter.style = style;
     });
@@ -261,7 +262,8 @@ class Layout extends React.Component{
       e.preventDefault()
     }
     let coverPanels = this.state.coverPanels;
-    let test = {}
+    let page = this.state.page;
+
 
     if(this.state.coverPanels.active){
       console.log( `0 0  0 0 0 0 `)
@@ -270,6 +272,7 @@ class Layout extends React.Component{
         left : {transform : "translateX(0%)", transition: '.3s'},
         right : {transform : "translateX(0%)", transition: '.3s'}
       }
+      page.interacting = true;
       coverPanels.style.text = {
         color : "#152225", 
         opacity : 0,
@@ -284,22 +287,25 @@ class Layout extends React.Component{
         right : {transform : "translateX(-100%)", transition: '.3s'}
       }
       coverPanels.style.text ={color : ""};
-
     }
     // console.log("coverPanels")
     this.setState({coverPanels})
+    this.setState({page});
   }
   }
   
   componentDidUpdate(){
     const body = document.querySelector("body")
-      body.className = this.state.bodyClass;
+    if(!this.state.page.interacting){
+      body.className = "home";
+    } else {
+      body.className = ``;
+    }
   }
-  oldScroll = window.pageYOffset || document.documentElement.scrollTop;
   componentDidMount(){
-    console.log(window.location.pathname.length)
+    // console.log(window.location.pathname.length)
     console.log(`window.location.pathname.length`)
-    console.log(this.state.pathname)
+    // console.log(this.state.pathname)
     this.handleDims(); 
     this.handleNav()
     this.handleCoverPanels()
@@ -327,11 +333,11 @@ render() {
           handleNav = {this.handleNav}
           homeLink = {this.checkVar(()=> this.props.homeLink, `/?home`)}
           handleCover = {this.handleHomeLink}
-          navCenter = {this.state.navCenter.style}
+          navCenter = {this.state.navCenter}
           name = {this.state.pathname}
           path = {this.state.search}
-          leftClass = {this.state.elements[0].state.active}
-          rightClass = {this.state.elements[1].state.active}
+          leftClass = {this.state.elements[0].active}
+          rightClass = {this.state.elements[1].active}
         />
         <div>
           {
@@ -355,17 +361,10 @@ render() {
           ><div className="underlay-inner"/></div>
 
             <About
-              style ={this.state.elements[0].style}
-              underlay = {this.state.elements[0].underlay}
-              // class = {this.state.elements[0].state.active}
-            
-
+              data ={this.state.elements[0]}
             />
             <Contact
-              style ={this.state.elements[1].style}
-              underlay =  {this.state.elements[1].underlay}
-              // class =  {this.state.elements[1].state.active}
-
+              data ={this.state.elements[1]}
             />
           </div>
           <main style={this.state.mainStyles.style}>

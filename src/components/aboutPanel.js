@@ -37,8 +37,8 @@ export default (props) => (
 
       return(
       <section
-        className="side-panel panel-left about-panel"
-        style={props.style}
+        className={`side-panel panel-left about-panel ${props.data.active}`}
+        style={props.data.style}
         >
         <div className="panel-inner-wrap">
 

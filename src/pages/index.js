@@ -149,7 +149,8 @@ return(
     <Layout
     // pathname={window.location.pathname}
     // search={window.location.search}
-    bodyClass={window.location.search.length > 1 ? '' : 'home'}
+    home={true}
+    bodyClass={'home'}
     homeLink={this.state.homeLink}
     taxonomies={""}
     coverPage={true}
