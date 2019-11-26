@@ -11,8 +11,7 @@ import CoverPage from "./coverPage"
 class Layout extends React.Component{
   state = {
     page :  {
-      home : this.props.home,
-      interacting : false
+      path : `/`,
     },
     bodyClass : "home",
     path : 'home',
@@ -262,7 +261,7 @@ class Layout extends React.Component{
       e.preventDefault()
     }
     let coverPanels = this.state.coverPanels;
-    let page = this.state.page;
+    // let page = this.state.page;
 
 
     if(this.state.coverPanels.active){
@@ -272,7 +271,6 @@ class Layout extends React.Component{
         left : {transform : "translateX(0%)", transition: '.3s'},
         right : {transform : "translateX(0%)", transition: '.3s'}
       }
-      page.interacting = true;
       coverPanels.style.text = {
         color : "#152225", 
         opacity : 0,
@@ -290,22 +288,22 @@ class Layout extends React.Component{
     }
     // console.log("coverPanels")
     this.setState({coverPanels})
-    this.setState({page});
+    // this.setState({page});
   }
   }
   
   componentDidUpdate(){
     const body = document.querySelector("body")
-    if(!this.state.page.interacting){
+    if(this.state.page.path.length < 2){
       body.className = "home";
     } else {
       body.className = ``;
     }
   }
   componentDidMount(){
-    // console.log(window.location.pathname.length)
-    console.log(`window.location.pathname.length`)
-    // console.log(this.state.pathname)
+    let page = this.state.page;
+    page.path = window.location.pathname;
+    this.setState({page},()=>{
     this.handleDims(); 
     this.handleNav()
     this.handleCoverPanels()
@@ -313,14 +311,11 @@ class Layout extends React.Component{
     window.addEventListener('scroll', ()=>{
       if(this.state.coverPanels.active){this.handleCoverPanels()}
     })
-    // document.querySelector(".panel-underlay").addEventListener("scroll", ()=>{
-    //   alert("hi");
-    // })
+    alert("this.state " + this.state.page.path)
+  })
+  // console.log("")
   }
-  componentWillUnmount(){
-    // clearTimeout(this.scrollTimeout)
-  }
- 
+
 render() {
     // console.log(args);
 
