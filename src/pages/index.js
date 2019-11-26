@@ -151,7 +151,7 @@ return(
     // search={window.location.search}
     home={true}
     bodyClass={'home'}
-    homeLink={this.state.homeLink}
+    // homeLink={this.state.homeLink}
     taxonomies={""}
     coverPage={true}
     data={PortfolioGrid()}

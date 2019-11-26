@@ -12,6 +12,7 @@ class Layout extends React.Component{
   state = {
     page :  {
       path : `/`,
+      hash : ``
     },
     bodyClass : "home",
     path : 'home',
@@ -65,14 +66,11 @@ class Layout extends React.Component{
     },
     coverPanels : {
       loaded : this.props.coverPage,
-      active : true,
+      active : false,
       style : {
-        panels : {
-          left : {},
-          right : {},
-        },
+        panels : {},
         textMargin : {},
-        textColor : {}
+        text : {}
       }
     },
     forceTop : {
@@ -99,9 +97,10 @@ class Layout extends React.Component{
     if(this.state.panelsActive){
       e.preventDefault()
       this.handleNav()
-    } else {
+    } else if(this.state.page.path.length < 2) {
       e.preventDefault()
       this.handleCoverPanels()
+    
       // this.setState({bodyClass : "home"})
     }
   } 
@@ -163,7 +162,7 @@ class Layout extends React.Component{
   }
 
   handleNav = (e,key) => {
-    console.log(this.state)
+    // console.log(this.state)
     if(e){
       e.preventDefault()
     }
@@ -254,64 +253,61 @@ class Layout extends React.Component{
 
     })
   }
-  handleCoverPanels = (e) => {
-    console.log(this.state.coverPanels.loaded)
+  handleCoverPanels = (e, init) => {
     if(this.state.coverPanels.loaded){
     if(e){
       e.preventDefault()
     }
     let coverPanels = this.state.coverPanels;
-    // let page = this.state.page;
-
-
+    coverPanels.style.text = {transition: '.3s'}
+    coverPanels.style.panels = {transition: '.3s'}
+    
+    if(!init){
     if(this.state.coverPanels.active){
-      console.log( `0 0  0 0 0 0 `)
-      coverPanels.active = false;
-      coverPanels.style.panels = {
-        left : {transform : "translateX(0%)", transition: '.3s'},
-        right : {transform : "translateX(0%)", transition: '.3s'}
-      }
-      coverPanels.style.text = {
-        color : "#152225", 
-        opacity : 0,
-        transform: 'translateY(30px)'
-      };
-    } else {
-      console.log( `100  100 100 `)
+      console.log(coverPanels);
 
-      coverPanels.active = true;
-      coverPanels.style.panels = {
-        left : {transform : "translateX(100%)", transition: '.3s'},
-        right : {transform : "translateX(-100%)", transition: '.3s'}
+        coverPanels.active = false;
+  
+     } else {
+        coverPanels.active = true;
       }
-      coverPanels.style.text ={color : ""};
     }
-    // console.log("coverPanels")
-    this.setState({coverPanels})
-    // this.setState({page});
-  }
+      this.setState({coverPanels}) 
+    }
   }
   
   componentDidUpdate(){
     const body = document.querySelector("body")
-    if(this.state.page.path.length < 2){
-      body.className = "home";
+    if(this.state.page.path.length < 2 && this.state.page.hash.length <= 0){
+      body.className = `home`
     } else {
-      body.className = ``;
+      body.className = this.props.bodyClass;
     }
   }
   componentDidMount(){
-    let page = this.state.page;
+    let state = this.state;
+    let page = state.page;
     page.path = window.location.pathname;
-    this.setState({page},()=>{
+    page.hash = window.location.hash;
+    console.log(`path`);
+    console.log(page.path);
+    console.log(`hash`);
+    console.log(page.hash);
+
+    // if(this.state.page.path.length < 2 && this.state.page.hash.length > 0){
+    if(page.path.length < 2 && page.hash.length <= 0){
+      state.coverPanels.active = true;
+    } else {
+      state.coverPanels.active = false;
+    }
+    this.setState({state},(e)=>{
     this.handleDims(); 
     this.handleNav()
-    this.handleCoverPanels()
+    this.handleCoverPanels(e, true)
     window.addEventListener('resize', this.handleDims, true);
     window.addEventListener('scroll', ()=>{
       if(this.state.coverPanels.active){this.handleCoverPanels()}
     })
-    alert("this.state " + this.state.page.path)
   })
   // console.log("")
   }
@@ -326,18 +322,18 @@ render() {
       
         <Header
           handleNav = {this.handleNav}
-          homeLink = {this.checkVar(()=> this.props.homeLink, `/?home`)}
+          homeLink = {'/#portfolio'}
           handleCover = {this.handleHomeLink}
           navCenter = {this.state.navCenter}
-          name = {this.state.pathname}
-          path = {this.state.search}
+          // name = {this.state.pathname}
+          // path = {this.state.search}
           leftClass = {this.state.elements[0].active}
           rightClass = {this.state.elements[1].active}
         />
         <div>
           {
           <CoverPage
-          // class = {this.props.pageState.home}
+          data = {this.state.coverPanels}
           load = {this.state.coverPanels.loaded}
           style = {this.state.coverPanels.style}
           handleCoverPanels = {this.handleCoverPanels}

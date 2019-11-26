@@ -136,7 +136,6 @@ $screen__desktop-width: 1440px;
 .home .cover-panels{
     .panel-left{transform: translateX(100%)}
     .panel-right{transform: translateX(-100%)}
-    .name-wrap {opacity: 1}
 }
 .project nav ul .link-home .title-backdrop{
     height: 300%;
@@ -316,6 +315,31 @@ nav{
     width: 100vw;
     // pointer-events: none;
     z-index: 1000;
+
+    &.true{
+        .name-wrap {
+            opacity: 1;
+            span{
+                opacity: 1;
+            }
+        }
+        .panel-left{
+            transform : translateX(100%);
+        }
+        .panel-right{
+            transform : translateX(-100%);
+        }
+    }
+    &.false{
+        .name-wrap span{
+        color : #152225; 
+        opacity : 0;
+        transform: translateY(30px);
+        }
+        .panel{
+                transform : translateX(0%);
+        }
+    }
 
     .name-wrap{
         pointer-events: none;
