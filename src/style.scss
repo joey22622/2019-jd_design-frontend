@@ -496,16 +496,38 @@ nav{
     border-top: solid 1px rgba(255,255,255,.05);
     border-bottom: solid 1px rgba(255,255,255,.05);
     padding: 1.2rem;
-    a:first-child{
+    div{
+        margin: 8px 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+    }
+    div:first-child a{
         letter-spacing: .3rem;
     }
     a{
-        display: block;
+        display: inline-block;
         text-align: center;
-        margin: 5px;
+        // margin: 5px;
+        min-width: 55%;
+        box-shadow: 0 0 25px black;
         padding: .5rem 1rem;
+        color: rgba(255,255,255,.5);
         // background: rgba(0,0,0,.1)
+        border-left: solid 3px rgba(0,0,0,.1);
+        border-right: solid 3px rgba(0,0,0,.1);
+        transition: .2s;
+        &:hover{
+            box-shadow: 0 0 45px white;
+            border-left: solid 3px rgba(255,255,255,1);
+            border-right: solid 3px rgba(255,255,255,1);
+            color: rgba(255,255,255,1)
+
+
+        }
+
     }
+    
 }
 .social-row {
     margin: 2rem 0;
@@ -527,50 +549,65 @@ nav{
             width: 100px;
             border-radius: 0px;
             // border: solid 3px rgba(255,255,255,0);
-            transition: border-radius .2s,box-shadow .1s;
+            // transition: border-radius .2s,box-shadow .1s;
             // transition: box-shadow .1s;
-            overflow: hidden;
-            box-shadow: 1px 1px 6px rgba(0,0,0,.8);
-
+            // overflow: hidden;
+            // box-shadow: 1px 1px 6px rgba(0,0,0,.8);
+            i{
+                font-size: 94px;
+                margin: 3px;
+                color: rgba(255,255,255,.3);
+                // text-shadow: 0px 0px 5px white;
+                border-radius: 50px;
+                display: block;  
+                overflow: hidden;   
+                z-index: 1;
+                position: relative;
+                transition: .1s;
+            }
+            a{
+                display: block;
+                margin: 0;
+            }
             .social-underlay{
-                height: 100%;
-                width: 100%;
+                height: 90px;
+                width: 90px;
                 position: absolute;
                 // background: green;
+                top: 0;
                 opacity: 0;
-                border-radius: 50px;
+                margin: 3px;
+                border-radius: 50%;
+                z-index: 0;
+                border: solid 2px rgba(255,255,255,1);
             }
             &:hover{
-                border-radius: 50px;
+                // border-radius: 50px;
                 // border: solid 3px rgba(255,255,255,1);
+                i{
+                    color: rgba(0,5,8,.5);
+                    color: rgba(255,255,255,.8);
 
+                }
                 &.git{
                     
                 }
-                &.drib{
-                    box-shadow: 0px 0px 8px #ea4c89;
+                &.drib .social-underlay{
+                    box-shadow: 0px 0px 28px #ea4c89;
                 }
-                &.in{
-                    box-shadow: 0px 0px 8px #0072b1;
+                &.in .social-underlay{
+                    box-shadow: 0px 0px 28px #0072b1;
                 }
-                &.be{
-                    box-shadow: 0px 0px 8px #053eff;
+                &.be .social-underlay{
+                    box-shadow: 0px 0px 28px #053eff;
                 }
-                box-shadow: 0px 0px 8px white;
-                transition: box-shadow .5s;
+                // transition: text-shadow .5s;
 
 
                 .social-underlay{
                     opacity: 1;
-                    // transition: .5s;
+                    box-shadow: 0px 0px 28px white;
 
-                }
-                svg {
-                    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0));
-                    * {
-                    fill: rgba(0,0,0,.8);
-                    stroke-width: 0px;
-                    }
                 }
             }
         }
@@ -578,22 +615,6 @@ nav{
         .drib div{background: #ea4c89}
         .in div{background: #0072b1}
         .be div{background: #053eff}
-        a{
-            display: block;
-            margin: 0;
-            svg{
-                height: 100%;
-                width: 100%;
-                filter: drop-shadow(2px 2px 3px rgba(0,0,0,.6));
-
-                *{
-                    fill: rgba(25, 38, 41, 1);
-                    stroke: rgba(255,255,255,.3);
-                    stroke-width: 2px;
-                    transition: .2s;
-                }
-            }
-        }
     }
 }
 //==========PROJECT INDEX================
