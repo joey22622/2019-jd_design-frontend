@@ -10,7 +10,7 @@ export default (props) => (
         edges {
           node {
             title
-            _rawBio
+            bio
             portrait {
               _key
               _type
@@ -33,7 +33,7 @@ export default (props) => (
      `}
     render={data => {
         const profile = data.allSanityProfile.edges[0].node;
-        const bio = profile._rawBio.split('\n');
+        const bio = profile.bio.split('\n');
 
       return(
       <section

@@ -67,9 +67,7 @@ class Project extends React.Component{
     },
   }
   
-  componentDidUpdate(){
-   
-  }
+
   
   toggleSlider = (index) => {
     if(!index){
@@ -85,12 +83,11 @@ class Project extends React.Component{
     } else {
       imageSlider.style.current = imageSlider.style.inactive;
     }
-    console.log("hi there")
-    console.log(imageSlider)
     this.setState({imageSlider})
   }
   
   componentDidMount(){
+    console.log(this.state.data)
     this.buildSlidesArr()
     window.addEventListener("resize",()=>{
       this.handleDims()
@@ -135,22 +132,47 @@ class Project extends React.Component{
       })
     }
   }
+  toggleGIF = (i) => {
+    let slides = this.state.slides;
+    if(slides[i].remote === slides[i].src){
+      slides[i].src = slides[i].remoteStatic
+    } else {
+       slides[i].src = slides[i].remote
+    }
+    this.setState({slides});
+  }
   buildSlidesArr = () => {
     let slides = this.state.slides;
     let slide = {}
-    slide.fluid = this.state.data.imgImage.local.asset.fluid;
     slide.index = 0;
+    slide.gif = false
+    if(this.state.data.imgImage.remote){
+      slide.remote = this.state.data.imgImage.remote
+      slide.remoteStatic = this.state.data.imgImage.remoteStatic
+      slide.src = this.state.data.imgImage.remoteStatic
+      slide.gif = true
+    } else {
+    }
+    slide.fluid = this.state.data.imgImage.local.asset.fluid;
     // slide.active = false;
     slides.push(slide);
     if(this.state.data.imgGallery.length > 0){
       this.state.data.imgGallery.map((image, i)=>{
         let slide = {}
         slide.index = i + 1
-        slide.fluid = image.local.asset.fluid
+        slide.gif = false
+        if(image.remote){
+          slide.remote = image.remote
+          slide.remoteStatic = image.remoteStatic
+          slide.src = this.state.data.imgImage.remoteStatic
+          slide.gif = true
+        } else {
+          }
+          slide.fluid = image.local.asset.fluid
         slides.push(slide)
       })
     }
-    console.log(slides);
+    console.log();
     this.setState({slides},()=>{
       this.handleDims()
     })
@@ -198,7 +220,7 @@ render() {
   const link =  this.checkVar(()=> this.state.data.exLink.url,false);
   const title = this.checkVar(()=> this.state.data.exLink.title, `Visit Website`);
   const exLink = link ? (<a href={link} target="blank" title={title}>{title}</a>) : ``
-  const bodyData = this.checkVar(()=> this.state.data._rawBody.split('\n'), false);
+  const bodyData = this.checkVar(()=> this.state.data.body.split('\n'), false);
   const body = () => {
     if(bodyData){
       return(
@@ -234,8 +256,15 @@ render() {
           <div className="project-left">
             <div className="photo-grid-wrap">
               <div className="photo-grid-inner">
-                <div onClick={()=>{this.toggleSlider(0)}}  onMouseOver={()=>this.changeSlides(0)} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
+                <div onClick={()=>{this.toggleSlider(0)}}  onMouseOver={()=>{this.changeSlides(0); this.toggleGIF(0)}} onMouseOut={()=>{this.toggleGIF(0)}} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
+                  {this.state.slides.length > 0 ?
+                  this.state.slides[0].gif ?
+                  (<div><img src={this.state.slides[0].src}/></div>)
+                  :
                   <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
+                  :
+                  (<img src=""/>)
+                  }
                 </div>
                 <PhotoGrid
                   toggle = {this.toggleSlider}

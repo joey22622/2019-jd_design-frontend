@@ -65,7 +65,12 @@ import SEO from "../components/seo"
     <StaticQuery
     query={graphql`
       {
-        allSanityProject {
+        allSanityProject (
+          sort: {
+        fields: [publishedAt]
+        order: ASC
+      }
+      ){
           edges {
             node {
               imgImage {
@@ -105,6 +110,7 @@ import SEO from "../components/seo"
   
      render={data => {
        const query = data.allSanityProject.edges
+       console.log(data)
        
        const PortfolioGrid = () => {
         return(
@@ -124,8 +130,6 @@ import SEO from "../components/seo"
 
               <div className="project-link-outer">
                 <div className="project-link-inner">
-                {/* {node.imgImage.local.asset.url} */}
-                  {/* <img src={img} alt="" className="project-thumbnail"/> */}
                   <Image key={i} className="project-thumbnail" fluid={img}/>
                   <div className="text-wrap-outer">
                     <div className="text-wrap-inner">

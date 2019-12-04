@@ -14,7 +14,7 @@ export const query = graphql`
           client {
             title
           }
-          _rawBody
+          body
           exLink{
             title
             url
@@ -28,6 +28,8 @@ export const query = graphql`
                 }
               }
             }
+            remote
+            remoteStatic
           }
           imgGallery{
             _key
@@ -38,6 +40,8 @@ export const query = graphql`
                 }
               }
             }
+            remote
+            remoteStatic
           }
         }
       }   

@@ -785,9 +785,11 @@ main{
 
 .project-wrap-outer{
     // width: 100vw;
-    // height: 100%;
+    height: 100%;
+    display: flex;
     // background: green;
-    padding: 2rem; 
+    justify-content: center;
+
     background: rgba(21, 34, 37, .8);
     background: rgba(11, 18, 21, .9);
 
@@ -797,6 +799,9 @@ main{
         background: white;
         display: flex;
         padding: 1rem;
+        margin: 2rem; 
+        max-width: 1300px;
+
     }
     .project-left,
     .project-right{

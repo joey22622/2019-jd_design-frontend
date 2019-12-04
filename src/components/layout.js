@@ -61,7 +61,8 @@ class Layout extends React.Component{
     },
     mainStyles :{
       style : {
-        paddingTop: 100
+        paddingTop: `50px`,
+        minHeight: `100vh`
       }
     },
     coverPanels : {
@@ -145,7 +146,10 @@ class Layout extends React.Component{
   }  
   loadMainStyles = () => {
     let mainStyles = this.state.mainStyles;
-    mainStyles.style = {paddingTop : this.state.dimmensions.head}
+    mainStyles.style = {
+      paddingTop : this.state.dimmensions.head,
+      minHeight : this.state.dimmensions.window.h - this.state.dimmensions.head
+    }
     this.setState({mainStyles})
   }
 
@@ -217,7 +221,7 @@ class Layout extends React.Component{
         },
         panel,
         brand,
-        head
+        head 
       }
     }, () => {
         this.loadPanelStyles()
