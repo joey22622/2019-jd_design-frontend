@@ -40,7 +40,14 @@ const ImageSlider = (props) => {
           {props.slides.map((photo, i )=>(
             <div key={i} data-index={i} className="project-slide-wrap">
             <div className="slide-wrap-inner">
-              <Image fluid={photo.fluid}></Image> 
+              {/* <Image fluid={photo.fluid}></Image>  */}
+              {
+                photo.gif ?
+                (<div><img src={photo.remote}/></div>)
+                :
+                  <Image fluid={photo.fluid}/>
+                }
+
             </div>
         </div>
 

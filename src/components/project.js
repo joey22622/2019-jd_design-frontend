@@ -133,6 +133,8 @@ class Project extends React.Component{
     }
   }
   toggleGIF = (i) => {
+    // alert("hi");
+    // alert("index " + i)
     let slides = this.state.slides;
     if(slides[i].remote === slides[i].src){
       slides[i].src = slides[i].remoteStatic
@@ -268,6 +270,7 @@ render() {
                 </div>
                 <PhotoGrid
                   toggle = {this.toggleSlider}
+                  toggleGIF = {this.toggleGIF}
                   photoGridData = {this.checkVar(()=> this.state.slides,[])}
                   changeSlides = {this.changeSlides}
                   style = {this.state.thumbnail.style}
