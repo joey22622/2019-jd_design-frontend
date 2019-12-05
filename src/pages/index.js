@@ -83,6 +83,9 @@ import SEO from "../components/seo"
                     }
                   }
                 }
+                title
+                remote
+                remoteStatic
               }
               imgGallery {
                 _key
@@ -118,19 +121,34 @@ import SEO from "../components/seo"
 
           {query.map((item, i)=>{
             // const img  = item.node.imgImage ? item.node.imgImage.local.asset.url : ``;
-            const img  = item.node.imgImage.local.asset.fluid ? item.node.imgImage.local.asset.fluid : ``;
-
+            const photo = {}
+            const elem = item.node.imgImage
+            let gif = false
             
-            // console.log(img2.local)
-
-            // thumbnail component will go here
+            if(elem.remote){
+              photo.remote = this.checkVar(()=> elem.remote, `#`)
+              photo.remoteStatic = this.checkVar(()=> elem.remoteStatic, `#`)
+              photo.src = this.checkVar(()=> elem.remoteStatic, `#`)
+              gif = true;
+            } else {
+              photo.fluid = elem.local.asset.fluid;
+            }
+            photo.title = this.checkVar(()=> elem.title, false);
           return(
             <li className="project-link" key={item.node.id} style={this.state.thumbnail.style}>
               <Link to={`/${item.node.slug.current}`}>
 
               <div className="project-link-outer">
                 <div className="project-link-inner">
-                  <Image key={i} className="project-thumbnail" fluid={img}/>
+                  {
+                  gif ?
+                  (<div className="project-thumbnail" ><img src={photo.src}/></div>)
+                  :
+                  // <Image fluid={this.state.data.imgImage.local.asset.fluid} alt={this.state.slides[0].title}/>
+                  <Image key={i} className="project-thumbnail" fluid={photo.fluid}/>
+
+                  }
+                  {/* <Image key={i} className="project-thumbnail" fluid={img}/> */}
                   <div className="text-wrap-outer">
                     <div className="text-wrap-inner">
                       <p className="project-text">

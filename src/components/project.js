@@ -118,7 +118,7 @@ class Project extends React.Component{
       return b
     }
   }
-
+  
   handleDims = () =>{
     let dimmensions = this.state.dimmensions;
     const thumb = this.checkVar(()=> document.querySelector(".photo-grid .slide-wrap"),false)
@@ -143,38 +143,37 @@ class Project extends React.Component{
     }
     this.setState({slides});
   }
-  buildSlidesArr = () => {
-    let slides = this.state.slides;
+  buildPushSlide = (arr, elem, i) => {
     let slide = {}
-    slide.index = 0;
+    slide.index = i;
     slide.gif = false
-    if(this.state.data.imgImage.remote){
-      slide.remote = this.state.data.imgImage.remote
-      slide.remoteStatic = this.state.data.imgImage.remoteStatic
-      slide.src = this.state.data.imgImage.remoteStatic
+    if(elem.remote){
+      slide.remote = this.checkVar(()=> elem.remote, `#`)
+      slide.remoteStatic = this.checkVar(()=> elem.remoteStatic, `#`)
+      slide.src = this.checkVar(()=> elem.remoteStatic, `#`)
       slide.gif = true
     } else {
+      slide.fluid = elem.local.asset.fluid;
     }
-    slide.fluid = this.state.data.imgImage.local.asset.fluid;
-    // slide.active = false;
-    slides.push(slide);
+    slide.title = this.checkVar(()=> elem.title, false);
+    slide.caption = this.checkVar(()=> elem.caption, false);
+    slide.exLink = this.checkVar(()=> elem.exLink, false);
+    slide.linkTitle = this.checkVar(()=> elem.linkTitle, slide.exLink);
+    arr.push(slide);
+  }
+
+  buildSlidesArr = () => {
+    let slides = this.state.slides;
+    this.buildPushSlide(slides,this.state.data.imgImage,0);
+
     if(this.state.data.imgGallery.length > 0){
       this.state.data.imgGallery.map((image, i)=>{
-        let slide = {}
-        slide.index = i + 1
-        slide.gif = false
-        if(image.remote){
-          slide.remote = image.remote
-          slide.remoteStatic = image.remoteStatic
-          slide.src = this.state.data.imgImage.remoteStatic
-          slide.gif = true
-        } else {
-          }
-          slide.fluid = image.local.asset.fluid
-        slides.push(slide)
+        let j = i + 1;
+        this.buildPushSlide(slides,image,j)
+
       })
     }
-    console.log();
+    console.log(slides);
     this.setState({slides},()=>{
       this.handleDims()
     })
@@ -263,9 +262,9 @@ render() {
                   this.state.slides[0].gif ?
                   (<div><img src={this.state.slides[0].src}/></div>)
                   :
-                  <Image fluid={this.state.data.imgImage.local.asset.fluid}/>
+                  <Image fluid={this.state.data.imgImage.local.asset.fluid} alt={this.state.slides[0].title}/>
                   :
-                  (<img src=""/>)
+                  (<img src="" alt={this.state.slides[0].title}/>)
                   }
                 </div>
                 <PhotoGrid

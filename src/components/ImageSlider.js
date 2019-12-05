@@ -43,10 +43,34 @@ const ImageSlider = (props) => {
               {/* <Image fluid={photo.fluid}></Image>  */}
               {
                 photo.gif ?
-                (<div><img src={photo.remote}/></div>)
+                (<div className="gif-wrap"><img src={photo.remote}/></div>)
                 :
-                  <Image fluid={photo.fluid}/>
-                }
+                  <Image fluid={photo.fluid}/>              
+              }
+              {
+                photo.caption || photo.exLink ?
+                <div className="text-box">
+                   {
+                  photo.exLink ?
+                    <div className="link-wrap">
+                      <a href={photo.exLink} target="_blank">{photo.linkTitle}</a>
+                    </div>
+                    :
+                    <div className="link-wrap empty"/>
+                  }
+                  {
+                  photo.caption ?
+                    <div className="caption-wrap">
+                      <p>{photo.caption}</p>
+                    </div>
+                    :
+                    <div className="caption-wrap empty"/>
+                  }
+                </div>
+                :
+                <div className="text-box empty"/>
+              }
+
 
             </div>
         </div>

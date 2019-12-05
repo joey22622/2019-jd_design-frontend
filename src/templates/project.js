@@ -28,8 +28,12 @@ export const query = graphql`
                 }
               }
             }
+            title
+            caption
             remote
             remoteStatic
+            exLink
+            linkTitle
           }
           imgGallery{
             _key
@@ -40,8 +44,12 @@ export const query = graphql`
                 }
               }
             }
+            title
+            caption
             remote
             remoteStatic
+            exLink
+            linkTitle
           }
         }
       }   

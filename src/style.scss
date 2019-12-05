@@ -799,23 +799,35 @@ main{
         background: white;
         display: flex;
         padding: 1rem;
-        margin: 2rem; 
+        margin: .5rem; 
         max-width: 1300px;
+        flex-direction: column;
+        @media only screen and (min-width: $screen__tablet-width){
+            flex-direction: row;
+            margin: 2rem; 
+            padding: .5rem;
 
+        }  
     }
     .project-left,
     .project-right{
         flex-grow: 1;
+        @media only screen and (min-width: $screen__tablet-width){
         width: 50%;
+        }
     }
     .project-left{
-        // background: green;
-        margin-right: .5rem;
+        @media only screen and (min-width: $screen__tablet-width){
+            margin-right: .5rem;
+        }
+
     }
     .project-right{
         // background: teal;
         background: rgba(0,5,7,.03);
-        margin-left: .5rem;
+        @media only screen and (min-width: $screen__tablet-width){
+            margin-left: .5rem;
+        }
 
         .project-right-inner{
             // margin: 1rem;
@@ -846,6 +858,7 @@ main{
         .project-body{
             p{
                 font-size: .9rem;
+                text-align: justify;
             }
         }
     }
@@ -892,10 +905,13 @@ main{
 }
 .photo-grid{
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(1,1fr);
     grid-gap: 6px;
     // margin: 0 4px;
-    
+    @media only screen and (min-width: $screen__tablet-width){
+        grid-template-columns: repeat(2,1fr);
+
+    }
     img{
         object-fit: cover;
         height: 100%;
@@ -917,7 +933,7 @@ main{
         pointer-events: none;
     }
     .slider-underlay{
-        background: rgba(11, 18, 21, .8);
+        background: rgba(11, 18, 21, .9);
         height: 100vh;
         width: 100vw;
         top: 0;
@@ -939,8 +955,12 @@ main{
         height: 100vh;
         width: 100vw;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         justify-content: space-between;
+        z-index: 1000;
+        @media only screen and (min-width: $screen__tablet-width){
+            align-items: center;
+        }
         // transition: transform 300ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
         button{
             transition: .2s;
@@ -949,13 +969,17 @@ main{
             border: none;
             display: flex;
             align-items: center;
-            height: 20vh;
+            height: 80px;
             max-height: 200px;
-            width: 15vw;
+            width: 50vw;
             max-width: 200px;
             // width: 160px;
             cursor: pointer;
             outline: none;
+            @media only screen and (min-width: $screen__tablet-width){
+                width: 15vw;
+                height: 20vh;
+            }
             svg{
                 transition: .2s;
                 width: 40px;
@@ -1002,7 +1026,7 @@ main{
                     }
                 }
                 .arrow-streak{
-                    width: 200px;
+                    width: 100px;
                     transition: .3s;
                     opacity: 1;
                     transform: scaleY(.1);
@@ -1071,37 +1095,120 @@ main{
         height: 100vh;
         width: 100vw; 
         overflow: hidden;
-        margin: 2px;
+        box-sizing: border-box;
+        // padding: 4rem 10rem;
         flex: 1;
-        // background: teal;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        // *{
-            // margin: 1rem;
-            // background: yellow;
-            // height: 100%;
-            // width: 100%;
+        @media only screen and (min-width: $screen__tablet-width){
+            padding: 4rem 10rem;
+
+        }
+        
             .slide-wrap-inner{
-                position: relative;
-                &::before{
-                    position: absolute;
-                    content: '';
-                    height: 100%;
-                    width: 100%;
-                    border: solid white 8px;
-                    top: -8px;
-                    left: -8px;
-                    box-shadow: inset 2px 2px 8px rgba(0,0,0,.5);
-                    z-index: 1;
+                height: 100%; width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+
+                // &::before{
+                //     position: absolute;
+                //     content: '';
+                //     height: 100%;
+                //     width: 100%;
+                //     border: solid white 8px;
+                //     top: -8px;
+                //     left: -8px;
+                //     box-shadow: inset 2px 2px 8px rgba(0,0,0,.5);
+                //     z-index: 1;
+                // }
+                // border: solid white 5px;
+                // box-shadow: 2px 2px 18px rgba(0,0,0,.8);
+                img{
+                    object-fit: contain;
                 }
-                border: solid white 5px;
-                box-shadow: 2px 2px 18px rgba(0,0,0,.8);
+                .text-box{
+                    // height: 1000px
+                    // flex-grow: 2;
+                    width: 100%;
+                    // background: rgba(0,0,0,.2);
+                    // pointer-events: all;
+                    color: white;
+                    text-align: center;
+                    text-shadow: 1px 1px 4px black;
+                    // padding: 1rem;
+                    padding-bottom: 0;
+
+                    @media only screen and (min-width: $screen__tablet-width){
+                        padding: 1rem;
+                    }
+                    
+                    
+                    .link-wrap{
+                        a{
+                            pointer-events: all;
+                            display: inline-block;
+                            background: black;
+                            // margin: 1rem;
+                            color: white;
+                            text-transform: uppercase;
+                            padding: .5rem 2rem;
+                            font-weight: 400;
+                            background: rgba(0,0,0,.3);
+                            transition: .5s;
+                            border-top: solid 1px rgba(255,255,255,0);
+                            border-bottom: solid 1px rgba(255,255,255,0);
+                            font-size: .8rem;
+                            letter-spacing: .1rem;
+
+                            &:hover{
+                                letter-spacing: .5rem;
+                                transition: .3s;
+                                background: rgba(0,0,0,.1);
+                                // color: rgba(255,255,255,.4);
+                                font-weight: 100;
+                                text-shadow: 1px 3px 5px black;
+                                border-top: solid 1px white;
+                                border-bottom: solid 1px white;
+
+                            }
+                        }
+                    }
+                    p{
+                        margin: 1rem 2rem;
+                        font-size: .9rem;
+                        line-height: 1.6;
+                        pointer-events: all;
+                        display: none;
+
+                        @media only screen and (min-width: $screen__tablet-width){
+                            display: block;
+                        }
+                        
+                    }
+                    &.empty{
+                        display: none;
+                    }
+                }
             }
-            .gatsby-image-wrapper{
-                pointer-events: all;
-                height: 400px;
-                width: 400px;
+            
+            .gatsby-image-wrapper,
+            .gif-wrap{
+                
+                flex-grow: 1;
+                position: relative;
+               
+                img{
+                    display: block;
+                    position: absolute;
+                    width: 100%;
+                    // height: 100%;
+                    // width: 100%;
+                    max-height: 100%;
+                    max-width: 100%;
+                    box-sizing: border-box;
+                    object-fit: contain !important;
+                    // border: solid white 5px;
+                }
             }
         // }
     }
