@@ -220,7 +220,7 @@ render() {
 
   const link =  this.checkVar(()=> this.state.data.exLink.url,false);
   const title = this.checkVar(()=> this.state.data.exLink.title, `Visit Website`);
-  const exLink = link ? (<a href={link} target="blank" title={title}>{title}</a>) : ``
+  const exLink = link ? (<a href={link} target="_blank" rel="noopener noreferrer" title={title}>{title}</a>) : ``
   const bodyData = this.checkVar(()=> this.state.data.body.split('\n'), false);
   const body = () => {
     if(bodyData){
@@ -239,8 +239,11 @@ render() {
   
 
 
+
     return ( 
       <div className="project-wrap-outer">
+        {this.state.slides.length &&
+
         <ImageSlider
           // properties = {this.state.imageSlider}
           active={this.state.slider}
@@ -253,20 +256,22 @@ render() {
           arrowClasses = {this.state.imageSlider.arrowClasses}
           checkVar = {this.checkVar}
         />
+        }
         <div className="project-wrap-inner">
           <div className="project-left">
             <div className="photo-grid-wrap">
               <div className="photo-grid-inner">
+              {this.state.slides.length > 0 &&
                 <div onClick={()=>{this.toggleSlider(0)}}  onMouseOver={()=>{this.changeSlides(0); this.toggleGIF(0)}} onMouseOut={()=>{this.toggleGIF(0)}} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
-                  {this.state.slides.length > 0 ?
+                  {
                   this.state.slides[0].gif ?
-                  (<div><img src={this.state.slides[0].src}/></div>)
+                  <div><img src={this.state.slides[0].src}/></div>
                   :
                   <Image fluid={this.state.data.imgImage.local.asset.fluid} alt={this.state.slides[0].title}/>
-                  :
-                  (<img src="" alt={this.state.slides[0].title}/>)
+                  
                   }
                 </div>
+                  }                  
                 <PhotoGrid
                   toggle = {this.toggleSlider}
                   toggleGIF = {this.toggleGIF}
