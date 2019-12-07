@@ -65,10 +65,18 @@ class Project extends React.Component{
     thumbnail : {
       style : {}
     },
+    socialLinks : {}
   }
   
-
   
+  buildSocialArr = () => {
+    const socialLinks = this.state.socialLinks;
+    const data = this.props.data.sanityProject.projectSocial;
+    socialLinks.behance = this.checkVar(()=> data.urlBehance, false)
+    socialLinks.dribbble = this.checkVar(()=> data.urlDribbble, false)
+    socialLinks.github = this.checkVar(()=> data.urlGithub, false)
+    this.setState({socialLinks},console.log(this.state.socialLinks))
+  }
   toggleSlider = (index) => {
     if(!index){
       index = 0
@@ -88,6 +96,7 @@ class Project extends React.Component{
   
   componentDidMount(){
     console.log(this.state.data)
+    this.buildSocialArr()
     this.buildSlidesArr()
     window.addEventListener("resize",()=>{
       this.handleDims()
@@ -287,14 +296,50 @@ render() {
           <div className="project-right">
             <div className="project-right-inner">
               <div className="project-head">
-                <h1><span className="project-type">{this.state.data.projectType.title}</span> {this.state.data.title}</h1>
+                <h1><span className="project-type">{this.state.data.projectType.title}</span> <span className="project-name">{this.state.data.title}</span></h1>
                 <p className="project-client"><label>Client</label> {this.state.data.client.title}</p>
+                <ul className="project-tags">
+                  {
+                    this.state.data.tags.length > 0 && this.state.data.tags.map((elem, i)=>(
+                    <li key={elem._id} className="project-tag">{`${elem.title}${i < this.state.data.tags.length-1 ? `, ` : ``}`}</li>)
+                    )}
+                </ul>
                 {exLink}
               </div>
               <div className="project-body-wrap">
               {body()}
               </div>
+              <div className="project-social-wrap">
+                <div className="social-inner-wrap">
+                  {this.state.socialLinks.github && 
+                  <div className="social-icon git-icon">
+                    <a href={this.state.socialLinks.github} rel="noopener noreferrer" target="_blank" title="GitHub Repository" className="social-link">
+                    <i className="icon-social_github"i/>
+                    </a>
+                  </div>}
+                  {this.state.socialLinks.dribbble && 
+                  <div className="social-icon drib-icon">
+                    <a href={this.state.socialLinks.dribbble} rel="noopener noreferrer" target="_blank" title="Dribbble Post" className="social-link">
+                    <i className="icon-social_dribbble"i/>
+                    </a>
+                  </div>}
+                  {this.state.socialLinks.behance && 
+                  <div className="social-icon be-icon">
+                    <a href={this.state.socialLinks.behance} rel="noopener noreferrer" target="_blank" title="Behance Post" className="social-link">
+                    <i className="icon-social_behance"i/>
+                    </a>
+                  </div>}
+                </div>
+              </div>
               <div className="tech">
+                <label>Tech</label>
+              <ul className="tech-list">
+                  {
+                    this.state.data.tech.length > 0 && this.state.data.tech.map((elem, i)=>(
+                    <li className="tech-list-item">{`${elem.title}${i < this.state.data.tech.length-1 ? `, ` : ``}`}</li>
+                    ))
+                  }
+              </ul>
 
               </div>
             </div>

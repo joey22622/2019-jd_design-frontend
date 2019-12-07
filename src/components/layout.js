@@ -84,6 +84,9 @@ class Layout extends React.Component{
     timeouts : {
       scroll : null 
     },
+    homeHover : {
+      hoverClass : false
+    }
   }
 
   checkVar = (a, b) => {
@@ -93,7 +96,12 @@ class Layout extends React.Component{
       return b
     }
   }
-  
+  handleHomeHover = (bool) => {
+    let homeHover = this.state.homeHover;
+    homeHover.hoverClass = bool;
+    console.log(this.state.homeHover);
+    this.setState({homeHover});
+  }
   handleHomeLink = (e) => {
     if(this.state.panelsActive){
       e.preventDefault()
@@ -296,10 +304,8 @@ class Layout extends React.Component{
     let page = state.page;
     page.path = window.location.pathname;
     page.hash = window.location.hash;
-    console.log(`path`);
-    console.log(page.path);
-    console.log(`hash`);
-    console.log(page.hash);
+    this.handleHomeHover(false)
+    
 
     // if(this.state.page.path.length < 2 && this.state.page.hash.length > 0){
     if(page.path.length < 2 && page.hash.length <= 0){
@@ -332,10 +338,12 @@ render() {
           homeLink = {'/#portfolio'}
           handleCover = {this.handleHomeLink}
           navCenter = {this.state.navCenter}
+          handleHomeHover = {this.handleHomeHover}
           // name = {this.state.pathname}
           // path = {this.state.search}
           leftClass = {this.state.elements[0].active}
           rightClass = {this.state.elements[1].active}
+          hovered = {this.state.homeHover.hoverClass}
         />
         <div>
           {

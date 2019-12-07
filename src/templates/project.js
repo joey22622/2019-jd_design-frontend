@@ -51,6 +51,19 @@ export const query = graphql`
             exLink
             linkTitle
           }
+          projectSocial{
+            urlGithub
+            urlDribbble
+            urlBehance
+          }
+          tags{
+            id
+            title
+          }
+          tech{
+            id
+            title
+          }
         }
       }   
   `

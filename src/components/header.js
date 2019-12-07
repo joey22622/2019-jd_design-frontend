@@ -28,9 +28,9 @@ export default (props) => (
               <Link to={props.homeLink} onClick={(e)=>{props.handleCover(e)}}>
               </Link>      
               </div> */}
-              <div className="title-wrap">
+              <div className={`title-wrap hovered-${props.hovered}`}>
               {/* <a onClick={(e)=>{props.handleCover(e)}} href="/"> */}
-              <Link to={props.homeLink} onClick={(e)=>{props.handleCover(e)}}>
+              <Link className={`hovered-${props.hovered}`} to={props.homeLink} onMouseEnter={()=>{props.handleHomeHover(true)}} onMouseLeave={()=>{props.handleHomeHover(false)}} onClick={(e)=>{props.handleCover(e)}}>
                   <span className="title-1">{title[0]}{props.name} {title[1]}</span>            
                   <span className="title-2">{title[2]}{props.path}</span>
                   <i className="icon-logo"/>
