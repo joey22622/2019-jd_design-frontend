@@ -53,9 +53,7 @@ import PortfolioGrid from "../components/portfolioGrid"
         height : this.state.dimmensions.thumbnail.w
       }
       this.setState({thumb})
-      // console.log("wtoh")
-      // return style
-      // console.log(this.state)
+
     }
 
 
@@ -130,6 +128,8 @@ return(
       <PortfolioGrid
       data = {this.state}
       query = {query}
+      wToH = {this.wToH}
+      handleDims = {this.handleDims}
       />
     }
     coverPage={true}

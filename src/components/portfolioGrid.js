@@ -4,7 +4,9 @@ import {Link} from 'gatsby'
 
 class PortfolioGrid extends React.Component {
     state ={
-        thumbnails : []
+        thumbnails : [],
+        oldLength : 0,
+        newLength : 0
     }
     componentDidMount() {
         this.buildThumbArr()
@@ -45,7 +47,7 @@ class PortfolioGrid extends React.Component {
                 thumb.client = this.checkVar(()=> elem.node.client.title, ``)
                 thumbnails.push(thumb);  
             })
-            this.setState({thumbnails})
+            this.setState({thumbnails},this.props.handleDims);
         }
     }
     checkVar = (a, b) => {  
