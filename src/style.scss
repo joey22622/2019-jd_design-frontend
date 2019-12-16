@@ -783,6 +783,7 @@ nav{
             .project-link-inner{
                 height: 100%;
                 width: 100%;
+                background: rgba(0,5,10,.9);
                 &::before{
                     content: '';
                     position: absolute;
@@ -1042,6 +1043,7 @@ main{
     // padding: 1rem;
     .slide-wrap{
         position: relative;
+        background: rgba(0,5,10,.9);
         &::before{
             content: '';
             position: absolute;
