@@ -86,6 +86,20 @@ import PortfolioGrid from "../components/portfolioGrid"
                 remote
                 remoteStatic
               }
+              imgThumb {
+                _key
+                _type
+                local {
+                  asset {
+                    fluid{
+                      ...GatsbySanityImageFluid
+                    }
+                  }
+                }
+                title
+                remote
+                remoteStatic
+              }
               imgGallery {
                 _key
                 _type

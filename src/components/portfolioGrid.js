@@ -27,18 +27,21 @@ class PortfolioGrid extends React.Component {
 
         if(this.props.query){
             this.props.query.map((elem, i) => {
-                let image = elem.node.imgImage;
                 let thumb = {};
-                console.log(elem)
+                const image = this.checkVar(()=> elem.node.imgThumb, false)
+                const remote = this.checkVar(()=> image.remote, false)
+                console.log(image)
                 thumb.index = i;
                 thumb.gif = false;
-                if(image.remote){
+                thumb.fluid = this.checkVar(()=> image.local.asset.fluid, false)
+
+                if(remote){
                     thumb.gif = true;
                     thumb.remote = this.checkVar(()=> image.remote, `#`)
                     thumb.remoteStatic = this.checkVar(()=> image.remoteStatic, `#`)
                     thumb.src = this.checkVar(()=> image.remoteStatic, `#`)
                 } else {
-                    thumb.fluid = image.local.asset.fluid;
+                  thumb.src = ``
                 }
 
                 thumb.slug = this.checkVar(()=> elem.node.slug.current, `#`)
@@ -63,7 +66,6 @@ class PortfolioGrid extends React.Component {
       <ul className="project-index">
 
       {this.state.thumbnails.length > 0 && this.state.thumbnails.map((item, i)=>(
-        // const img  = item.node.imgImage ? item.node.imgImage.local.asset.url : ``;
         <li className="project-link" key={item.index} style={this.props.data.thumbnail.style}>
           <Link to={`/${item.slug}`}>
 
@@ -73,11 +75,8 @@ class PortfolioGrid extends React.Component {
               item.gif ?
               (<div className="project-thumbnail" onMouseOver={()=>{this.toggleGIF(i)}} onMouseOut={()=>{this.toggleGIF(i)}}><img src={item.src}/></div>)
               :
-              // <Image fluid={this.props.data.data.imgImage.local.asset.fluid} alt={this.props.data.slides[0].title}/>
-              <Image key={i} className="project-thumbnail" fluid={item.fluid}/>
-
+              item.fluid && <Image key={i} className="project-thumbnail" fluid={item.fluid}/>
               }
-              {/* <Image key={i} className="project-thumbnail" fluid={img}/> */}
               <div className="text-wrap-outer">
                 <div className="text-wrap-inner">
                   <p className="project-text">
