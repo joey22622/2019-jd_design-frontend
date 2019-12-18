@@ -1,6 +1,5 @@
 
 import React from "react"
-// import { Slide } from 'react-slideshow-image'
 import Image from 'gatsby-image'
 
 
