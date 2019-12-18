@@ -67,7 +67,7 @@ import PortfolioGrid from "../components/portfolioGrid"
         allSanityProject (
           sort: {
         fields: [publishedAt]
-        order: ASC
+        order: DESC
       }
       ){
           edges {

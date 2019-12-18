@@ -142,8 +142,6 @@ class Project extends React.Component{
     }
   }
   toggleGIF = (i) => {
-    // alert("hi");
-    // alert("index " + i)
     let slides = this.state.slides;
     if(slides[i].remote === slides[i].src){
       slides[i].src = slides[i].remoteStatic
@@ -161,9 +159,10 @@ class Project extends React.Component{
       slide.remoteStatic = this.checkVar(()=> elem.remoteStatic, `#`)
       slide.src = this.checkVar(()=> elem.remoteStatic, `#`)
       slide.gif = true
-    } else {
-      slide.fluid = elem.local.asset.fluid;
+    // } else if(elem.local.asset.fluid) {
     }
+    slide.fluid = this.checkVar(()=> elem.local.asset.fluid, false);
+
     slide.title = this.checkVar(()=> elem.title, false);
     slide.caption = this.checkVar(()=> elem.caption, false);
     slide.exLink = this.checkVar(()=> elem.exLink, false);
@@ -276,8 +275,7 @@ render() {
                   this.state.slides[0].gif ?
                   <div><img src={this.state.slides[0].src}/></div>
                   :
-                  <Image fluid={this.state.data.imgImage.local.asset.fluid} alt={this.state.slides[0].title}/>
-                  
+                  this.state.slides[0] && <Image fluid={this.state.slides[0].fluid} alt={this.state.slides[0].title}/>
                   }
                 </div>
                   }                  

@@ -732,8 +732,10 @@ nav{
         display: grid;
         grid-template-columns: repeat(4,1fr);
         grid-gap: .5rem;
+        margin: auto;
         margin-top: 4rem;
         padding: 2rem;
+        max-width: 1200px;
     }
     li{
         box-shadow: 1px 1px 3px rgba(8,10,10,.4);
