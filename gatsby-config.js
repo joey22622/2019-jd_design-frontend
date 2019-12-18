@@ -14,6 +14,13 @@ module.exports = {
         path: `${__dirname}/src/images`,
       }
     },
+    // {    
+    //   resolve: `gatsby-plugin-favicon`,
+    //   options: {
+    //     logo: "./src/images/favicon.png",
+    //   }
+    // },
+    // `gatsby-plugin-favicon`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -28,6 +35,12 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
       
+    },
+        {    
+      resolve: `gatsby-plugin-favicon`,
+      options: {
+        logo: "./src/images/favicon.png",
+      }
     },
       `gatsby-plugin-sass`,
       {
