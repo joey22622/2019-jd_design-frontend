@@ -5,6 +5,9 @@ var plugins = [{
       plugin: require('/Users/graphicdesign/Sites/apps/jd_design-2019/frontend/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
       options: {"plugins":[],"name":"gatsby-starter-default","short_name":"starter","start_url":"/","background_color":"#663399","theme_color":"#663399","display":"minimal-ui","icon":"src/images/gatsby-icon.png"},
     },{
+      plugin: require('/Users/graphicdesign/Sites/apps/jd_design-2019/frontend/node_modules/gatsby-plugin-favicon/gatsby-ssr'),
+      options: {"plugins":[],"logo":"./src/images/favicon.png"},
+    },{
       plugin: require('/Users/graphicdesign/Sites/apps/jd_design-2019/frontend/node_modules/gatsby-source-sanity/gatsby-ssr'),
       options: {"plugins":[],"projectId":"7gyk03bt","dataset":"production","overlayDrafts":true,"watchMode":true,"token":"skmQKQO475UKY5T0De0blywberC7YSBWzhp3mg9UUPjxboVLJ4tO4yNysOU3TWdoUJthvOeuNhwVDx25ZvFirArSKJrPhHiIdlIzOsIGAZlfBAJSLpAWrdRdW4hSaIhwwZEYOv24GT7lMcIafiahVjZlM9e2w1ijaYrNLXQ0uNAhNgLQADwI"},
     }]
