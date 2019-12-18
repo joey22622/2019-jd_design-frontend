@@ -661,8 +661,8 @@ nav{
             i{
                 font-size: 94px;
                 margin: 3px;
-                color: rgba(255,255,255,.3);
-                border-radius: 50px;
+                color: rgba(255,255,255,.1);
+                // border-radius: 50px;
                 display: block;  
                 overflow: hidden;   
                 z-index: 1;
@@ -681,7 +681,7 @@ nav{
                 top: 0;
                 opacity: 0;
                 margin: 3px;
-                border-radius: 50%;
+                // border-radius: 50%;
                 z-index: 0;
                 border: solid 2px rgba(255,255,255,1);
             }
