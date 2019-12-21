@@ -1,8 +1,6 @@
 import React from "react"
-import {StaticQuery, graphql, Link } from "gatsby"
-// import Image from 'gatsby-image'
+import {StaticQuery, graphql} from "gatsby"
 import Layout from "../components/layout"
-// import Image from "../components/image"
 import SEO from "../components/seo"
 import PortfolioGrid from "../components/portfolioGrid"
 
@@ -59,7 +57,6 @@ import PortfolioGrid from "../components/portfolioGrid"
 
 
   render(){
-
     return (
     <StaticQuery
     query={graphql`
@@ -131,11 +128,8 @@ import PortfolioGrid from "../components/portfolioGrid"
 
 return(
     <Layout
-    // pathname={window.location.pathname}
-    // search={window.location.search}
     home={true}
     bodyClass={'home'}
-    // homeLink={this.state.homeLink}
     taxonomies={""}
     coverPage={true}
     data={
@@ -146,7 +140,6 @@ return(
       handleDims = {this.handleDims}
       />
     }
-    coverPage={true}
     pageState = {this.state}
     >
 
