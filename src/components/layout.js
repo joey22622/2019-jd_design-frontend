@@ -163,8 +163,7 @@ class Layout extends React.Component{
 
   loadPanelStyles = () => {
     const newArr = this.state.elements.slice()
-    let center = {}
-    newArr.map((elem, i) =>{
+    newArr.forEach((elem, i) =>{
       const style = this.buildPanelStyle(elem, i);
       newArr[i].style = style.panel
       newArr[i].underlay = style.underlay
@@ -174,10 +173,6 @@ class Layout extends React.Component{
   }
 
   handleNav = (e,key) => {
-    // console.log(this.state)
-    // document.body.style.overflow = 'hidden';
-    // useEffect(() => {
-    // })
     if(e){
       e.preventDefault()
     }
@@ -189,9 +184,8 @@ class Layout extends React.Component{
       // let center = {}
 
       //maps new array
-      newArr.map((elem, i) => {
-        // alert("hi")
-        //checks if array item does not match targeted array item
+      newArr.forEach((elem, i) => {
+       
         if(i !== index){
           newArr[i].active = false;
         } else if(newArr[i].active === true) {
@@ -254,7 +248,7 @@ class Layout extends React.Component{
     let style = {};
     let navCenter = this.state.navCenter;
     navCenter.active = false;
-    this.state.elements.map((elem) => {
+    this.state.elements.forEach((elem) => {
       if(elem.active === true){
         style = {
           height : parseFloat(.8*this.state.dimmensions.window.h)
@@ -279,8 +273,6 @@ class Layout extends React.Component{
     
     if(!init){
     if(this.state.coverPanels.active){
-      console.log(coverPanels);
-
         coverPanels.active = false;
   
      } else {
@@ -306,8 +298,6 @@ class Layout extends React.Component{
     page.hash = window.location.hash;
     this.handleHomeHover(false)
     
-
-    // if(this.state.page.path.length < 2 && this.state.page.hash.length > 0){
     if(page.path.length < 2 && page.hash.length <= 0){
       state.coverPanels.active = true;
     } else {
@@ -322,12 +312,9 @@ class Layout extends React.Component{
       if(this.state.coverPanels.active){this.handleCoverPanels()}
     })
   })
-  // console.log("")
   }
 
 render() {
-    // console.log(args);
-
 
     return ( 
       

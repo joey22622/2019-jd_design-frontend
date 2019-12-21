@@ -26,7 +26,7 @@ class PortfolioGrid extends React.Component {
         let thumbnails = []
 
         if(this.props.query){
-            this.props.query.map((elem, i) => {
+            this.props.query.forEach((elem, i) => {
                 let thumb = {};
                 const image = this.checkVar(()=> elem.node.imgThumb, false)
                 const remote = this.checkVar(()=> image.remote, false)
@@ -65,7 +65,8 @@ class PortfolioGrid extends React.Component {
     return(
       <ul className="project-index">
 
-      {this.state.thumbnails.length > 0 && this.state.thumbnails.map((item, i)=>(
+      {this.state.thumbnails.length > 0 && this.state.thumbnails.map((item, i)=>{
+        return(
         <li className="project-link" key={item.index} style={this.props.data.thumbnail.style}>
           <Link to={`/${item.slug}`}>
 
@@ -73,9 +74,9 @@ class PortfolioGrid extends React.Component {
             <div className="project-link-inner">
               {
               item.gif ?
-              (<div className="project-thumbnail" onMouseOver={()=>{this.toggleGIF(i)}} onMouseOut={()=>{this.toggleGIF(i)}}><img src={item.src}/></div>)
+              (<div className="project-thumbnail" onMouseOver={()=>{this.toggleGIF(i)}} onMouseOut={()=>{this.toggleGIF(i)}}><img src={item.src} alt={item.title}/></div>)
               :
-              item.fluid && <Image key={i} className="project-thumbnail" fluid={item.fluid}/>
+              item.fluid && <Image key={i} className="project-thumbnail" fluid={item.fluid} alt={item.title}/>
               }
               <div className="text-wrap-outer">
                 <div className="text-wrap-inner">
@@ -91,7 +92,7 @@ class PortfolioGrid extends React.Component {
           </Link>
         </li>
 
-      ))}
+      )})}
         </ul>
     )
     }

@@ -6,30 +6,24 @@ import Image from 'gatsby-image'
 
 
 const PhotoGrid = (props) => {
-    // console.log(props.photoGridData)
-    // const photoGrid = buildPhotoGrid();
     return(
           <div className="photo-grid">  
         {props.photoGridData.map((photo, i)=>{
-          // const j = parseFloat(i+1);
-          // console.log(photo)
-          if(i > 0){
           return(
+          i > 0 &&
           <div onClick={()=>{props.toggle(i)}}key={i} onMouseOver={()=> props.changeSlides(i)} data-index={i} style={props.style} className="slide-wrap">
               {
                 photo.gif ?
-                (<div onMouseEnter={()=>  props.toggleGIF(i)} onMouseOut={()=> props.toggleGIF(i)} ><img src={photo.src}/></div>)
+                (<div onMouseEnter={()=>  props.toggleGIF(i)} onMouseOut={()=> props.toggleGIF(i)} ><img src={photo.src} alt={photo.title}/></div>)
                 :
-                  <Image fluid={photo.fluid}/>
+                  <Image fluid={photo.fluid} alt={photo.title}/>
                 }
-
           </div>  
-          )}})}
+          )})}
   
         </div>
     )
   }
-
-
+  
 export default PhotoGrid; 
   

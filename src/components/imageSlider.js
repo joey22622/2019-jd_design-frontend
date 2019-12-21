@@ -36,15 +36,15 @@ const ImageSlider = (props) => {
           <div className="slide-window" style={props.style.window}>
           <div className="slide-container" style={style}>
           
-          {props.slides.map((photo, i )=>(
+          {props.slides.map((photo, i )=>{
+            return(
             <div key={i} data-index={i} className="project-slide-wrap">
             <div className="slide-wrap-inner">
-              {/* <Image fluid={photo.fluid}></Image>  */}
               {
                 photo.gif ?
-                (<div className="gif-wrap"><img src={photo.remote}/></div>)
+                (<div className="gif-wrap"><img src={photo.remote} alt={photo.title}/></div>)
                 :
-                  <Image fluid={photo.fluid}/>              
+                  <Image fluid={photo.fluid} alt={photo.title}/>              
               }
               {
                 photo.caption || photo.exLink ?
@@ -52,7 +52,7 @@ const ImageSlider = (props) => {
                    {
                   photo.exLink ?
                     <div className="link-wrap">
-                      <a href={photo.exLink} target="_blank">{photo.linkTitle}</a>
+                      <a href={photo.exLink} target="_blank" rel="noopener noreferrer">{photo.linkTitle}</a>
                     </div>
                     :
                     <div className="link-wrap empty"/>
@@ -73,8 +73,8 @@ const ImageSlider = (props) => {
 
             </div>
         </div>
-
-        ))}
+            )
+            })}
       </div>
       </div>
       </div>

@@ -175,13 +175,11 @@ class Project extends React.Component{
     this.buildPushSlide(slides,this.state.data.imgImage,0);
 
     if(this.state.data.imgGallery.length > 0){
-      this.state.data.imgGallery.map((image, i)=>{
+      this.state.data.imgGallery.forEach((image, i)=>{
         let j = i + 1;
-        this.buildPushSlide(slides,image,j)
-
+        this.buildPushSlide(slides,image,j);
       })
     }
-    console.log(slides);
     this.setState({slides},()=>{
       this.handleDims()
     })
@@ -223,7 +221,6 @@ class Project extends React.Component{
   }
 
 render() {
-  const photoGridData = this.checkVar(()=> this.state.slides,false);
 
 
   const link =  this.checkVar(()=> this.state.data.exLink.url,false);
@@ -273,7 +270,7 @@ render() {
                 <div onClick={()=>{this.toggleSlider(0)}}  onMouseOver={()=>{this.changeSlides(0); this.toggleGIF(0)}} onMouseOut={()=>{this.toggleGIF(0)}} key={1} data-index={0} style={this.state.thumbnail.style} className="slide-wrap feat-image">
                   {
                   this.state.slides[0].gif ?
-                  <div><img src={this.state.slides[0].src}/></div>
+                  <div><img src={this.state.slides[0].src} alt={this.state.slides[0].title} /></div>
                   :
                   this.state.slides[0] && <Image fluid={this.state.slides[0].fluid} alt={this.state.slides[0].title}/>
                   }
@@ -298,9 +295,11 @@ render() {
                 <p className="project-client"><label>Client</label> {this.state.data.client.title}</p>
                 <ul className="project-tags">
                   {
-                    this.state.data.tags.length > 0 && this.state.data.tags.map((elem, i)=>(
-                    <li key={elem._id} className="project-tag">{`${elem.title}${i < this.state.data.tags.length-1 ? `, ` : ``}`}</li>)
-                    )}
+                    this.state.data.tags.length > 0 && this.state.data.tags.map((elem, i)=>{
+                    return(
+                    <li key={elem._id} className="project-tag">{`${elem.title}${i < this.state.data.tags.length-1 ? `, ` : ``}`}</li>
+                    )})
+                  }
                 </ul>
                 {exLink}
               </div>
@@ -333,9 +332,10 @@ render() {
                 <label>Tech</label>
               <ul className="tech-list">
                   {
-                    this.state.data.tech.length > 0 && this.state.data.tech.map((elem, i)=>(
-                    <li className="tech-list-item">{`${elem.title}${i < this.state.data.tech.length-1 ? `, ` : ``}`}</li>
-                    ))
+                    this.state.data.tech.length > 0 && this.state.data.tech.map((elem, i)=>{
+                      return(
+                      <li className="tech-list-item">{`${elem.title}${i < this.state.data.tech.length-1 ? `, ` : ``}`}</li>
+                    )})
                   }
               </ul>
 
