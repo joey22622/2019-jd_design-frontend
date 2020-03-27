@@ -3,7 +3,7 @@ var plugins = [{
       options: {"plugins":[]},
     },{
       plugin: require('/Users/graphicdesign/Sites/apps/jd_design-2019/frontend/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
-      options: {"plugins":[],"name":"gatsby-starter-default","short_name":"starter","start_url":"/","background_color":"#663399","theme_color":"#663399","display":"minimal-ui","icon":"src/images/gatsby-icon.png"},
+      options: {"plugins":[],"name":"gatsby-starter-default","short_name":"starter","start_url":"/","background_color":"#152225","theme_color":"#152225","display":"minimal-ui","icon":"src/images/favicon.png"},
     },{
       plugin: require('/Users/graphicdesign/Sites/apps/jd_design-2019/frontend/node_modules/gatsby-plugin-favicon/gatsby-ssr'),
       options: {"plugins":[],"logo":"./src/images/favicon.png"},

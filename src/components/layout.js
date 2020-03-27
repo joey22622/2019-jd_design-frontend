@@ -1,8 +1,6 @@
 import '../style.scss'
 import React from "react"
-
-
-
+import SEO from "../components/seo"
 import Header from "./header"
 import About from "./aboutPanel"
 import Contact from "./contactPanel"
@@ -319,7 +317,9 @@ render() {
     return ( 
       
       <>
-      
+        <SEO
+          title="sasdf"
+        />
         <Header
           handleNav = {this.handleNav}
           homeLink = {'/#portfolio'}
