@@ -79,7 +79,7 @@ module.exports = {
         optimizeId: "GTM-P8FPPQK",
         // Enables Google Optimize Experiment ID
         experimentId: "Z9jt8FzlRKaPRi5QZQZPrA",
-        // Set Variation ID. 0 for original 1,2,3....
+        // Set Variation ID. 0 for original 1,2,3...
         // variationId: "YOUR_GOOGLE_OPTIMIZE_VARIATION_ID",
         // Any additional optional fields
         sampleRate: 5,
