@@ -73,13 +73,12 @@ export default ({ data }) => (
         // pathname={window.location.pathname}
         // search={window.location.search}
         bodyClass="project"
-        
         coverPage={false}
         homeLink={'/?home'}
+        title={data.sanityProject.title}
         data={<Project data={data}/>}
       >
-                    <h1>{data.sanityProject.title}</h1>
-
+        <h1>{data.sanityProject.title}</h1>
       </Layout>
   )
 
