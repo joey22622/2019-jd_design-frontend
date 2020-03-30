@@ -313,12 +313,10 @@ class Layout extends React.Component{
   }
 
 render() {
-
     return ( 
-      
       <>
         <SEO
-          title="sasdf"
+          title={this.props.title || " "}
         />
         <Header
           handleNav = {this.handleNav}

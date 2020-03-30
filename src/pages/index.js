@@ -131,6 +131,7 @@ return(
     bodyClass={'home'}
     taxonomies={""}
     coverPage={true}
+    title={"Home"}
     data={
       <PortfolioGrid
       data = {this.state}
